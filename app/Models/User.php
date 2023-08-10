@@ -15,7 +15,14 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable , Notifiable;
     use HasRoles;
     protected $primaryKey = 'id';
-
+     public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class,'user_id');
+    }
+        public function subscribedActivities()
+    {
+        return $this->hasManyThrough(Activity::class, Subscription::class, 'user_id', 'id', 'id', 'activity_id');
+    }
     public function setting()
     {
         return $this->hasOne(Setting::class, 'user_id');

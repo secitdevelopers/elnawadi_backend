@@ -93,9 +93,9 @@ class OrderController extends Controller
                 'payment_method' => $paymentMethod,
                 'currency' => 'aed',
                 'cancelled' => false,
-                'shipping' => $orderPrice['check_out']['total_shipping_fee'] ?? 0,
-                'tax' => 0,
-                'total_country_tax' => $orderPrice['check_out']['country_tax'] ?? 0,
+                // 'shipping' => $orderPrice['check_out']['total_shipping_fee'] ?? 0,
+                // 'tax' => 0,
+                // 'total_country_tax' => $orderPrice['check_out']['country_tax'] ?? 0,
                 'discount' => $orderPrice['check_out']['total_discount'] ?? 0,
                 'subtotal' => $orderPrice['check_out']['subtotal'],
                 'total' => $orderPrice['check_out']['total'],
@@ -155,29 +155,5 @@ class OrderController extends Controller
     }
 
 
-    public function calculateTotalAndPrices($cartItems, $coupon = 0)
-    {
-        $total_shipping_fee = 0.0;
-        $total_discount = 0.0;
-        $subtotal = 0.0;
-        $total = 0.0;
 
-        foreach ($cartItems as $item) {
-            $total_shipping_fee += $item->shipping_fee * $item->quantity;
-            $total_discount += $item->discount * $item->quantity;
-            $subtotal += $item->price * $item->quantity;
-        }
-
-        $total = ($total_shipping_fee + $subtotal) - ($total_discount + $coupon);
-
-        return response()->json([
-            // 'prices' => [
-            'total_shipping_fee' => $total_shipping_fee,
-            'total_discount' => $total_discount,
-            'subtotal' => $subtotal,
-            'total' => $total,
-            // ],
-            // 'status_code' => 200
-        ], 200);
-    }
 }

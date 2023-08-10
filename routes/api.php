@@ -9,12 +9,14 @@ use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SettingPageController;
 use App\Http\Controllers\Api\SubCategoryController;
+use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +34,7 @@ Route::post('forgot-password', [ResetPasswordController::class, 'forgotPassword'
 Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('sanctum');
 
 
-
+Route::post('/contact', [ContactUsController::class, 'store']);
 Route::controller(AuthController::class)->group(function ()
 {
     Route::post('/login', 'login');
@@ -44,8 +46,8 @@ Route::get('getOtpForUser', [UserController::class, 'getOtpForUser']);
 
 Route::group(['middleware' => 'sanctum'], function ()
 {
-
-
+    Route::post('/subscriptions/store', [SubscriptionController::class, 'store'])->name('subscriptions/store');
+    Route::get('/subscriptions/user', [SubscriptionController::class, 'show'])->name('subscriptions/user');
     Route::controller(OrderController::class)->group(function ()
     {
         Route::get('/orders', 'userOrder');

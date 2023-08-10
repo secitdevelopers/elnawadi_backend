@@ -12,7 +12,10 @@ class Activity extends Model
      protected $guarded = [];
 
      protected $table = 'activities';
-
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class,'activity_id');
+    }
     public function activitiesCatogery()
     {
         return $this->belongsTo(ActivitiesCatogery::class,'activities_catogeries_id');

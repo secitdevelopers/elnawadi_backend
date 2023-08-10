@@ -20,10 +20,10 @@ return new class extends Migration
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->string('payment_method')->default('cash on delivery');
             $table->string('currency')->nullable()->default('aed');
-            $table->float('total_country_tax')->default(0);
+            // $table->float('total_country_tax')->default(0);
             $table->boolean('cancelled')->default(false);
-            $table->float('shipping')->default(0); // shipping_cost // مجموع سعر اوزان كل المنتجات
-            $table->float('tax')->default(0);
+            // $table->float('shipping')->default(0); // shipping_cost // مجموع سعر اوزان كل المنتجات
+            // $table->float('tax')->default(0);
             $table->float('discount')->default(0); // مجموع سعر الخصومات علي المنتجات 
             $table->float('subtotal')->default(0); // مجموع سعر المنتجات بعد حساب الخصم 
             $table->float('total')->default(0); // المجوع الكلي للطلبيه بعد حساب كل شئ للطلبيه

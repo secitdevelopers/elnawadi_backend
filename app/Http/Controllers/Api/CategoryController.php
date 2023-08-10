@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
             ], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to retrieve categories.' . $e, 'status_code' => 500], 500);
+            return response()->json(['message' => 'Failed to retrieve categories.' , 'status_code' => 500], 500);
         }
     }
 

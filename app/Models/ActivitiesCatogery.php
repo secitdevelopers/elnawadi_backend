@@ -20,9 +20,9 @@ class ActivitiesCatogery extends Model
    
    
     protected $table = 'activities_catogeries';
-        public function activities()
+        public function activity()
     {
-        return $this->hasMany(activity::class,'activities_catogeries_id');
+        return $this->hasMany(Activity::class,'activities_catogeries_id');
     }
 
       public function getImageUrl()

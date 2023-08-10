@@ -4,12 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
-use App\Models\Country;
 use App\Models\Coupon;
-use App\Models\Gift;
-use App\Models\Setting;
-use App\Models\User;
-use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
