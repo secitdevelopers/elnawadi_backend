@@ -13,6 +13,11 @@
     <!--- Custom-scroll -->
     <link href="{{ URL::asset('assets/plugins/custom-scroll/jquery.mCustomScrollbar.css') }}" rel="stylesheet">
     <style>
+        .rtl {
+            direction: rtl;
+            unicode-bidi: bidi-override;
+        }
+
         /* CSS for image container */
         .image-container {
             width: 50px;
@@ -37,8 +42,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">المنتجات /</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">جميع
-                    المنتجات</span>
+                <h4 class="content-title mb-0 my-auto">النشطاطات /</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">جميع
+                    النشطاطات</span>
             </div>
         </div>
 
@@ -96,12 +101,11 @@
                             <thead>
                                 <tr>
                                     <th class="wd-10p border-bottom-0">#</th>
-                                    <th class="wd-15p border-bottom-0">صور المنتج او فديو</th>
-                                    <th class="wd-18p border-bottom-0">اسم المنتج</th>
-                                    <th class="wd-15p border-bottom-0">التصنيف</th>
-
-                                    <th class="wd-15p border-bottom-0">الوصف</th>
-                                    <th class="wd-15p border-bottom-0">سعر المنتج</th>
+                                    <th class="wd-15p border-bottom-0">الشعار</th>
+                                    <th class="wd-18p border-bottom-0">اسم النشطاط</th>
+                                    <th class="wd-15p border-bottom-0">اسم مزود الخدمه</th>
+                                    <th class="wd-15p border-bottom-0">تاريخ الاضافه</th>
+                                    <th class="wd-15p border-bottom-0">حالة النشطاط</th>
                                     <th class="wd-15p border-bottom-0">العمليات</th>
                                 </tr>
                             </thead>
@@ -111,47 +115,52 @@
                                     $i = 0;
                                 @endphp
 
-                                @foreach ($products as $product)
+                                @foreach ($activities as $activity)
                                     @php
                                         $i++;
                                     @endphp
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        </td>
+
+
+
+
                                         <td>
                                             <div class="image-container">
-                                                <img src="{{ asset($product->image) }}" alt="Avatar Image">
+                                                <img src="{{ asset($activity->image) }}" alt="Avatar Image">
                                             </div>
                                         </td>
-                                        <td>{{ $product->name_ar }}</td>
+
+
+
+                                        <td>{{ $activity->name_ar }}</td>
+
+                                        <td>{{ $activity->user->name }}</td>
+                                        <td>{{ $activity->created_at->format('d/m/Y') }}</td>
                                         <td>
 
-                                            {{ $product->category->name_ar }}
 
+                                            @can('حالة منتج')
+                                                <div class="main-toggle main-toggle-success {{ $activity->status == true ? 'on' : '' }} btn-sm ml-2"
+                                                    data-activity-id="{{ $activity->id }}">
+                                                    <span></span>
+                                                </div>
+                                            @endcan
 
                                         </td>
-                                        <td>{{ Str::limit($product->description_ar, 30) }}</td>
-                                        <td>{{ $product->price }}</td>
-
-
 
                                         <td>
                                             <div class="d-flex">
-                                                @can('حالة منتج')
-                                                    <div class="main-toggle main-toggle-success {{ $product->status == true ? 'on' : '' }} btn-sm ml-2"
-                                                        data-product-id="{{ $product->id }}">
-                                                        <span></span>
-                                                    </div>
-                                                @endcan
+
                                                 @can('تعديل منتج')
                                                     <a class="btn btn-sm btn-info btn-sm ml-2"
-                                                        href="{{ route('products.edit', $product->id) }}" title="تعديل">
+                                                        href="{{ route('activities.edit', $activity->id) }}" title="تعديل">
                                                         <i class="las la-pen"></i>
                                                     </a>
                                                 @endcan
                                                 @can('حذف منتج')
                                                     <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                        data-id="{{ $product->id }}" data-name="{{ $product->name_ar }}"
+                                                        data-id="{{ $activity->id }}" data-name="{{ $activity->name_ar }}"
                                                         data-toggle="modal" href="#modaldemo9" title="حذف"><i
                                                             class="las la-trash"></i></a>
                                                 @endcan
@@ -182,15 +191,15 @@
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم المنتج باللغه العربيه</label>
+                                <label for="exampleInputEmail1">اسم النشطاط باللغه العربيه</label>
                                 <input type="text" class="form-control" id="name_ar" name="name_ar" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم المنتج باللغه الانجليزيه</label>
+                                <label for="exampleInputEmail1">اسم النشطاط باللغه الانجليزيه</label>
                                 <input type="text" class="form-control" id="name_en" name="name_en" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">ترتيب المنتج </label>
+                                <label for="exampleInputEmail1">ترتيب النشطاط </label>
                                 <input type="number" class="form-control" id="arrange" name="arrange">
                             </div>
                             <div class="form-group">
@@ -220,7 +229,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">تعديل المنتج</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">تعديل النشطاط</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -234,19 +243,19 @@
                             {{-- <input type="hidden" name="status" id="status" value=""> --}}
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم المنتج باللغه العربيه</label>
+                                <label for="exampleInputEmail1">اسم النشطاط باللغه العربيه</label>
                                 <input type="text" class="form-control" id="name_ar" name="name_ar">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم المنتج باللغه الانجليزيه</label>
+                                <label for="exampleInputEmail1">اسم النشطاط باللغه الانجليزيه</label>
                                 <input type="text" class="form-control" id="name_en" name="name_en">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">ترتيب المنتج </label>
+                                <label for="exampleInputEmail1">ترتيب النشطاط </label>
                                 <input type="number" class="form-control" id="arrange" name="arrange">
                             </div>
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">صوره المنتج</label>
+                                <label for="recipient-name" class="col-form-label">صوره النشطاط</label>
                                 <input class="form-control" name="image" id="image" type="file">
                                 <img src="image" id="image" class="img-thumbnail"
                                     style="width: 100px; height: 100px;">
@@ -266,12 +275,12 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">حذف المنتج</h6>
+                        <h6 class="modal-title">حذف النشطاط</h6>
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('products.destroy') }}" method="post">
+                    <form action="{{ route('activities.destroy') }}" method="post">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <div class="modal-body">
@@ -382,8 +391,9 @@
             $('.main-toggle').on('click', function() {
                 $(this).toggleClass('on');
                 var isToggleOn = $(this).hasClass('on');
-                var url = '{{ route('products.update-status') }}';
-                var productId = $(this).data('product-id');
+                var url = '{{ route('activities.update-status') }}';
+                var activityId = $(this).data('activity-id');
+                console.log(activityId);
                 // Retrieve the CSRF token value from the meta tag
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
@@ -398,7 +408,7 @@
                     method: 'POST',
                     data: {
                         isToggleOn: isToggleOn,
-                        productId: productId
+                        activityId: activityId
                     },
                     success: function(response) {
                         console.log(response);
@@ -448,12 +458,12 @@
         });
     </script>
 @endsection
-{{-- @foreach ($product->images as $item)
+{{-- @foreach ($activity->images as $item)
                                     <div class="tab-pane active" id="{{ $item->id }}"><img
                                             src="{{ URL::asset($item->image) }}" alt="image" />
                                     </div>
                                 @endforeach
-                                     @foreach ($product->images as $item)
+                                     @foreach ($activity->images as $item)
                                     <li class="active"><a data-target="#{{ $item->id }}" data-toggle="tab"><img
                                                 src="{{ URL::asset($item->image) }}" alt="image" /></a>
                                     </li>

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id'); 
-            $table->string('name_en', 100);
+            $table->string('name_en', 100)->nullable(); 
             $table->string('name_ar', 100);
-            $table->longText('description_en');
+            $table->longText('description_en')->nullable(); 
             $table->longText('description_ar');
             $table->string('image');
             $table->unsignedBigInteger('views')->nullable()->default(0);

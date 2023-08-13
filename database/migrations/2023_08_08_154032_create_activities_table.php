@@ -16,16 +16,17 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name_en', 100);
-            $table->string('name_ar', 100);
+            $table->string('name_ar', 100)->nullable(); 
             $table->integer('arrange')->default(1);
             $table->string('image');
             $table->decimal('price', 8, 2);
             $table->decimal('price_for_one', 8, 2);
             $table->decimal('price_for_two', 8, 2);
+              $table->decimal('price_for_three', 8, 2);
             $table->boolean('status')->default(true);
-            $table->string('city', 100);
-            $table->string('street', 100);
-            $table->longText('description_en');
+            $table->string('adress', 100);
+  
+            $table->longText('description_en')->nullable(); 
             $table->longText('description_ar');
             $table->timestamp('start_data')->nullable(); 
             $table->timestamp('end_data')->nullable(); 

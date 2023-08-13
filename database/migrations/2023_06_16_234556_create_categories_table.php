@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id'); 
-            $table->string('name_en', 100);
+            $table->string('name_en', 100)->nullable(); 
             $table->string('name_ar', 100);
             $table->string('image')->nullable();
             $table->boolean('status')->default(true);

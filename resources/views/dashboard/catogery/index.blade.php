@@ -33,8 +33,9 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الاقسام /</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">جميع
-                    الاقسام</span>
+                <h4 class="content-title mb-0 my-auto">التصنيفات /</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">جيمع
+                    التصنيفات
+                </span>
             </div>
         </div>
 
@@ -87,17 +88,19 @@
             <div class="card">
                 <div class="col-sm-6 col-md-4 col-xl-3">
                     <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
-                        href="#modaldemo8">اضافة قسم</a>
+                        href="#modaldemo8">اضافة صنف</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example1">
                             <thead>
                                 <tr>
-                                    <th class="wd-15p border-bottom-0">رقم القسم</th>
-                                    <th class="wd-15p border-bottom-0">اسم القسم</th>
-                                    <th class="wd-15p border-bottom-0">صورة القسم</th>
-                                    <th class="wd-20p border-bottom-0">تاريخ الانشاء</th>
+                                    <th class="wd-15p border-bottom-0">#</th>
+                                    <th class="wd-15p border-bottom-0">صورة التصنيف</th>
+                                    <th class="wd-15p border-bottom-0">اسم التصنيف</th>
+
+                                    <th class="wd-20p border-bottom-0">تاريخ اضافة التصنيف</th>
+                                    <th class="wd-15p border-bottom-0">الحاله</th>
                                     <th class="wd-20p border-bottom-0">العمليات</th>
                                 </tr>
                             </thead>
@@ -113,20 +116,24 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        </td>
-                                        <td>{{ $catogery->name_ar }}</td>
                                         <td>
                                             <div class="image-container">
                                                 <img src="{{ asset($catogery->image) }}" alt="Avatar Image">
                                             </div>
                                         </td>
-                                        <td>{{ $catogery->created_at }}</td>
+                                        <td>{{ $catogery->name_ar }}</td>
+
+                                        <td>{{ $catogery->created_at->format('d/m/Y') }}</td>
+
+                                        <td>
+                                            <div class="main-toggle main-toggle-success {{ $catogery->status == true ? 'on' : '' }} btn-sm ml-2"
+                                                data-catogery-id="{{ $catogery->id }}">
+                                                <span></span>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex">
-                                                <div class="main-toggle main-toggle-success {{ $catogery->status == true ? 'on' : '' }} btn-sm ml-2"
-                                                    data-catogery-id="{{ $catogery->id }}">
-                                                    <span></span>
-                                                </div>
+
                                                 <a class="modal-effect btn btn-sm btn-info btn-sm ml-2"
                                                     data-effect="effect-scale" data-id="{{ $catogery->id }}"
                                                     data-name_ar="{{ $catogery->name_ar }}"
@@ -172,17 +179,27 @@
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم القسم باللغه العربيه</label>
+                                <label for="exampleInputEmail1">اسم التصنيف باللغه العربيه</label>
                                 <input type="text" class="form-control" id="name_ar" name="name_ar" required>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">اسم القسم باللغه الانجليزيه</label>
+
+
+
+                            <p class="mg-b-10">حالة</p>
+                            <select id="status" name="status" class="form-control SlectBox" required>
+                                <option value="">اختار حالة التصميم</option>
+                                <option value="true"> نشط </option>
+                                <option value="false"> غير نشط </option>
+                            </select>
+                            <br>
+                            {{-- <div class="form-group">
+                                <label for="exampleInputEmail1">اسم التصنيف باللغه الانجليزيه</label>
                                 <input type="text" class="form-control" id="name_en" name="name_en" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">ترتيب القسم </label>
+                            </div> --}}
+                            {{-- <div class="form-group">
+                                <label for="exampleInputEmail1">ترتيب التصنيف </label>
                                 <input type="number" class="form-control" id="arrange" name="arrange">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="image">تحميل صوره للقسم</label>
                                 <div class="custom-file">
@@ -210,7 +227,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">تعديل القسم</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">تعديل التصنيف</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -224,20 +241,20 @@
                             {{-- <input type="hidden" name="status" id="status" value=""> --}}
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم القسم باللغه العربيه</label>
-                                <input type="text" class="form-control" id="name_ar" name="name_ar">
+                                <label for="exampleInputEmail1">اسم التصنيف باللغه العربيه</label>
+                                <input type="text" class="form-control" id="name_ar" name="name_ar" required>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">اسم القسم باللغه الانجليزيه</label>
+                            {{-- <div class="form-group">
+                                <label for="exampleInputEmail1">اسم التصنيف باللغه الانجليزيه</label>
                                 <input type="text" class="form-control" id="name_en" name="name_en">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">ترتيب القسم </label>
+                                <label for="exampleInputEmail1">ترتيب التصنيف </label>
                                 <input type="number" class="form-control" id="arrange" name="arrange">
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">صوره القسم</label>
+                                <label for="recipient-name" class="col-form-label">صوره التصنيف</label>
                                 <input class="form-control" name="image" id="image" type="file"
                                     onchange="displaySelectedImage(event)">
                                 <img src="image" id="preview-image" class="img-thumbnail"
@@ -259,7 +276,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">حذف القسم</h6>
+                        <h6 class="modal-title">حذف التصنيف</h6>
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>

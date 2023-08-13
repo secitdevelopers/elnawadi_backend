@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ActivityController;
 use App\Http\Controllers\Dashboard\BannerController;
 use App\Http\Controllers\Dashboard\CouponController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -88,6 +89,29 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/products/affiliateProduct', 'affiliateProduct')->name('products.affiliateProduct');
     });
+
+
+
+
+
+    Route::controller(ActivityController::class)->group(function () {
+        Route::get('/activities', 'index')->name('activities');
+        Route::get('/activities/inactive', 'productsInactive')->name('activities.inactive');
+        Route::get('/activities/create', 'create')->name('activities.create');
+        Route::get('/getSubsections', 'getSubsections')->name('getSubsections');
+        Route::post('/activities/update-status', 'updateStatusProduct')->name('activities.update-status');
+        Route::post('/activities/store', 'store')->name('activities.store')->middleware('vendorshop');
+        Route::post('/activities/update', 'update')->name('activities.update')->middleware('vendorshop');
+        Route::delete('/activities/destroy', 'destroy')->name('activities.destroy');
+        Route::get('/activities/edit/{id}', 'edit')->name('activities.edit')->middleware('vendorshop');
+        Route::get('/activities/special', 'productSpacial')->name('activities.special')->middleware('vendorshop');
+
+    });
+
+
+
+
+
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/user', 'index')->name('user');
