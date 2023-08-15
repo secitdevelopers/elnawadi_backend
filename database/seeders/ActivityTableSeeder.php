@@ -23,9 +23,10 @@ class ActivityTableSeeder extends Seeder
                 'price' => 100.00,
                 'price_for_one' => 50.00,
                 'price_for_two' => 80.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 1',
-                'street' => 'Street 1',
+            
+                'adress' => 'adress 1',
                 'description_en' => 'Description for Activity 1 in English.',
                 'description_ar' => 'Description for Activity 1 in Arabic.',
                 'start_data' => now(),
@@ -43,9 +44,10 @@ class ActivityTableSeeder extends Seeder
                 'price' => 110.00,
                 'price_for_one' => 55.00,
                 'price_for_two' => 90.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 2',
-                'street' => 'Street 2',
+
+                'adress' => 'adress 2',
                 'description_en' => 'Description for Activity 2 in English.',
                 'description_ar' => 'Description for Activity 2 in Arabic.',
                 'start_data' => now(),
@@ -63,9 +65,10 @@ class ActivityTableSeeder extends Seeder
                 'price' => 120.00,
                 'price_for_one' => 60.00,
                 'price_for_two' => 100.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
@@ -76,16 +79,17 @@ class ActivityTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-               [
+            [
                 'name_en' => 'English Activity 3',
                 'name_ar' => 'تدريب سرعه',
                 'arrange' => 3,
                 'price' => 120.00,
                 'price_for_one' => 60.00,
                 'price_for_two' => 100.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
@@ -96,16 +100,17 @@ class ActivityTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-                 [
+            [
                 'name_en' => 'English Activity 3',
                 'name_ar' => 'تدريب جري',
                 'arrange' => 3,
                 'price' => 150.00,
                 'price_for_one' => 120.00,
                 'price_for_two' => 150.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
@@ -116,28 +121,19 @@ class ActivityTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-                
-       
-                
 
 
-
-
-
-
-
-
-
-                             [
+            [
                 'name_en' => 'English Activity 3',
                 'name_ar' => 'تدريب سرعه',
                 'arrange' => 3,
                 'price' => 200.00,
                 'price_for_one' => 20.00,
                 'price_for_two' => 500.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
@@ -152,16 +148,17 @@ class ActivityTableSeeder extends Seeder
 
 
 
-                             [
+            [
                 'name_en' => 'English Activity 3',
                 'name_ar' => 'تحدي الجري',
                 'arrange' => 3,
                 'price' => 220.00,
                 'price_for_one' => 300.00,
                 'price_for_two' => 400.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
@@ -178,16 +175,17 @@ class ActivityTableSeeder extends Seeder
 
 
 
-                             [
+            [
                 'name_en' => 'English Activity 3',
                 'name_ar' => 'تحدي الالف ميل',
                 'arrange' => 3,
                 'price' => 290.00,
                 'price_for_one' => 220.00,
                 'price_for_two' => 100.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
@@ -202,23 +200,24 @@ class ActivityTableSeeder extends Seeder
 
 
 
-                             [
+            [
                 'name_en' => 'English Activity 3',
                 'name_ar' => 'سباق لكرة الطائره',
                 'arrange' => 3,
                 'price' => 290.00,
                 'price_for_one' => 220.00,
                 'price_for_two' => 200.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
                 'end_data' => now()->addDays(14),
                 'user_id' => 1,
                 'image' => "imagesfp/activity/b3.jpg",
-                'activities_catogeries_id' =>4,
+                'activities_catogeries_id' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -228,16 +227,17 @@ class ActivityTableSeeder extends Seeder
 
 
 
-                [
+            [
                 'name_en' => 'English Activity 3',
                 'name_ar' => 'التحدي الثاني عشر',
                 'arrange' => 3,
                 'price' => 200.00,
                 'price_for_one' => 20.00,
                 'price_for_two' => 500.00,
+                'price_for_three' => 80.00,
                 'status' => true,
-                'city' => 'City 3',
-                'street' => 'Street 3',
+
+                'adress' => 'adress 3',
                 'description_en' => 'Description for Activity 3 in English.',
                 'description_ar' => 'Description for Activity 3 in Arabic.',
                 'start_data' => now(),
@@ -248,7 +248,7 @@ class ActivityTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            
+
         ]);
     }
 }

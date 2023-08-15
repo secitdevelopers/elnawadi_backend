@@ -26,8 +26,7 @@ public function vendorMain()
     $totalDiscountsGiven = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
         ->join('products', 'order_items.product_id', '=', 'products.id')
         ->where('orders.status', 'completed')
-        ->where('products.user_id', $merchantId)
-        ->sum(DB::raw('order_items.quantity * products.discount'));
+        ->where('products.user_id', $merchantId);
 
     $totalProducts = Product::where('user_id', $merchantId)->count();
     $totalProductsActive = Product::where('user_id', $merchantId)->where('status', 1)->count();

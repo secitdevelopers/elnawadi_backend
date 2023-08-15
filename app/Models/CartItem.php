@@ -36,9 +36,7 @@ class CartItem extends Model
                     DB::raw("products.description_" . app()->getLocale() . " AS description"),
                     'products.image',
                     'products.price',
-                    'products.discount',
-                    'products.weight',
-                    'products.shipping_fee'
+            
                 );
     }
 

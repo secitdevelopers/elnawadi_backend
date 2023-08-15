@@ -33,12 +33,12 @@
         .status {
             /* background-color: aqua; */
             /* color: aqua;
-                                                                                                                                                                                                                                                                                                                    -moz-background-origin: border-box */
+                                                                                                                                                                                                                                                                                                                                                                        -moz-background-origin: border-box */
         }
 
         /* .btn-secondary {
-                                                                                                                            background-color: #0049ff !important;
-                                                                                                                        } */
+                                                                                                                                                                                background-color: #0049ff !important;
+                                                                                                                                                                            } */
     </style>
 @endsection
 
@@ -109,9 +109,9 @@
                                     <th class="wd-14p border-bottom-0">حالة الطلب</th>
                                     <th class="wd-14p border-bottom-0">حالة الدفع</th>
                                     <th class="wd-14p border-bottom-0">العميل</th>
-                                    <th class="wd-14p border-bottom-0">المبلغ الاجمالي</th>
+                                    <th class="wd-14p border-bottom-0">سعر الطلب</th>
                                     <th class="wd-14p border-bottom-0">طريقة الدفع</th>
-                                    <th class="wd-14p border-bottom-0">تاريخ الإنشاء</th>
+                                    <th class="wd-14p border-bottom-0">تاريخ ووقت الطلب</th>
                                     <th class="wd-14p border-bottom-0">العمليات</th>
                                 </tr>
                             </thead>
@@ -129,7 +129,8 @@
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
                                                     class="btn ripple btn-secondary"
-                                                    style="background-color: #94477D !important" data-toggle="dropdown"
+                                                    style="background-color: #595BB5 !important;width: 140px;"
+                                                    data-toggle="dropdown"
                                                     type="button">{{ statusToArabic($order->status) }}<i
                                                         class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
@@ -173,7 +174,9 @@
 
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
-                                                    class="btn ripple btn-secondary" data-toggle="dropdown"
+                                                    class="btn ripple btn-secondary"
+                                                    style="background-color: #595BB5 !important;width: 140px;"
+                                                    data-toggle="dropdown"
                                                     type="button">{{ statusPayment($order->payment_status) }}<i
                                                         class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
@@ -208,7 +211,13 @@
                                         <td>{{ $order->user->name }}</td>
                                         <td>{{ $order->total }}</td>
                                         <td>{{ $order->payment_method }}</td>
-                                        <td>{{ $order->created_at }}</td>
+                                        <td>
+                                            @php
+                                                $date = \Carbon\Carbon::parse($order->created_at);
+                                                $formattedDate = $date->format('m/d/Y  h:i a');
+                                            @endphp
+                                            {{ $formattedDate }}
+                                        </td>
                                         <td>
                                             <a class="btn btn-sm btn-primary"
                                                 href="{{ route('orders.invoice', $order->id) }}" title="عرض">

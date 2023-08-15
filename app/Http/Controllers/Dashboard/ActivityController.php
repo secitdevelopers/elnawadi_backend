@@ -6,7 +6,9 @@ use App\Models\ActivitiesCatogery;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use App\Traits\ImageProcessing;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 class ActivityController extends Controller
 {
     use ImageProcessing;
@@ -33,7 +35,59 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         DB::beginTransaction();
+        try
+        {
+                $rules = [
+                'name_ar' => 'required|string|max:100',
+                'name_en' => 'nullable|string|max:100',
+                'activities_catogeries_id' => 'required|exists:activities_catogeries,id', // Ensure the referenced ID exists in activities_catogeries
+                'price_for_one' => 'required|numeric|between:0,999999.99',
+                'price_for_two' => 'required|numeric|between:0,999999.99',
+                'price_for_three' => 'required|numeric|between:0,999999.99',
+                'activity_duration' => 'nullable|string|max:255',
+                'adress' => 'required|string|max:100',
+                'start_data' => 'nullable|date',
+                'end_data' => 'nullable|date',
+                'description_ar' => 'required|string',
+                'description_en' => 'nullable|string',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' // Image file, Max size of 2MB
+            ];
+
+        // Validate the request with the rules
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+            $activity = new Activity();
+            $activity->name_ar = $request['name_ar'];
+            // $product->name_en = $request['name_en'];
+            $activity->activities_catogeries_id = $request['activities_catogeries_id'];
+
+            $activity->price_for_one = ($request['price_for_one']);
+            $activity->price_for_two = ($request['price_for_two']);
+            $activity->price_for_three = ($request['price_for_three']);
+            $activity->activity_duration = $request['activity_duration'];
+            $activity->adress = $request['adress'];
+            $activity->start_data = $request['start_data'];
+            $activity->end_data = $request['end_data'];
+            $activity->status = true;
+            $activity->description_ar = $request['description_ar'];
+            $data['image'] = $this->saveImage($request->file('image'), 'activity');
+            $activity->image = 'imagesfp/activity/' . $data['image'];
+            $activity->user_id = Auth::user()->id;
+            $activity->save();
+            DB::commit();
+            session()->flash('Add', 'تم اضافة المنتج بنجاح ');
+            return redirect()->route('activities')->with('success', 'Category created successfully');
+        }
+        catch (\Exception $e)
+        {
+            DB::rollback();
+            throw $e;
+        }
+        
     }
 
     /**
@@ -115,13 +169,13 @@ class ActivityController extends Controller
 
 
 
-        $product = Activity::find($activityId);
+        $activity = Activity::find($activityId);
 
-        if ($product)
+        if ($activity)
         {
             // Update the status field
-            $product->status = $status;
-            $product->save();
+            $activity->status = $status;
+            $activity->save();
 
             return response()->json(['success' => true, 'message' => 'Activity status  updated successfully']);
         }
@@ -130,3 +184,18 @@ class ActivityController extends Controller
     }
 
 }
+
+
+            // if (Auth::User()->hasRole('admin'))
+            // {
+            //     $product->status = true;
+            // }
+            // else if (Auth::User()->hasRole('vendor'))
+            // {
+            //     $product->status = false;
+            // }
+            // else
+            // {
+            //     session()->flash('delete', 'فشلة العمليه');
+            //     return redirect()->back()->withSuccess('error');
+            // }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->longText('description_ar');
             $table->string('image');
             $table->unsignedBigInteger('views')->nullable()->default(0);
-            $table->integer('arrange')->default(1);
+            $table->integer('arrange')->nullable()->default(1);
             $table->integer('quantity')->default(1);
             $table->decimal('price', 8, 2);
             $table->boolean('status')->default(true);

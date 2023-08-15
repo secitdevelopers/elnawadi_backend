@@ -31,13 +31,13 @@ Route::group(['middleware' => ['auth']], function () {
         } else {
             return 'user';
         }
-    })->middleware('vendorshop');
+    });
 
 
     Route::get('/orders-statistics', [DashboardController::class, 'getStatistics']);
 
     Route::get('/home', [DashboardController::class, 'main'])->name('home');
-    Route::get('/vendor', [VendorController::class, 'vendorMain'])->name('vendorMain')->middleware('vendorshop');
+    Route::get('/vendor', [VendorController::class, 'vendorMain'])->name('vendorMain');
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubCatogeryController::class);
     Route::resource('colors', ColorController::class);
@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/coupons/destroy', 'destroy')->name('coupons.destroy');
     });
     Route::controller(SettingController::class)->group(function () {
-        Route::get('/setting', 'index')->name('setting')->middleware('vendorshop');;
+        Route::get('/setting', 'index')->name('setting');;
         Route::post('/setting.store', 'store')->name('setting.store');
         Route::post('/setting.update', 'update')->name('setting.update');
         Route::post('/setting.destroy', 'destroy')->name('setting.destroy');
@@ -76,16 +76,16 @@ Route::group(['middleware' => ['auth']], function () {
          Route::post('/orders/changeDeliveryTime', 'changeDeliveryTime')->name('orders.changeDeliveryTime');
     });
     Route::controller(ProductController::class)->group(function () {
-        Route::get('/products', 'index')->name('products')->middleware('vendorshop');
+        Route::get('/products', 'index')->name('products');
         Route::get('/products/inactive', 'productsInactive')->name('products.inactive');
-        Route::get('/products/create', 'create')->name('products.create')->middleware('vendorshop');
+        Route::get('/products/create', 'create')->name('products.create');
         Route::get('/getSubsections', 'getSubsections')->name('getSubsections');
         Route::post('/products/update-status', 'updateStatusProduct')->name('products.update-status');
-        Route::post('/products/store', 'store')->name('products.store')->middleware('vendorshop');
-        Route::post('/products/update', 'update')->name('products.update')->middleware('vendorshop');
+        Route::post('/products/store', 'store')->name('products.store');
+        Route::post('/products/update', 'update')->name('products.update');
         Route::delete('/products/destroy', 'destroy')->name('products.destroy');
-        Route::get('/products/edit/{id}', 'edit')->name('products.edit')->middleware('vendorshop');
-        Route::get('/products/special', 'productSpacial')->name('products.special')->middleware('vendorshop');
+        Route::get('/products/edit/{id}', 'edit')->name('products.edit');
+        Route::get('/products/special', 'productSpacial')->name('products.special');
 
         Route::get('/products/affiliateProduct', 'affiliateProduct')->name('products.affiliateProduct');
     });
@@ -98,13 +98,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/activities', 'index')->name('activities');
         Route::get('/activities/inactive', 'productsInactive')->name('activities.inactive');
         Route::get('/activities/create', 'create')->name('activities.create');
-        Route::get('/getSubsections', 'getSubsections')->name('getSubsections');
         Route::post('/activities/update-status', 'updateStatusProduct')->name('activities.update-status');
-        Route::post('/activities/store', 'store')->name('activities.store')->middleware('vendorshop');
-        Route::post('/activities/update', 'update')->name('activities.update')->middleware('vendorshop');
+        Route::post('/activities/store', 'store')->name('activities.store');
+        Route::post('/activities/update', 'update')->name('activities.update');
         Route::delete('/activities/destroy', 'destroy')->name('activities.destroy');
-        Route::get('/activities/edit/{id}', 'edit')->name('activities.edit')->middleware('vendorshop');
-        Route::get('/activities/special', 'productSpacial')->name('activities.special')->middleware('vendorshop');
+        Route::get('/activities/edit/{id}', 'edit')->name('activities.edit');
+        Route::get('/activities/special', 'productSpacial')->name('activities.special');
 
     });
 

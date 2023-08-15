@@ -122,10 +122,10 @@
                                         <td class="tx-right">الإجمالي الفرعي</td>
                                         <td class="tx-right" colspan="2">{{ number_format($order->subtotal, 2) }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td class="tx-right">ضريبه</td>
                                         <td class="tx-right" colspan="2">{{ number_format($order->shipping, 2) }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <td class="tx-right">الإجمالي االخصم</td>
                                         <td class="tx-right" colspan="2">-{{ number_format($order->discount, 2) }}</td>

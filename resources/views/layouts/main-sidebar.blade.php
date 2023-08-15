@@ -194,7 +194,7 @@
                                     </a></li>
                             @endcan
 
-                            @can('المتتجات الخاصه')
+                            {{-- @can('المتتجات الخاصه')
                                 <li><a class="slide-item" href="{{ route('products.special') }}">
                                         المنتجات الخاصه بك
                                     </a></li>
@@ -202,7 +202,7 @@
                             @can('اضافة منتج')
                                 <li><a class="slide-item" href="{{ route('products.create') }}">اضافة
                                         منتج</a></li>
-                            @endcan
+                            @endcan --}}
                             {{-- <li><a class="slide-item" href="{{ url('/dashboard/' . ($page = 'calendar')) }}">تعديل المنتج</a>
                     </li> --}}
 

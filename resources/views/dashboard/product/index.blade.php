@@ -89,7 +89,10 @@
 
         <div class="col-xl-12">
             <div class="card">
-
+                <div class="col-sm-6 col-md-4 col-xl-3">
+                    <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
+                        href="#modaldemo8">اضافة صنف</a>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example1">
@@ -144,9 +147,17 @@
                                                     </div>
                                                 @endcan
                                                 @can('تعديل منتج')
-                                                    <a class="btn btn-sm btn-info btn-sm ml-2"
-                                                        href="{{ route('products.edit', $product->id) }}" title="تعديل">
-                                                        <i class="las la-pen"></i>
+                                                    <a class="modal-effect btn btn-sm btn-info btn-sm ml-2"
+                                                        data-effect="effect-scale" data-id="{{ $product->id }}"
+                                                        data-price="{{ $product->price }}"
+                                                        data-category_id="{{ $product->category_id }}"
+                                                        data-description_ar="{{ $product->description_ar }}"
+                                                        data-name_ar="{{ $product->name_ar }}" {{-- data-name_en="{{ $catogery->name_en }}" --}}
+                                                        data-status="{{ $product->status }}" {{-- data-arrange="{{ $catogery->arrange }}" --}}
+                                                        data-image="{{ $product->image }}" data-toggle="modal"
+                                                        href="#exampleModal2" title="تعديل"><i class="las la-pen">
+
+                                                        </i>
                                                     </a>
                                                 @endcan
                                                 @can('حذف منتج')
@@ -174,31 +185,63 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">اضافة قسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
-                            type="button"><span aria-hidden="true">&times;</span></button>
+                        <h6 class="modal-title">اضافة المنتج</h6><button aria-label="Close" class="close"
+                            data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم المنتج باللغه العربيه</label>
+                                <label for="name_ar">اسم المنتج</label>
                                 <input type="text" class="form-control" id="name_ar" name="name_ar" required>
                             </div>
-                            <div class="form-group">
+
+
+                            <label for="category_id">الاقسام</label>
+                            <select id="category_id" name="category_id" class="form-control SlectBox" required>
+                                <option value="">اختار قسم</option>
+                                @foreach ($categories as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name_ar }} </option>
+                                @endforeach
+                            </select>
+
+
+                            <br>
+                            <label for="price">سعر المنتج</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input aria-label="Amount (to the nearest dollar)" class="form-control"
+                                    placeholder="السعر" type="number" name="price" id="price" min="1"
+                                    required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+                            </div>
+
+
+                            <label for="description_ar">وصف المنتج</label>
+                            <textarea class="form-control" rows="3" name="description_ar" id="description_ar"> </textarea>
+
+
+                            <br>
+
+                            {{-- <div class="form-group">
                                 <label for="exampleInputEmail1">اسم المنتج باللغه الانجليزيه</label>
                                 <input type="text" class="form-control" id="name_en" name="name_en" required>
-                            </div>
-                            <div class="form-group">
+                            </div> --}}
+                            {{-- <div class="form-group">
                                 <label for="exampleInputEmail1">ترتيب المنتج </label>
                                 <input type="number" class="form-control" id="arrange" name="arrange">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
-                                <label for="image">تحميل صوره للمنتج</label>
+                                <label for="image">إضافة صورة/ فديو</label>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="image" name="image"
                                         required>
-                                    <label class="custom-file-label" for="image">اختار صوره</label>
+                                    <label class="custom-file-label" for="image">اختار صورة/ فديو</label>
                                 </div>
                                 <img src="#" id="preview"
                                     style="display: none; max-width: 200px; max-height: 200px;">
@@ -226,31 +269,74 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('categories.update', 0) }}" method="post" enctype="multipart/form-data">
-                            {{ method_field('PUT') }}
+                        <form action="{{ route('products.update') }}" method="post" enctype="multipart/form-data">
+                            {{ method_field('post') }}
                             {{ csrf_field() }}
-                            <input type="hidden" name="id" id="id" value="">
-
-                            {{-- <input type="hidden" name="status" id="status" value=""> --}}
-
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم المنتج باللغه العربيه</label>
-                                <input type="text" class="form-control" id="name_ar" name="name_ar">
+                                <label for="name_ar">اسم المنتج</label>
+                                <input type="text" class="form-control" id="name_ar" name="name_ar" required>
                             </div>
-                            <div class="form-group">
+
+                            <input type="text" class="form-control" id="id" name="id" hidden>
+                            <label for="category_id">الاقسام</label>
+                            <select id="category_id" name="category_id" class="form-control SlectBox" required>
+                                <option value="">اختار قسم</option>
+                                @foreach ($categories as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name_ar }} </option>
+                                @endforeach
+                            </select>
+
+
+                            <br>
+                            <label for="price">سعر المنتج</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input aria-label="Amount (to the nearest dollar)" class="form-control"
+                                    placeholder="السعر" type="number" name="price" id="price" min="1"
+                                    required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+                            </div>
+
+
+                            <label for="description_ar">وصف المنتج</label>
+                            <textarea class="form-control" rows="3" name="description_ar" id="description_ar"></textarea>
+
+
+                            <br>
+
+                            {{-- <div class="form-group">
                                 <label for="exampleInputEmail1">اسم المنتج باللغه الانجليزيه</label>
-                                <input type="text" class="form-control" id="name_en" name="name_en">
-                            </div>
-                            <div class="form-group">
+                                <input type="text" class="form-control" id="name_en" name="name_en" required>
+                            </div> --}}
+                            {{-- <div class="form-group">
                                 <label for="exampleInputEmail1">ترتيب المنتج </label>
                                 <input type="number" class="form-control" id="arrange" name="arrange">
-                            </div>
+                            </div> --}}
+                            {{-- <div class="form-group">
+                                <label for="image">إضافة صورة/ فديو</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="image" name="image"
+                                        required>
+                                    <label class="custom-file-label" for="image">اختار صورة/ فديو</label>
+                                </div>
+                                <img src="#" id="preview"
+                                    style="display: none; max-width: 200px; max-height: 200px;">
+                            </div> --}}
+
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">صوره المنتج</label>
-                                <input class="form-control" name="image" id="image" type="file">
-                                <img src="image" id="image" class="img-thumbnail"
+                                <label for="recipient-name" class="col-form-label">إضافة صورة/ فديو</label>
+                                <input class="form-control" name="image" id="image" type="file"
+                                    onchange="displaySelectedImage(event)">
+                                <img src="image" id="preview-image" class="img-thumbnail"
                                     style="width: 100px; height: 100px;">
                             </div>
+
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">تاكيد</button>
@@ -329,18 +415,7 @@
             reader.readAsDataURL(this.files[0]);
         });
     </script>
-    {{-- <script>
-    $('#exampleModal2').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-        var id = button.data('id')
-        var name = button.data('name')
-        var image = button.data('image')
-        var modal = $(this)
-        modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #name').val(name);
-        modal.find('.modal-body #image').val(image);
-    })
-</script> --}}
+
     <script>
         document.querySelector("#image").addEventListener("change", function() {
             var reader = new FileReader();
@@ -350,6 +425,21 @@
             };
             reader.readAsDataURL(this.files[0]);
         });
+    </script>
+    <script>
+        function displaySelectedImage(event) {
+            const fileInput = event.target;
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const previewImage = document.getElementById('preview-image');
+                    previewImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
     </script>
     <script>
         $('#modaldemo9').on('show.bs.modal', function(event) {
@@ -412,49 +502,28 @@
             });
         });
     </script>
-    {{-- <script>
-        $(document).ready(function() {
-            $('.modal-effect').click(function() {
-                var categoryId = $(this).data('id');
-                var categoryName = $(this).data('name');
-                $('#id').val(categoryId);
-                $('#name').val(categoryName);
-                var formAction = $('#modaldemo9 form').attr('action');
-                formAction = formAction.replace('__ID__', categoryId);
-                $('#modaldemo9 form').attr('action', formAction);
-            });
-        });
-    </script> --}}
-
 
     <script>
         $(document).ready(function() {
+            const appUrl = "{{ url('/') }}";
             $('#exampleModal2').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
                 var id = button.data('id')
                 var name_ar = button.data('name_ar')
-                var name_en = button.data('name_en')
-                var arrange = button.data('arrange')
+                var price = button.data('price')
+                var description_ar = button.data('description_ar')
                 var status = button.data('status')
                 var image = button.data('image')
+                var category_id = button.data('category_id')
                 var modal = $(this)
                 modal.find('.modal-body #id').val(id)
+                modal.find('.modal-body #category_id').val(category_id)
                 modal.find('.modal-body #name_ar').val(name_ar)
-                modal.find('.modal-body #image').attr('src', image)
-                modal.find('.modal-body #name_en').val(name_en)
-                modal.find('.modal-body #arrange').val(arrange)
+                modal.find('.modal-body #preview-image').attr('src', appUrl + "/" + image)
+                modal.find('.modal-body #price').val(price)
+                modal.find('.modal-body #description_ar').val(description_ar)
                 modal.find('.modal-body #status').val(status)
             })
         });
     </script>
 @endsection
-{{-- @foreach ($product->images as $item)
-                                    <div class="tab-pane active" id="{{ $item->id }}"><img
-                                            src="{{ URL::asset($item->image) }}" alt="image" />
-                                    </div>
-                                @endforeach
-                                     @foreach ($product->images as $item)
-                                    <li class="active"><a data-target="#{{ $item->id }}" data-toggle="tab"><img
-                                                src="{{ URL::asset($item->image) }}" alt="image" /></a>
-                                    </li>
-                                @endforeach --}}
