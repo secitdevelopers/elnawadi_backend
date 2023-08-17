@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('age');
+            $table->integer('number_individuals')->default(1)->nullable();
             $table->string('living');
+            $table->string('type_scrip');
             $table->string('phone_number');
             $table->decimal('subscription_amount', 8, 2);
             $table->unsignedBigInteger('activity_id');

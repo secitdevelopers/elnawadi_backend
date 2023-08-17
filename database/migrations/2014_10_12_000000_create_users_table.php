@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 100);
-            $table->enum('type', ['user', 'admin','vendor'])->default('user');
+            $table->enum('type', ['user', 'admin','vendor','supervisor'])->default('user');
             $table->boolean('status')->default(true);
             $table->string('email')->unique();
             $table->string('phone');

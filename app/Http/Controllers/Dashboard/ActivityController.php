@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\ActivitiesCatogery;
 use App\Models\Activity;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\Auth;
@@ -42,9 +43,8 @@ class ActivityController extends Controller
                 'name_ar' => 'required|string|max:100',
                 'name_en' => 'nullable|string|max:100',
                 'activities_catogeries_id' => 'required|exists:activities_catogeries,id', // Ensure the referenced ID exists in activities_catogeries
-                'price_for_one' => 'required|numeric|between:0,999999.99',
-                'price_for_two' => 'required|numeric|between:0,999999.99',
-                'price_for_three' => 'required|numeric|between:0,999999.99',
+                'price' => 'required|numeric|between:0,999999.99',
+      
                 'activity_duration' => 'nullable|string|max:255',
                 'adress' => 'required|string|max:100',
                 'start_data' => 'nullable|date',
@@ -65,9 +65,8 @@ class ActivityController extends Controller
             // $product->name_en = $request['name_en'];
             $activity->activities_catogeries_id = $request['activities_catogeries_id'];
 
-            $activity->price_for_one = ($request['price_for_one']);
-            $activity->price_for_two = ($request['price_for_two']);
-            $activity->price_for_three = ($request['price_for_three']);
+            $activity->price_for_one = ($request['price']);
+
             $activity->activity_duration = $request['activity_duration'];
             $activity->adress = $request['adress'];
             $activity->start_data = $request['start_data'];
@@ -90,15 +89,11 @@ class ActivityController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function show(activity $activity)
+
+    public function mangementActivity()
     {
-        //
+        $subscriptions = Subscription::all(); 
+        return view('dashboard.activity.mange-activity', compact('subscriptions'));
     }
 
     /**
@@ -143,6 +138,26 @@ class ActivityController extends Controller
 
             DB::commit();
             session()->flash('delete', 'تم الحذف  النشاط بنجاح');
+            return redirect()->back()->withSuccess('activity deleted successfully.');
+        }
+        catch (\Exception $e)
+        {
+            DB::rollback();
+            throw $e;
+        }
+    }
+
+
+        public function destroySub(Request $request)
+    {
+        DB::beginTransaction();
+        try
+        {
+            // Retrieve the product
+            $sub = Subscription::findOrFail($request->id);
+            $sub->delete();
+            DB::commit();
+            session()->flash('delete', 'تم الحذف بنجاح');
             return redirect()->back()->withSuccess('activity deleted successfully.');
         }
         catch (\Exception $e)

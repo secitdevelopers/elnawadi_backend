@@ -95,13 +95,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::controller(ActivityController::class)->group(function () {
-        Route::get('/activities', 'index')->name('activities');
+        Route::get('/activities', 'index')->name('activities')
+        ;Route::get('/activities/subscriptions', 'mangementActivity')->name('subscriptions');
         Route::get('/activities/inactive', 'productsInactive')->name('activities.inactive');
         Route::get('/activities/create', 'create')->name('activities.create');
         Route::post('/activities/update-status', 'updateStatusProduct')->name('activities.update-status');
         Route::post('/activities/store', 'store')->name('activities.store');
         Route::post('/activities/update', 'update')->name('activities.update');
         Route::delete('/activities/destroy', 'destroy')->name('activities.destroy');
+        Route::delete('/subscriptions/destroy', 'destroySub')->name('subscriptions.destroy');
         Route::get('/activities/edit/{id}', 'edit')->name('activities.edit');
         Route::get('/activities/special', 'productSpacial')->name('activities.special');
 
@@ -114,6 +116,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/user', 'index')->name('user');
+        Route::get('/user/supervisor', 'supervisor')->name('user.supervisor');
+        Route::get('/user/vendeors', 'vendeors')->name('user.vendeors');
         Route::post('/user.store', 'store')->name('user.store');
         Route::post('/user.edit', 'edit')->name('user.edit');
         Route::post('/user.update', 'update')->name('user.update');

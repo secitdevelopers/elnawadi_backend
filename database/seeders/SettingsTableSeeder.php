@@ -17,7 +17,7 @@ class SettingsTableSeeder extends Seeder
     {
         $companies = [
             [
-                'company_name' => 'Company 1',
+                'company_name' => 'شركة الاصايل',
                 'email' => 'company1@email.com',
                 'website_link' => 'company1.com',
                 'company_phone' => '1234567890',
@@ -27,7 +27,7 @@ class SettingsTableSeeder extends Seeder
                 'google' => 'https://plus.google.com/company1',
                 'linkedin' => 'https://linkedin.com/company1',
                 'github' => 'https://github.com/company1',
-                'biographical_information' => 'About Company 1',
+                'biographical_information' => 'عن شركة الاصايل',
                 'logo' => 'imagesfp/setting/a.png',
                 'background_image' => 'imagesfp/setting/a.png',
                 'user_id' => '1',

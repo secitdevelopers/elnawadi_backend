@@ -237,42 +237,14 @@
                                                 <span class="input-group-text">$</span>
                                             </div>
                                             <input aria-label="Amount (to the nearest dollar)" class="form-control"
-                                                placeholder="قم بإدخال سعر" type="number" name="price_for_one"
-                                                min="1" required>
+                                                placeholder="قم بإدخال سعر" type="number" name="price" min="1"
+                                                required>
                                             <div class="input-group-append">
                                                 <span class="input-group-text">.00</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-3">
-                                        <p class="mg-b-10">سعر التسجيل شخصين</p>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-                                            <input aria-label="Amount (to the nearest dollar)" class="form-control"
-                                                placeholder="قم بإدخال سعر" type="number" name="price_for_two"
-                                                min="1" required>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <p class="mg-b-10">سعر التسجيل ثلاثة اشخاص</p>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-                                            <input aria-label="Amount (to the nearest dollar)" class="form-control"
-                                                placeholder="قم بإدخال سعر" type="number" name="price_for_three"
-                                                min="1" required>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
 
 
 
@@ -295,7 +267,9 @@
                                                 name="start_data" value="{{ date('Y-m-d H:i:s') }}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3"><label for=""></label>
+
+                                    <div class="col-lg-3">
+                                        {{-- <label for=""></label> --}}
                                         <p class="mg-b-10">وقت الانتهاء </p>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -307,6 +281,7 @@
                                                 name="end_data" value="{{ date('Y-m-d H:i:s') }}">
                                         </div>
                                     </div>
+
                                     <div class="row row-sm">
 
                                     </div>
@@ -316,31 +291,10 @@
                                 </div>
                                 <br>
 
-                                <textarea id="textarea2" name="description_ar" rows="15">اكتب وصف النشاط</textarea>
+                                <textarea id="textarea" name="description_ar" rows="15">اكتب وصف النشاط</textarea>
                             </div>
                         </div>
                     </div>
-
-
-
-
-                    {{-- 
-
-
-                    <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="main-content-label mg-b-5">
-                                    وصف النشاط
-                                </div>
-                                <br>
-
-                                <textarea id="textarea2" name="description_ar" rows="15">اكتب وصف النشاط</textarea>
-                            </div>
-                        </div>
-                    </div>
- --}}
-
 
 
 
@@ -457,116 +411,6 @@
             });
         }
     </script>
-    <script>
-        $(function() {
-            $(document)
-                .on("click", ".btn-add", function(e) {
-                    e.preventDefault();
-                    var controlForm = $("#myRepeatingFields:first"),
-                        currentEntry = $(this).parents(".entry:first"),
-                        newEntry = $(currentEntry.clone()).appendTo(controlForm);
-                    newEntry.find("input").val("");
-                    controlForm.find(".entry:not(:last) .btn-add").removeClass("btn-add").addClass("btn-remove")
-                        .removeClass("btn-success").addClass("btn-danger").html("-");
-                })
-                .on("click", ".btn-remove", function(e) {
-                    e.preventDefault();
-                    $(this).parents(".entry:first").remove();
-                    return false;
-                });
-        });
-        $(function() {
-            $(document)
-                .on("click", ".btn-add-co", function(e) {
-                    e.preventDefault();
-                    var controlForm = $("#myRepeatingFields_co:first"),
-                        currentEntry = $(this).parents(".entry_co:first"),
-                        newEntry = $(currentEntry.clone()).appendTo(controlForm);
-                    newEntry.find("input").val("");
-                    controlForm.find(".entry_co:not(:last) .btn-add-co").removeClass("btn-add-co").addClass(
-                        "btn-remove-co").removeClass("btn-success").addClass("btn-danger").html("-");
-                })
-                .on("click", ".btn-remove-co", function(e) {
-                    e.preventDefault();
-                    $(this).parents(".entry_co:first").remove();
-                    return false;
-                });
-        });
-        $(function() {
-            $(document)
-                .on("click", ".btn-add-op", function(e) {
-                    e.preventDefault();
-                    var controlForm = $("#myRepeatingFields_op:first"),
-                        currentEntry = $(this).parents(".entry_op:first"),
-                        newEntry = $(currentEntry.clone()).appendTo(controlForm);
-                    newEntry.find("input").val("");
-                    controlForm.find(".entry_op:not(:last) .btn-add-op").removeClass("btn-add-op").addClass(
-                        "btn-remove-op").removeClass("btn-success").addClass("btn-danger").html("-");
-                })
-                .on("click", ".btn-remove-op", function(e) {
-                    e.preventDefault();
-                    $(this).parents(".entry_op:first").remove();
-                    return false;
-                });
-        });
-
-
-
-
-
-
-
-        $(function() {
-            $(document)
-                .on("click", ".btn-add-opp", function(e) {
-                    e.preventDefault();
-                    var controlForm = $("#myRepeatingFields_opp:first"),
-                        currentEntry = $(this).parents(".entry_opp:first"),
-                        newEntry = $(currentEntry.clone()).appendTo(controlForm);
-                    newEntry.find("input").val("");
-                    controlForm.find(".entry_opp:not(:last) .btn-add-opp").removeClass("btn-add-opp").addClass(
-                        "btn-remove-opp").removeClass("btn-success").addClass("btn-danger").html("-");
-                })
-                .on("click", ".btn-remove-opp", function(e) {
-                    e.preventDefault();
-                    $(this).parents(".entry_opp:first").remove();
-                    return false;
-                });
-        });
-    </script>
-    <script>
-        $(function() {
-            // Multiple images preview in browser
-
-
-
-            var imagesPreview = function(input, placeToInsertImagePreview) {
-
-
-
-                if (input.files) {
-                    var filesAmount = input.files.length;
-
-                    for (i = 0; i < filesAmount; i++) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(event) {
-                            $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(
-                                placeToInsertImagePreview);
-                        }
-                        console.log("Selected picture name: 111");
-                        reader.readAsDataURL(input.files[i]);
-                    }
-                }
-
-            };
-            console.log("Selected picture name: 222");
-            $('#gallery-photo-add').on('change', function() {
-                imagesPreview(this, 'div.gallery');
-            });
-
-        });
-    </script>
 
 
     <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
@@ -576,16 +420,7 @@
     </script>
 
 
-    <script>
-        CKEDITOR.replace('textarea2');
-    </script>
 
-    <script>
-        CKEDITOR.replace('textarea3');
-    </script>
-    <script>
-        CKEDITOR.replace('textarea4');
-    </script>
     <script>
         document.getElementById('multimg').addEventListener('change', function() {
             var previewContainer = document.querySelector('.file-preview');
@@ -603,66 +438,6 @@
 
                 reader.readAsDataURL(files[i]);
             }
-        });
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script>
-        $(document).ready(function() {
-            $('#category').on('change', function() {
-                var categoryId = $(this).val();
-                var subCategoryDropdown = $('#sub_category');
-
-                if (categoryId) {
-                    // Make an AJAX request to fetch the subsections based on the selected section
-                    $.ajax({
-                        url: '{{ route('getSubsections') }}',
-                        type: 'GET',
-                        data: {
-                            category: categoryId
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            console.log("------------------");
-                            console.log(response.data);
-                            // Clear previous options
-                            subCategoryDropdown.empty();
-
-                            // Add default option
-                            // subCategoryDropdown.append(
-                            //     '<option value="">Select a subsection</option>');
-
-                            // Populate the subsection dropdown with the received data
-                            $.each(response, function(key, value) {
-                                console.log(value + key);
-                                subCategoryDropdown.append('<option value="' + key +
-                                    '">' + value + '</option>');
-                            });
-                        }
-                    });
-                } else {
-                    // Clear the subsection dropdown if no section is selected
-                    subCategoryDropdown.empty();
-                }
-            });
         });
     </script>
 @endsection

@@ -172,11 +172,11 @@
                     <div class="card-body">
 
 
-                        <div class="mb-4 main-content-label">الاسم</div>
+                        <div class="mb-4 main-content-label">معلومات رئيسية</div>
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">اسم المتجر</label>
+                                    <label class="form-label">اسم مزود الخدمة</label>
                                 </div>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" placeholder="UserName"
@@ -197,21 +197,11 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">رابط الموقع</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="Website" id="Website"
-                                        placeholder="Website" value="{{ $setting->website_link }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label class="form-label">هاتف المتجر</label>
+                                    <label class="form-label"> رقم الهاتف</label>
                                 </div>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" placeholder="phone number"
@@ -222,7 +212,7 @@
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label class="form-label">عنوان المتجر</label>
+                                    <label class="form-label">العنوان</label>
                                 </div>
                                 <div class="col-md-9">
                                     <textarea class="form-control" name="address" id="address" rows="2" placeholder="Address">{{ $setting->company_address }}</textarea>
@@ -285,7 +275,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-4 main-content-label">معلومات اضافيه عن المتجر</div>
+                        <div class="mb-4 main-content-label">معلومات اضافيه</div>
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3">

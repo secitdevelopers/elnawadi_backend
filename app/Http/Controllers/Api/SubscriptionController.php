@@ -46,6 +46,8 @@ class SubscriptionController extends Controller
             'name' => 'required|string|max:255',
             'age' => 'required|integer|min:0',
             'living' => 'required|string|max:255',
+            'type_scrip' => 'required|string|max:255',
+            'number_individuals' => 'required|integer|max:255',
             'phone_number' => 'required|string|max:20',
             'subscription_amount' => 'required|numeric|min:0',
             'activity_id' => 'required|exists:activities,id',
@@ -66,7 +68,7 @@ class SubscriptionController extends Controller
         }
         catch (\Throwable $th)
         {
-            return response()->json(['message' => 'Failed to store user subscription.', 'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => 'Failed to store user subscription.'.$th, 'status_code' => Response::HTTP_INTERNAL_SERVER_ERROR], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

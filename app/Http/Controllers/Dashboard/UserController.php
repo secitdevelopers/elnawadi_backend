@@ -14,17 +14,48 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $userdata = User::orderBy('id', 'DESC')->with('roles')->get();
+        $userdata = User::whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->orderBy('id', 'DESC')
+            ->with('roles')
+            ->get();
         $roles = Role::all();
         return view('dashboard.user.index', compact('userdata', 'roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
+
+    public function supervisor(Request $request)
+    {
+        $userdata = User::whereHas('roles', function ($query) {
+            $query->where('name', 'supervisor');
+        })->orderBy('id', 'DESC')
+            ->with('roles')
+            ->get();
+
+        $roles = Role::all();
+
+        return view('dashboard.user.index', compact('userdata', 'roles'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+    public function vendeors(Request $request)
+    {
+        $userdata = User::whereHas('roles', function ($query) {
+            $query->where('name', 'vendor');
+        })->orderBy('id', 'DESC')
+            ->with('roles')
+            ->get();
+
+        $roles = Role::all();
+
+        return view('dashboard.user.index', compact('userdata', 'roles'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
     public function userUpdate($id)
-    {   
+    {
         $roles = Role::all();
         $user = User::with('roles')->find($id);
 
-        return view('dashboard.user.update-user', compact('user','roles'));
+        return view('dashboard.user.update-user', compact('user', 'roles'));
     }
     /**
      * Show the form for creating a new resource.
@@ -109,7 +140,7 @@ class UserController extends Controller
             'phone' => 'nullable|numeric',
             'email' => 'required|email|max:255|unique:users,email,' . $request->pro_id,
             'password' => 'nullable|min:8|max:255',
-             'roles' => 'required|array',
+            'roles' => 'required|array',
         ];
 
         $validatedData = $request->validate($rules);

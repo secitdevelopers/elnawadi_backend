@@ -43,7 +43,7 @@
                             <path d="M5 5h4v6H5zm10 8h4v6h-4zM5 17h4v2H5zM15 5h4v2h-4z" opacity=".3" />
                             <path
                                 d="M3 13h8V3H3v10zm2-8h4v6H5V5zm8 16h8V11h-8v10zm2-8h4v6h-4v-6zM13 3v6h8V3h-8zm6 4h-4V5h4v2zM3 21h8v-6H3v6zm2-4h4v2H5v-2z" />
-                        </svg><span class="side-menu__label">الصفحه الرئيسيه</span></a>
+                        </svg><span class="side-menu__label">لوحة القيادة</span></a>
                 </li>
             @endcan
 
@@ -56,7 +56,7 @@
                             <path d="M5 5h4v6H5zm10 8h4v6h-4zM5 17h4v2H5zM15 5h4v2h-4z" opacity=".3" />
                             <path
                                 d="M3 13h8V3H3v10zm2-8h4v6H5V5zm8 16h8V11h-8v10zm2-8h4v6h-4v-6zM13 3v6h8V3h-8zm6 4h-4V5h4v2zM3 21h8v-6H3v6zm2-4h4v2H5v-2z" />
-                        </svg><span class="side-menu__label">الصفحه الرئيسيه للبائع</span></a>
+                        </svg><span class="side-menu__label">لوحة القيادة للبائع</span></a>
                 </li>
             @endcan
 
@@ -67,7 +67,7 @@
 
 
             @can('عام')
-                <li class="side-item side-item-category">عام</li>
+                <li class="side-item side-item-category">معلومات الانشطه</li>
                 @can('الاقسام')
                     <li class="slide">
                         <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><svg
@@ -95,31 +95,7 @@
 
                     </li>
                 @endcan
-                @can('الاقسام الفرعيه')
-                    <li class="slide">
-                        <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><svg
-                                xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                                <path d="M0 0h24v24H0V0z" fill="none" />
-                                <path
-                                    d="M3.31 11l2.2 8.01L18.5 19l2.2-8H3.31zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
-                                    opacity=".3" />
-                                <path
-                                    d="M22 9h-4.79l-4.38-6.56c-.19-.28-.51-.42-.83-.42s-.64.14-.83.43L6.79 9H2c-.55 0-1 .45-1 1 0 .09.01.18.04.27l2.54 9.27c.23.84 1 1.46 1.92 1.46h13c.92 0 1.69-.62 1.93-1.46l2.54-9.27L23 10c0-.55-.45-1-1-1zM12 4.8L14.8 9H9.2L12 4.8zM18.5 19l-12.99.01L3.31 11H20.7l-2.2 8zM12 13c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                            </svg><span class="side-menu__label">الاقسام الفرعيه</span><i
-                                class="angle fe fe-chevron-down"></i></a>
 
-                        @can('جميع الاقسام الفرعيه')
-                            <ul class="slide-menu">
-                                <li><a class="slide-item" href="{{ url('/dashboard/' . ($page = 'subcategories')) }}">جميع الاقسام
-                                        الفرعيه
-                                    </a>
-                                </li>
-
-                            </ul>
-                        @endcan
-
-                    </li>
-                @endcan
             @endcan
 
 
@@ -136,7 +112,7 @@
 
 
             @can('عام')
-                <li class="side-item side-item-category">عام</li>
+                <li class="side-item side-item-category">تسوق</li>
                 {{-- <li class="slide">
                 <a class="side-menu__item" href="{{ url('/' . ($page = 'icons')) }}"><svg
                         xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
@@ -353,20 +329,6 @@
                     @endcan
                 </li>
             @endcan
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             @can('الاعدادت العامه')
                 <li class="side-item side-item-category">الاعدادت العامه</li>
 
@@ -400,31 +362,30 @@
                                             d="M17.5,15.83c0.88,0,1.73,0.09,2.5,0.26v-1.52c-0.79-0.15-1.64-0.24-2.5-0.24c-1.28,0-2.46,0.16-3.5,0.47v1.57 C14.99,16.02,16.18,15.83,17.5,15.83z" />
                                     </g>
                                 </g>
-                            </svg><span class="side-menu__label">المستخدمين</span><i class="angle fe fe-chevron-down"></i></a>
+                            </svg><span class="side-menu__label">ادارة المستخدم</span><i
+                                class="angle fe fe-chevron-down"></i></a>
 
 
                         <ul class="slide-menu">
                             @can('رؤية المستخدمين')
-                                <li><a class="slide-item" href="{{ route('user') }}">رؤية المستخدمين
+                                <li><a class="slide-item" href="{{ route('user.supervisor') }}"> المشروفون
                                     </a></li>
                             @endcan
-
+                            @can('رؤية المستخدمين')
+                                <li><a class="slide-item" href="{{ route('user.vendeors') }}"> مزودي الخدمة
+                                    </a></li>
+                                @endcan @can('رؤية المستخدمين')
+                                <li><a class="slide-item" href="{{ route('user') }}"> العملاء
+                                    </a></li>
+                            @endcan
                             @can('صلاحيات المستخدمين')
-                                <li><a class="slide-item" href="{{ route('roles.index') }}">صلاحيات المستخدمين</a>
+                                <li><a class="slide-item" href="{{ route('roles.index') }}">الصلاحيات</a>
                                 </li>
                             @endcan
 
                         </ul>
                     </li>
                 @endcan
-
-
-
-
-
-
-
-
 
 
 
@@ -461,19 +422,9 @@
                         <ul class="slide-menu">'
 
                             @can('الاعدادت الرئيسيه')
-                                <li><a class="slide-item" href="{{ route('setting') }}">الاعدادات
-                                        الرئيسيه</a></li>
+                                <li><a class="slide-item" href="{{ route('setting') }}">اعدادات
+                                        مزودي الخدمة</a></li>
                             @endcan
-
-                            {{-- @can('اعدادت الهدايا')
-                                <li><a class="slide-item" href="{{ route('setting.gift') }}"> اعدادات الهدايا
-                                    </a></li>
-                            @endcan --}}
-
-                            {{-- @can('اعدادت الهدايا') --}}
-                            <li><a class="slide-item" href="{{ route('banners') }}"> البنرات الإعلانية
-                                </a></li>
-                            {{-- @endcan --}}
                             @can('اعدادت الصفحات')
                                 <li><a class="slide-item" href="{{ route('setting_web') }}">الاعدادات الصفحات</a>
                                 </li>
@@ -487,72 +438,59 @@
 
 
             @endcan
-            {{-- <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><svg
-                        xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path
-                            d="M10.9 19.91c.36.05.72.09 1.1.09 2.18 0 4.16-.88 5.61-2.3L14.89 13l-3.99 6.91zm-1.04-.21l2.71-4.7H4.59c.93 2.28 2.87 4.03 5.27 4.7zM8.54 12L5.7 7.09C4.64 8.45 4 10.15 4 12c0 .69.1 1.36.26 2h5.43l-1.15-2zm9.76 4.91C19.36 15.55 20 13.85 20 12c0-.69-.1-1.36-.26-2h-5.43l3.99 6.91zM13.73 9h5.68c-.93-2.28-2.88-4.04-5.28-4.7L11.42 9h2.31zm-3.46 0l2.83-4.92C12.74 4.03 12.37 4 12 4c-2.18 0-4.16.88-5.6 2.3L9.12 11l1.15-2z"
-                            opacity=".3" />
-                        <path
-                            d="M12 22c5.52 0 10-4.48 10-10 0-4.75-3.31-8.72-7.75-9.74l-.08-.04-.01.02C13.46 2.09 12.74 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10zm0-2c-.38 0-.74-.04-1.1-.09L14.89 13l2.72 4.7C16.16 19.12 14.18 20 12 20zm8-8c0 1.85-.64 3.55-1.7 4.91l-4-6.91h5.43c.17.64.27 1.31.27 2zm-.59-3h-7.99l2.71-4.7c2.4.66 4.35 2.42 5.28 4.7zM12 4c.37 0 .74.03 1.1.08L10.27 9l-1.15 2L6.4 6.3C7.84 4.88 9.82 4 12 4zm-8 8c0-1.85.64-3.55 1.7-4.91L8.54 12l1.15 2H4.26C4.1 13.36 4 12.69 4 12zm6.27 3h2.3l-2.71 4.7c-2.4-.67-4.35-2.42-5.28-4.7h5.69z" />
-                    </svg><span class="side-menu__label">Utilities</span><i class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'background')) }}">Background</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'border')) }}">Border</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'display')) }}">Display</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'flex')) }}">Flex</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'height')) }}">Height</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'margin')) }}">Margin</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'padding')) }}">Padding</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'position')) }}">Position</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'width')) }}">Width</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'extras')) }}">Extras</a></li>
-                </ul>
-            </li> --}}
-            {{-- <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><svg
-                        xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path d="M6 20h12V10H6v10zm6-7c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" opacity=".3" />
-                        <path
-                            d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" />
-                    </svg><span class="side-menu__label">Custom Pages</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'signin')) }}">Sign In</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'signup')) }}">Sign Up</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'forgot')) }}">Forgot Password</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'reset')) }}">Reset Password</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'lockscreen')) }}">Lockscreen</a></li>
-                    <li><a class="slide-item"
-                            href="{{ url('/' . ($page = 'underconstruction')) }}">UnderConstruction</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = '404')) }}">404 Error</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = '500')) }}">500 Error</a></li>
-                </ul>
-            </li> --}}
-            {{-- <li class="slide ">
-                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><svg
-                        xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path
-                            d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"
-                            opacity=".3" />
-                        <path
-                            d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z" />
-                    </svg><span class="side-menu__label">Submenus</span><i class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li class="sub-slide">
-                        <a class="sub-side-menu__item" data-toggle="sub-slide"
-                            href="{{ url('/' . ($page = '#')) }}"><span class="sub-side-menu__label">Level1</span><i
-                                class="sub-angle fe fe-chevron-down"></i></a>
-                        <ul class="sub-slide-menu">
-                            <li><a class="sub-slide-item" href="{{ url('/' . ($page = '#')) }}">Level01</a></li>
-                            <li><a class="sub-slide-item" href="{{ url('/' . ($page = '#')) }}">Level02</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li> --}}
+
+
+
+
+
+
+            @can('الاعدادت العامه')
+                <li class="side-item side-item-category">عام</li>
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('banners') }}"><svg xmlns="http://www.w3.org/2000/svg"
+                            class="side-menu__icon" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z"
+                                opacity=".3" />
+                            <path
+                                d="M16.66 1.69L11 7.34 16.66 13l5.66-5.66-5.66-5.65zm-2.83 5.65l2.83-2.83 2.83 2.83-2.83 2.83-2.83-2.83zM3 3v8h8V3H3zm6 6H5V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-2v8h8v-8h-8zm6 6h-4v-4h4v4z" />
+                        </svg><span class="side-menu__label">البنرات الإعلانية</span>
+                        {{-- <span
+                            class="badge badge-warning side-badge">Hot</span> --}}
+                    </a>
+                </li>
+
+
+
+
+                <li class="slide">
+                    <a class="side-menu__item" href="#"><svg xmlns="http://www.w3.org/2000/svg"
+                            class="side-menu__icon" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z"
+                                opacity=".3" />
+                            <path
+                                d="M16.66 1.69L11 7.34 16.66 13l5.66-5.66-5.66-5.65zm-2.83 5.65l2.83-2.83 2.83 2.83-2.83 2.83-2.83-2.83zM3 3v8h8V3H3zm6 6H5V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-2v8h8v-8h-8zm6 6h-4v-4h4v4z" />
+                        </svg><span class="side-menu__label">الإدارة المالية</span>
+                        {{-- <span
+                            class="badge badge-warning side-badge">Hot</span> --}}
+                    </a>
+                </li>
+
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('subscriptions') }}"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z"
+                                opacity=".3" />
+                            <path
+                                d="M16.66 1.69L11 7.34 16.66 13l5.66-5.66-5.66-5.65zm-2.83 5.65l2.83-2.83 2.83 2.83-2.83 2.83-2.83-2.83zM3 3v8h8V3H3zm6 6H5V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-2v8h8v-8h-8zm6 6h-4v-4h4v4z" />
+                        </svg><span class="side-menu__label">إدارة الإشتراكات</span>
+                        {{-- <span
+                            class="badge badge-warning side-badge">Hot</span> --}}
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </aside>

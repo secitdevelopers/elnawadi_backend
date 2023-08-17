@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
                 'name' => 'taha',
                 'type' => 'admin',
                 'status' => 1,
-             
+
                 'phone' => '011111111111',
                 'email' => 'tth31770@gmail.com',
                 'created_at' => now(),
@@ -42,17 +42,17 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'name' => 'ahmed',
-                'type' => 'user',
+                'type' => 'supervisor',
                 'status' => 1,
                 'phone' => '011111111111',
                 'email_verified_at' => now(),
-                'email' => 'user1@gmail.com',
+                'email' => 'supervisor@gmail.com',
                 'password' => bcrypt('12345678'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
-              [
+            [
                 'name' => 'ahmed Ragaa',
                 'type' => 'user',
                 'status' => 1,
@@ -64,7 +64,7 @@ class UserTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
 
-            
+
             [
                 'name' => 'yousef',
                 'type' => 'user',
@@ -92,7 +92,9 @@ class UserTableSeeder extends Seeder
         $userPermission = [
             'admin',
             'vendor',
+            'supervisor',
             'user',
+
         ];
         $PermissionAdmin = [
             'الصفحه الرئيسيه',
@@ -154,7 +156,7 @@ class UserTableSeeder extends Seeder
 
         ];
 
-        $Permissionvendor = [
+        $PermissionVendor = [
             'الصفحه الرئيسيه للبائع',
             'المتتجات الخاصه',
             'الاعدادات',
@@ -165,40 +167,54 @@ class UserTableSeeder extends Seeder
             'تعديل منتج',
             'حذف منتج',
             'تسوق',
+            'الطلبيات',
+            'جميع الطلبيات',
+            'عرض الطلبيه',
+            'حذف الطلبيه',
+            'طباعة الطلبيه',
+        ];
+        $PermissionSupervisor = [
+            'الصفحه الرئيسيه للبائع',
+            'المتتجات الخاصه',
+            'الاعدادات',
+            'الاعدادت العامه',
+            'الاعدادت الرئيسيه',
+            'المنتجات',
+            'اضافة منتج',
+            'تعديل منتج',
+            'حذف منتج',
+            'تسوق',  'القسائم',
+            'جميع القسائم',
+            'اضافة قسيمه',
+            'تعديل قسيمه',
+            'حذف قسيمه',
         ];
 
-
         $roleList = [];
-        foreach ($userPermission as $permissionName)
-        {
+        foreach ($userPermission as $permissionName) {
             $role = Role::firstOrCreate(['name' => $permissionName, 'guard_name' => 'web']);
 
-            if ($role->name == 'admin')
-            {
+            if ($role->name == 'admin') {
                 $role->syncPermissions($PermissionAdmin);
-            }
-            else
-            {
-                $role->syncPermissions($Permissionvendor);
+            } else  if ($role->name == 'vendor') {
+                $role->syncPermissions($PermissionVendor);
+            } else {
+                $role->syncPermissions($PermissionSupervisor);
             }
 
             $roleList[] = $role->id;
         }
 
-        foreach ($userData as $data)
-        {
+        foreach ($userData as $data) {
             $user = User::create($data);
-            if ($user->id == 1)
-            {
+            if ($user->id == 1) {
                 $user->assignRole([$roleList[0]]);
-            }
-            elseif ($user->id == 2)
-            {
+            } elseif ($user->id == 2) {
                 $user->assignRole([$roleList[1]]);
-            }
-            else
-            {
+            } elseif ($user->id == 3) {
                 $user->assignRole([$roleList[2]]);
+            } else {
+                $user->assignRole([$roleList[3]]);
             }
         }
     }

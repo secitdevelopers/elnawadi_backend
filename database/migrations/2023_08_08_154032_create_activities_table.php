@@ -20,9 +20,6 @@ return new class extends Migration
             $table->integer('arrange')->default(1);
             $table->string('image');
             $table->decimal('price', 8, 2)->default(1)->nullable();
-            $table->decimal('price_for_one', 8, 2);
-            $table->decimal('price_for_two', 8, 2);
-            $table->decimal('price_for_three', 8, 2);
             $table->boolean('status')->default(true);
             $table->string('adress', 100);
             $table->string('activity_duration', 255)->nullable();
