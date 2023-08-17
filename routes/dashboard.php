@@ -79,15 +79,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/products', 'index')->name('products');
         Route::get('/products/inactive', 'productsInactive')->name('products.inactive');
         Route::get('/products/create', 'create')->name('products.create');
-        Route::get('/getSubsections', 'getSubsections')->name('getSubsections');
         Route::post('/products/update-status', 'updateStatusProduct')->name('products.update-status');
         Route::post('/products/store', 'store')->name('products.store');
         Route::post('/products/update', 'update')->name('products.update');
         Route::delete('/products/destroy', 'destroy')->name('products.destroy');
-        Route::get('/products/edit/{id}', 'edit')->name('products.edit');
         Route::get('/products/special', 'productSpacial')->name('products.special');
 
-        Route::get('/products/affiliateProduct', 'affiliateProduct')->name('products.affiliateProduct');
     });
 
 

@@ -41,7 +41,7 @@ class ActivityController extends Controller
         {
                 $rules = [
                 'name_ar' => 'required|string|max:100',
-                'name_en' => 'nullable|string|max:100',
+                // 'name_en' => 'nullable|string|max:100',
                 'activities_catogeries_id' => 'required|exists:activities_catogeries,id', // Ensure the referenced ID exists in activities_catogeries
                 'price' => 'required|numeric|between:0,999999.99',
       
@@ -65,7 +65,7 @@ class ActivityController extends Controller
             // $product->name_en = $request['name_en'];
             $activity->activities_catogeries_id = $request['activities_catogeries_id'];
 
-            $activity->price_for_one = ($request['price']);
+            $activity->price = ($request['price']);
 
             $activity->activity_duration = $request['activity_duration'];
             $activity->adress = $request['adress'];
