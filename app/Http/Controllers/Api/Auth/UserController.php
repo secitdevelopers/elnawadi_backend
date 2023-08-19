@@ -34,15 +34,24 @@ class UserController extends Controller
                     $user->email = $request->email;
                 }
             }
-            $user->name = $request->name;
-            $user->phone = $request->phone;
+          if ($request['name'] != null)
+            {
+                 $user->name = $request->name;
+            }
+
+          if ($request['phone'] != null)
+            {
+                $user->phone = $request->phone;
+            }
+           
+           
 
             $user->save();
             return response()->json(['message' => 'Success', 'status_code' => 200,], 200);
         }
         catch (\Throwable $th)
         {
-            return response()->json(['message' => 'error' . $th, 'status_code' => 404,], 404);
+            return response()->json(['message' => 'error', 'status_code' => 404,], 404);
         }
     }
 

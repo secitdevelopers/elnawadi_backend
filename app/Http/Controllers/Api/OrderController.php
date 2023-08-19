@@ -58,6 +58,9 @@ class OrderController extends Controller
     }
 
 
+
+
+
     public function saveOrder(Request $request)
     {
 
@@ -71,14 +74,13 @@ class OrderController extends Controller
         $token = $request->bearerToken();
         $orderPrice = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-            // Add any additional headers if required
         ])->get('http://localhost/khaymat/public/api/cart/checkout', [
             'user_address_id' => $request->user_address_id,
             'payment_method' => $request->payment_method,
             'coupon_code' => $request->coupon_code,
         ]);
 
-
+        return $orderPrice;
         $userId = $request->user->id; //1; //$request->user->id; 
         $userAddressId = $request->input('user_address_id');
         $paymentMethod = $request->input('payment_method');
@@ -131,6 +133,20 @@ class OrderController extends Controller
             return response()->json(['message' => 'Failed to save the order.', 'error' => $e->getMessage()], 500);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function cancelOrder(Request $request)
     {

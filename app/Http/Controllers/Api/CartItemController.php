@@ -176,8 +176,6 @@ class CartItemController extends Controller
         {
             $userId = $request->user->id;
             $couponCode = $request->input('coupon_code');
-            // $country_tax = 0.0;
-            // $first_order_discount = 0;
             $coupon = Coupon::where('code', $couponCode)
                 ->where('start_date', '<=', now())
                 ->where(function ($query)
@@ -190,26 +188,7 @@ class CartItemController extends Controller
 
             $cartItems = CartItem::cartItemsData($userId)->get();
             $dataPrices = $this->calculateTotalAndPrices($cartItems, $coupon->discount_amount ?? 0);
-            // $adreess = UserAddress::find($request->user_address_id);
 
-            // if ($adreess->country != 'الامارات')
-            // {
-            //     $country_tax = $this->calculateWeightProduct($cartItems, $adreess->country);
-            // }
-            // $user = User::find($userId);
-
-            // if ($user->isfirst == 1)
-            // {
-            //     $setting = Gift::first();
-            //     $first_order_discount = $setting->first_order_price;
-            // }
-
-            // $dataPrices->original['first_order_discount'] = $first_order_discount;
-            // $dataPrices->original['total'] -= $first_order_discount;
-            // $dataPrices->original['total_discount'] += (0 + $first_order_discount);
-
-            // $dataPrices->original['country_tax'] = $country_tax;
-            // $dataPrices->original['total'] += $country_tax??0;
             return response()->json([
                 'check_out' => $dataPrices->original,
                 'message' => 'Success',
