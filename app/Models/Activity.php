@@ -16,10 +16,7 @@ class Activity extends Model
     {
         return $this->hasMany(Subscription::class,'activity_id');
     }
-    public function activitiesCatogery()
-    {
-        return $this->belongsTo(ActivitiesCatogery::class,'activities_catogeries_id');
-    }
+ 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
