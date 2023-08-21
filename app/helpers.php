@@ -58,3 +58,16 @@ function statusPayment($status){
     }
 
 }
+
+
+
+
+function typeWithdrawer($status){
+    if ($status == 'won') {
+        return 'ربح';
+    } else if ($status == 'drawn') {
+        return 'مسحوب';
+    } else {
+        return 'معلق';
+    }
+}

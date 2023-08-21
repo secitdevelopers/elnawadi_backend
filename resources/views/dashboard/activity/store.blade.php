@@ -173,17 +173,23 @@
                                 <input class="form-control" placeholder="قم بإدخال المدة"type="text"
                                     name="activity_duration" value="" required>
                             </div>
+                            {{-- @php
+                                $user = \App\Models\User::find($user->id);
+                            @endphp --}}
+                            @if (Auth::user()->hasRole('admin'))
+                                <div class="col-lg">
+                                    <p class="mg-b-10"> الشركه التابع لها النشاط</p>
+                                    <select id="user_id" name="user_id" class="form-control SlectBox" required>
+                                        <option value="">اختار الشركه</option>
+                                        @foreach ($categories as $item)
+                                            <option value="{{ $item->user->id }}">{{ $item->company_name }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @else
+                                <input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
+                            @endif
 
-                            <div class="col-lg">
-                                <p class="mg-b-10"> النادي التابع للنشاط</p>
-                                <select id="activities_catogeries_id" name="activities_catogeries_id"
-                                    class="form-control SlectBox" required>
-                                    <option value="">اختار النادي</option>
-                                    @foreach ($categories as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name_ar }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
 
 
 

@@ -31,9 +31,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Product::class, 'user_id');
     }
-  public function activities()
+    public function activities()
     {
         return $this->hasMany(Activity::class, 'user_id');
+    }
+      public function withdrawal()
+    {
+        return $this->hasMany(Withdrawal::class, 'user_id');
     }
     /**
      * The attributes that are mass assignable.

@@ -16,6 +16,7 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\SettingWebController;
 use App\Http\Controllers\Dashboard\VendorController;
+use App\Http\Controllers\Dashboard\WithdrawalController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/coupons/update', 'update')->name('coupons.update');
         Route::post('/coupons/destroy', 'destroy')->name('coupons.destroy');
     });
+
+    Route::controller(WithdrawalController::class)->group(function () {
+        Route::get('/withdrawals', 'index')->name('withdrawals');      
+        Route::post('/withdrawals/store', 'store')->name('withdrawals.store'); 
+        Route::post('/withdrawals/destroy', 'destroy')->name('withdrawals.destroy');
+    });
+
+
+
     Route::controller(SettingController::class)->group(function () {
         Route::get('/setting', 'index')->name('setting');;
         Route::post('/setting.store', 'store')->name('setting.store');

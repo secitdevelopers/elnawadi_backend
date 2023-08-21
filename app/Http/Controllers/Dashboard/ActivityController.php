@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\ActivitiesCatogery;
 use App\Models\Activity;
+use App\Models\Setting;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Traits\ImageProcessing;
@@ -16,7 +17,13 @@ class ActivityController extends Controller
 
     public function index()
     {
-        $activities = Activity::all();
+        $activities = [];
+        if (Auth::user()->hasRole('admin')) {
+            $activities = Activity::all();
+        }else{
+             $activities = Activity::where("user_id",Auth::user()->id)->get();
+        }
+        
 
         return view('dashboard.activity.index', compact('activities'));
     }
@@ -24,7 +31,7 @@ class ActivityController extends Controller
     public function create()
     {
 
-        $categories = ActivitiesCatogery::all();
+        $categories = Setting::all();
         return view('dashboard.activity.store',compact('categories'));
     }
 
@@ -42,7 +49,7 @@ class ActivityController extends Controller
                 $rules = [
                 'name_ar' => 'required|string|max:100',
                 // 'name_en' => 'nullable|string|max:100',
-                'activities_catogeries_id' => 'required|exists:activities_catogeries,id', // Ensure the referenced ID exists in activities_catogeries
+               
                 'price' => 'required|numeric|between:0,999999.99',
       
                 'activity_duration' => 'nullable|string|max:255',
@@ -63,10 +70,7 @@ class ActivityController extends Controller
             $activity = new Activity();
             $activity->name_ar = $request['name_ar'];
             // $product->name_en = $request['name_en'];
-            $activity->activities_catogeries_id = $request['activities_catogeries_id'];
-
             $activity->price = ($request['price']);
-
             $activity->activity_duration = $request['activity_duration'];
             $activity->adress = $request['adress'];
             $activity->start_data = $request['start_data'];
@@ -75,7 +79,7 @@ class ActivityController extends Controller
             $activity->description_ar = $request['description_ar'];
             $data['image'] = $this->saveImage($request->file('image'), 'activity');
             $activity->image = 'imagesfp/activity/' . $data['image'];
-            $activity->user_id = Auth::user()->id;
+            $activity->user_id = $request['user_id'];
             $activity->save();
             DB::commit();
             session()->flash('Add', 'تم اضافة المنتج بنجاح ');

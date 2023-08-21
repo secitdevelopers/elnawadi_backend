@@ -140,7 +140,7 @@
                                         <td>
 
 
-                                            @can('حالة منتج')
+                                            @can('حالة نشاط')
                                                 <div class="main-toggle main-toggle-success {{ $activity->status == true ? 'on' : '' }} btn-sm ml-2"
                                                     data-activity-id="{{ $activity->id }}">
                                                     <span></span>
@@ -152,13 +152,13 @@
                                         <td>
                                             <div class="d-flex">
 
-                                                @can('تعديل منتج')
+                                                @can('تعديل نشاط')
                                                     <a class="btn btn-sm btn-info btn-sm ml-2"
                                                         href="{{ route('activities.edit', $activity->id) }}" title="تعديل">
                                                         <i class="las la-pen"></i>
                                                     </a>
                                                 @endcan
-                                                @can('حذف منتج')
+                                                @can('حذف نشاط')
                                                     <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                         data-id="{{ $activity->id }}" data-name="{{ $activity->name_ar }}"
                                                         data-toggle="modal" href="#modaldemo9" title="حذف"><i
@@ -275,7 +275,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">حذف النشطاط</h6>
+                        <h6 class="modal-title">حذف النشاط</h6>
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>

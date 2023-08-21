@@ -87,18 +87,19 @@
             <div class="card">
                 <div class="col-sm-6 col-md-4 col-xl-3">
                     <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
-                        href="#modaldemo8">اضافة لون</a>
+                        href="#modaldemo8">طلب سحب رصيد</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example1">
                             <thead>
                                 <tr>
-                                    <th class="wd-15p border-bottom-0">رقم الون</th>
-                                    <th class="wd-15p border-bottom-0">اسم الون</th>
-                                    <th class="wd-15p border-bottom-0">قيمة الون</th>
-
-                                    <th class="wd-20p border-bottom-0">العمليات</th>
+                                    <th class="wd-15p border-bottom-0">#</th>
+                                    <th class="wd-15p border-bottom-0">رقم التعريفي</th>
+                                    <th class="wd-15p border-bottom-0">مجموع المال</th>
+                                    <th class="wd-15p border-bottom-0">التاريخ</th>
+                                    <th class="wd-15p border-bottom-0">نوع الحركة</th>
+                                    <th class="wd-20p border-bottom-0">عمليات</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,33 +108,25 @@
                                     $i = 0;
                                 @endphp
 
-                                @foreach ($colors as $color)
+                                @foreach ($withdrawals as $withdrawal)
                                     @php
                                         $i++;
                                     @endphp
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        </td>
-                                        <td>{{ $color->name_ar }}</td>
-                                        <td>{{ $color->color_code }}</td>
 
+                                        <td>{{ $withdrawal->id }}</td>
+                                        <td>{{ $withdrawal->total }}</td>
+                                        <td>{{ $withdrawal->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ typeWithdrawer($withdrawal->type) }}</td>
                                         <td>
                                             <div class="d-flex">
 
-                                                <a class="modal-effect btn btn-sm btn-info btn-sm ml-2"
-                                                    data-effect="effect-scale" data-id="{{ $color->id }}"
-                                                    data-name_ar="{{ $color->name_ar }}"
-                                                    data-name_en="{{ $color->name_en }}"
-                                                    data-color_code="{{ $color->color_code }}" data-toggle="modal"
-                                                    href="#exampleModal2" title="تعديل"><i class="las la-pen">
-
-                                                    </i>
-                                                </a>
 
 
 
                                                 <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                    data-id="{{ $color->id }}" data-name="{{ $color->name_ar }}"
+                                                    data-id="{{ $withdrawal->id }}" data-name="{{ $withdrawal->id }}"
                                                     data-toggle="modal" href="#modaldemo9" title="حذف"><i
                                                         class="las la-trash"></i></a>
                                             </div>
@@ -155,24 +148,18 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">اضافة لون</h6><button aria-label="Close" class="close" data-dismiss="modal"
-                            type="button"><span aria-hidden="true">&times;</span></button>
+                        <h6 class="modal-title"> طلب سحب رصيد</h6><button aria-label="Close" class="close"
+                            data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('colors.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('withdrawals.store') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
+
                             <div class="form-group">
-                                <label for="exampleInputEmail1">اسم الون باللغه العربيه</label>
-                                <input type="text" class="form-control" id="name_ar" name="name_ar" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">اسم الون باللغه الانجليزيه</label>
-                                <input type="text" class="form-control" id="name_en" name="name_en" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1"> قيمة الون</label>
-                                <input type="text" class="form-control" id="color_code" name="color_code" required>
+                                <label for="exampleInputEmail1">الرصيد</label>
+                                <input type="number" class="form-control" id="price" name="price" min="1"
+                                    placeholder="قم بادخال الرصيد المارد سحبه" required>
                             </div>
 
                             <div class="modal-footer">
@@ -185,56 +172,19 @@
             </div>
 
         </div>
-        <!-- row closed -->
-        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">تعديل الون</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('colors.update', 0) }}" method="post" enctype="multipart/form-data">
-                            {{ method_field('PUT') }}
-                            {{ csrf_field() }}
-                            <input type="hidden" name="id" id="id" value="">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">اسم الون باللغه العربيه</label>
-                                <input type="text" class="form-control" id="name_ar" name="name_ar">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">اسم الون باللغه الانجليزيه</label>
-                                <input type="text" class="form-control" id="name_en" name="name_en">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1"> قيمة الون</label>
-                                <input type="text" class="form-control" id="color_code" name="color_code" required>
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">تاكيد</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
         <!-- delete -->
         <div class="modal" id="modaldemo9">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">حذف الون</h6>
+                        <h6 class="modal-title">حذف </h6>
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('colors.destroy', 0) }}" method="post">
-                        {{ method_field('DELETE') }}
+                    <form action="{{ route('withdrawals.destroy') }}" method="post">
+                        {{ method_field('post') }}
                         {{ csrf_field() }}
                         <div class="modal-body">
                             <p>هل أنت متأكد من عملية الحذف؟</p><br>
@@ -304,12 +254,12 @@
                 var id = button.data('id')
                 var name_ar = button.data('name_ar')
                 var name_en = button.data('name_en')
-                var color_code = button.data('color_code')
+                var withdrawal_code = button.data('withdrawal_code')
                 var modal = $(this)
                 modal.find('.modal-body #id').val(id)
                 modal.find('.modal-body #name_ar').val(name_ar)
                 modal.find('.modal-body #name_en').val(name_en)
-                modal.find('.modal-body #color_code').val(color_code)
+                modal.find('.modal-body #withdrawal_code').val(withdrawal_code)
 
             })
         });
