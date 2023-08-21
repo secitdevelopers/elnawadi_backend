@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             UserAddressTableSeeder::class,
             CatogeryTableSeeder::class,
-            ActivitiesCatogeryTableSeeder::class,
+
             ActivityTableSeeder::class,
             // SubCatogeryTableSeeder::class,
             // SizeTableSeeder::class,

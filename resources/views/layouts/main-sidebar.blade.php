@@ -408,7 +408,7 @@
                             </svg><span class="side-menu__label">الاعدادات</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">'
 
-                            @can('الاعدادت الرئيسيه')
+                            @can('اعدادت مزودي الخدمه')
                                 <li><a class="slide-item" href="{{ route('setting') }}">اعدادات
                                         مزودي الخدمة</a></li>
                             @endcan

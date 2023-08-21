@@ -41,11 +41,11 @@ class ActivityController extends Controller
 
 
 
-    public function getactivitiesBysubActivitiesCatogery($subCatogeryId): JsonResponse
+    public function getactivitiesByCompany(Request $request): JsonResponse
     {
         try {
-            $validator = Validator::make(['subCategoryId' => $subCatogeryId], [
-                'subCategoryId' => 'required|integer|exists:activities_catogeries,id',
+            $validator = Validator::make(['user_id' => $request->user_id], [
+                'user_id' => 'required|integer|exists:users,id',
             ]);
 
             if ($validator->fails()) {
@@ -53,7 +53,7 @@ class ActivityController extends Controller
             }
 
 
-            $activities = Activity::where('activities_catogeries_id', '=', $subCatogeryId)->activeAndSorted()->paginate(10);
+            $activities = Activity::where('user_id', '=', $request->user_id)->activeAndSorted()->paginate(10);
 
 
 

@@ -73,12 +73,7 @@ Route::group(['middleware' => 'sanctum'], function ()
         Route::delete('/user-addresses/destroy/{id}', 'destroy');
     });
 });
-
     Route::get('/categories', [CategoryController::class, 'getCatogery'])->name('categories')->middleware('ChangeLanguage');
-    Route::get('/activitiesCatogeries', [ActivitiesCatogeryController::class, 'index'])->name('activitiesCatogeries')->middleware('ChangeLanguage');
-    Route::get('categories/{categoryId}/subcategories', [SubCategoryController::class, 'getSubcategories'])->middleware('ChangeLanguage');
-
-
     Route::controller(ProductController::class)->group(function ()
     {
     Route::get('/products',  'getProducts')->name('products.getProducts');
@@ -90,7 +85,7 @@ Route::group(['middleware' => 'sanctum'], function ()
     Route::controller(ActivityController::class)->group(function ()
     {
     Route::get('/activities',  'getActivity')->name('activities.getProducts');
-    Route::get('/activities_catogeries/{subCatogeryId}/activities', 'getactivitiesBysubActivitiesCatogery')->name('activities.getactivitiesBysubActivitiesCatogery');
+    Route::get('/companies/activities', 'getactivitiesByCompany');
     Route::get('/activities/{productId}', 'getActivityById')->name('product.activities');
     // Route::post('/search-product',  'searchProduct')->name('search-product');
     // Route::post('updateviews/{id}', 'updateViews')->name('updateviews');
@@ -139,6 +134,7 @@ Route::group(['middleware' => 'sanctum'], function ()
     {
         Route::get('/settings', 'index')->name('setting.index');
         Route::get('/settings/shop/{id}', 'shopDetalis')->name('setting.shop');
+        Route::get('/companies', 'getCompanies')->name('companies');
     });
 
 

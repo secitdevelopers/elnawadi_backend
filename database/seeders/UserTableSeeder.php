@@ -40,6 +40,71 @@ class UserTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
+
+
+            [
+                'name' => 'magdy',
+                'type' => 'vendor',
+                'status' => 1,
+                'phone' => '011111111111',
+                'email' => 'vendor1@gmail.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('12345678'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
+                        [
+                'name' => 'hossam',
+                'type' => 'vendor',
+                'status' => 1,
+                'phone' => '011111111111',
+                'email' => 'vendor2@gmail.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('12345678'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
+                        [
+                'name' => 'yousef',
+                'type' => 'vendor',
+                'status' => 1,
+                'phone' => '011111111111',
+                'email' => 'vendor3@gmail.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('12345678'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
+                        [
+                'name' => 'mohand',
+                'type' => 'vendor',
+                'status' => 1,
+                'phone' => '011111111111',
+                'email' => 'vendor4@gmail.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('12345678'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+                        [
+                'name' => 'ali mohammed',
+                'type' => 'vendor',
+                'status' => 1,
+                'phone' => '011111111111',
+                'email' => 'vendor5@gmail.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('12345678'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             [
                 'name' => 'ahmed',
                 'type' => 'supervisor',
@@ -212,15 +277,15 @@ class UserTableSeeder extends Seeder
         foreach ($userData as $data)
         {
             $user = User::create($data);
-            if ($user->id == 1)
+            if ($user->type == "admin")
             {
                 $user->assignRole([$roleList[0]]);
             }
-            elseif ($user->id == 2)
+            elseif ($user->type == "vendor")
             {
                 $user->assignRole([$roleList[1]]);
             }
-            elseif ($user->id == 3)
+            elseif ($user->type == "supervisor")
             {
                 $user->assignRole([$roleList[2]]);
             }

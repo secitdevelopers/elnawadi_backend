@@ -28,7 +28,9 @@ return new class extends Migration
             $table->text('biographical_information')->nullable();
             $table->string('logo')->nullable();
             $table->boolean('isadmin')->nullable()->default(false);
-            $table->string('background_image')->nullable();
+            $table->string('background_image')->nullable();            
+            $table->boolean('status')->default(true);
+             $table->integer('arrange')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
