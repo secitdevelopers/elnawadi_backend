@@ -27,11 +27,11 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('delivery_instruction')->nullable();
-            $table->integer('default')->default(2);
+            $table->integer('default')->nullable()->default(2);
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')->onDelete('cascade');;
+                ->on('users')->onDelete('cascade');
         });
     }
 

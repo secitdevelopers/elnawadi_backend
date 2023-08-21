@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Validator;
 class UserAddressController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         try
         {
-            $userAddresses = UserAddress::all();
+            $userAddresses = UserAddress::where("user_id",$request->user->id)->get();
+        
             return response()->json([
                 'userAddresses' => $userAddresses,
                 'message' => 'Success',
@@ -48,7 +49,7 @@ class UserAddressController extends Controller
                 'email' => 'required|email',
                 'phone' => 'required|string',
                 'delivery_instruction' => 'nullable|string',
-                'default' => 'required|in:0,1',
+                // 'default' => 'required|in:0,1',
             ]);
 
             if ($validator->fails())
@@ -85,15 +86,15 @@ class UserAddressController extends Controller
                 'id' => 'required|exists:user_addresses,id',
                 'country' => 'string',
                 'state' => 'nullable|string',
-                'city' => 'required|string',
+                'city' => 'nullable|string',
                 'zip' => 'nullable|string',
-                'address_1' => 'required|string',
+                'address_1' => 'nullable|string',
                 'address_2' => 'nullable|string',
-                'name' => 'required|string',
-                'email' => 'required|email',
-                'phone' => 'required|string',
+                'name' => 'nullable|string',
+                'email' => 'nullable|email',
+                'phone' => 'nullable|string',
                 'delivery_instruction' => 'nullable|string',
-                'default' => 'required|in:0,1',
+                // 'default' => 'required|in:0,1',
             ]);
 
             if ($validator->fails())

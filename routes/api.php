@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
+Route::group(['middleware' => 'ChangeLanguage'], function ()
+{
 Route::post('verification-notification', [EmailVerificationController::class, 'sendEmailverfyc'])->name('verification-notification');
 Route::post('verify-email', [EmailVerificationController::class, 'verifyEmail'])->name('verify-email');
 Route::post('verify-code', [EmailVerificationController::class, 'verifyCode'])->name('verify-code');
@@ -72,8 +73,7 @@ Route::group(['middleware' => 'sanctum'], function ()
         Route::delete('/user-addresses/destroy/{id}', 'destroy');
     });
 });
-Route::group(['middleware' => 'ChangeLanguage'], function ()
-{
+
     Route::get('/categories', [CategoryController::class, 'getCatogery'])->name('categories')->middleware('ChangeLanguage');
     Route::get('/activitiesCatogeries', [ActivitiesCatogeryController::class, 'index'])->name('activitiesCatogeries')->middleware('ChangeLanguage');
     Route::get('categories/{categoryId}/subcategories', [SubCategoryController::class, 'getSubcategories'])->middleware('ChangeLanguage');
@@ -119,7 +119,7 @@ Route::group(['middleware' => 'ChangeLanguage'], function ()
         Route::get('primary-color', 'primeryColor');
         Route::post('sendOtp', 'sendOtp')->name('sendOtp');
     });
-});
+
 
 
 Route::group(['middleware' => 'sanctum'], function ()
@@ -144,3 +144,4 @@ Route::group(['middleware' => 'sanctum'], function ()
 
 Route::get('/countries', CountryController::class)->name('countries');
 Route::get('/banners', BannerController::class)->name('banners');
+});

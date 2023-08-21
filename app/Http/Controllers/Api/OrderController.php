@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class OrderController extends Controller
 {
@@ -61,27 +62,37 @@ class OrderController extends Controller
 
 
 
-    public function saveOrder(Request $request)
+  public function saveOrder(Request $request)
     {
 
         $request->validate([
             'user_address_id' => 'required|integer',
-            'payment_method' => 'required|string',
+            'payment_method' => 'required|string',  
+            'token' => 'required|string',
             'coupon_code' => 'nullable|string',
             'description' => 'nullable|string',
         ]);
 
-        $token = $request->bearerToken();
-        $orderPrice = Http::withHeaders([
+        $token = $request->token;
+         $accessToken = PersonalAccessToken::findToken($token);
+            if (!$accessToken)
+            {
+                return response()->json(['message' => __('custom.unauthorized'), 401], 401);
+            }
+            $mainRoute = env('MAIN_ROUTE');
+            $user = $accessToken->tokenable;
+         
+            $orderPrice = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost/khaymat/public/api/cart/checkout', [
+            // Add any additional headers if required
+        ])->get($mainRoute.'/cart/checkout', [
             'user_address_id' => $request->user_address_id,
             'payment_method' => $request->payment_method,
             'coupon_code' => $request->coupon_code,
         ]);
 
-        return $orderPrice;
-        $userId = $request->user->id; //1; //$request->user->id; 
+        
+        $userId = $user->id; //1; //$request->user->id; 
         $userAddressId = $request->input('user_address_id');
         $paymentMethod = $request->input('payment_method');
         // $paymentStatus = $request->input('payment_status');
@@ -126,13 +137,14 @@ class OrderController extends Controller
                     'order_id' => $orderId,
                 ]);
             } else {
-                return response()->json(['message' => 'Order saved successfully.', 'order_id' => $orderId], 200);
+                return response()->json(['message' => __('custom.order_saved_successfully'), 'order_id' => $orderId], 200);
             }
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['message' => 'Failed to save the order.', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' =>  __('custom.failed_to_retrieve_data'), 'error' => $e->getMessage()], 500);
         }
     }
+
 
 
 
