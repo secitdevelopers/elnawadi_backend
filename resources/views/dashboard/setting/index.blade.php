@@ -57,7 +57,11 @@
 
                         <div class="pl-0">
                             <div class="main-profile-overview">
-                                <input type="text" value="{{ Auth::user()->id }}" name="user_id" hidden>
+                                {{-- @php
+                                    $userId = $request->user_id ?? Auth::user()->id;
+                                @endphp --}}
+                                <input type="text" value="{{ $user_id }}" name="user_id" hidden>
+                                <input type="text" value="{{ $setting->id }}" name="seeting_id" hidden>
                                 <div class="main-img-user profile-user">
                                     <img id="profile-image" alt="" src="{{ URL::asset($setting->logo ?? '') }}">
                                     <label for="image-upload" class="fas fa-camera profile-edit"></label>

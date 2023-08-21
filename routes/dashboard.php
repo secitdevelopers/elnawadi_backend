@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/setting.store', 'store')->name('setting.store');
         Route::post('/setting.update', 'update')->name('setting.update');
         Route::post('/setting.destroy', 'destroy')->name('setting.destroy');
+        Route::get('/companies', 'companies')->name('companies');
+        Route::delete('/companies/destroy', 'destroy')->name('companies.destroy');
     });
         Route::controller(BannerController::class)->group(function () {
         Route::get('/banners', 'index')->name('banners');

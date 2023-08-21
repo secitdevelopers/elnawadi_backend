@@ -370,6 +370,9 @@
                                 </li>
                             @endcan
 
+                            <li><a class="slide-item" href="{{ route('companies') }}">الشركات</a>
+                            </li>
+
                         </ul>
                     </li>
                 @endcan

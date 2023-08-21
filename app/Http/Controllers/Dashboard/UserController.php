@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -81,7 +82,11 @@ class UserController extends Controller
             // Update the status field
             $user->status = $status;
             $user->save();
-
+            $setting = Setting::where('user_id', $userId)->first();
+            if ($setting) {
+                $setting->status = $status;
+                $setting->save();
+            }
             return response()->json(['success' => true, 'message' => 'User status  updated successfully']);
         }
 

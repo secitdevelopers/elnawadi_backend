@@ -114,7 +114,7 @@
                                     <th class="border-bottom-0">رقم الهاتف</th>
                                     <th class="border-bottom-0">البريد الاكتروني</th>
                                     <th class="border-bottom-0">صلاحيات المستخدم</th>
-
+                                    <th class="border-bottom-0">الحاله</th>
                                     <th class="border-bottom-0"> العمليات</th>
 
                                 </tr>
@@ -129,30 +129,45 @@
                                         <td>{{ $user->phone ?? 0 }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->type }}</td>
+                                        <td>
 
+
+                                            <div class="main-toggle main-toggle-success {{ $user->status == 1 ? 'on' : '' }} btn-sm ml-2"
+                                                data-user-id="{{ $user->id }}">
+                                                <span></span>
+                                            </div>
+
+                                        </td>
                                         <td>
                                             <div class="d-flex">
 
 
-
-                                                <div class="main-toggle main-toggle-success {{ $user->status == 1 ? 'on' : '' }} btn-sm ml-2"
-                                                    data-user-id="{{ $user->id }}">
-                                                    <span></span>
-                                                </div>
-
-                                                {{-- 
-                                                <a class="btn btn-sm btn-info btn-sm ml-2"
-                                                    href="{{ route('userUpdate', $user->id) }}" title="تعديل">
-                                                    <i class="las la-pen"></i>
-                                                </a> --}}
                                                 <form action="{{ route('userUpdate', $user->id) }}">
                                                     <button class="btn btn-outline-success btn-sm ml-2">تعديل
 
                                                     </button>
                                                 </form>
+                                                @php
+                                                    $user = \App\Models\User::find($user->id);
+                                                @endphp
+                                                @if ($user->hasRole('vendor'))
+                                                    <form action="{{ route('setting') }}">
+                                                        <input type="text" name="user_id" value="{{ $user->id }}"
+                                                            hidden>
+                                                        <button class="btn btn-outline-primary btn-sm ml-2">الشركه
+
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+
+
                                                 <button class="btn btn-outline-danger btn-sm "
                                                     data-pro_id="{{ $user->id }}" data-name="{{ $user->name }}"
-                                                    data-toggle="modal" data-target="#modaldemo9">حذف</button>
+                                                    data-toggle="modal" data-target="#modaldemo9">حذف
+                                                </button>
+
+
                                             </div>
                                         </td>
 

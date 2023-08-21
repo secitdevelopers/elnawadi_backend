@@ -14,17 +14,22 @@ class SettingController extends Controller
 {
     use ImageProcessing;
 
-    public function index()
+    public function index(Request $request)
     {
-        // $setting = Setting::first();
-        $setting = Setting::where('user_id', Auth::user()->id)->first();
-        return view('dashboard.setting.index', ['setting' => $setting]);
+
+        $userId = $request->user_id ?? Auth::user()->id;
+        $setting = Setting::where('user_id',$userId)->first();
+        return view('dashboard.setting.index', [
+            'setting' => $setting,
+            'user_id' => $userId,
+    ]);
     }
 
 
-    public function create()
+    public function companies()
     {
-        //
+        $settings = Setting::all();
+        return view('dashboard.company.index', ['settings' => $settings]);
     }
 
 
@@ -54,7 +59,7 @@ class SettingController extends Controller
                 'company_name' => $request->username,
                 'email' => $request->email, 
                 'user_id' => $request->user_id,
-                 'isadmin' => false,
+                'isadmin' => false,
                 'company_phone' => $request->phone,
                 'company_address' => $request->address,
                 'twitter' => $request->twitter,
@@ -112,7 +117,7 @@ public function update(Request $request)
             return back()->withErrors($validator)->withInput();
         }
 
-        $setting = Setting::findOrFail($request->user_id);
+        $setting = Setting::findOrFail($request->seeting_id);
 
 
 
@@ -144,8 +149,11 @@ public function update(Request $request)
 
 
 
-    public function destroy(Setting $setting)
+    public function destroy(Request $request)
     {
-        //
+        $setting = Setting::find($request->id);
+        $setting->delete();
+        session()->flash('delete', 'تم الحذف بنجاح ');
+        return redirect()->route('companies')->with('success', 'size deleted successfully');
     }
 }
