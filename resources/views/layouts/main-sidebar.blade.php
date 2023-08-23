@@ -394,8 +394,8 @@
 
                 @can('الاداره الماليه')
                     <li class="slide">
-                        <a class="side-menu__item" href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                                class="side-menu__icon" viewBox="0 0 24 24">
+                        <a class="side-menu__item" href="{{ route('withdrawals.mangment') }}"><svg
+                                xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0V0z" fill="none" />
                                 <path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z"
                                     opacity=".3" />

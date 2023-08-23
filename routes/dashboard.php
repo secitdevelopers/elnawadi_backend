@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\SettingWebController;
 use App\Http\Controllers\Dashboard\VendorController;
 use App\Http\Controllers\Dashboard\WithdrawalController;
+use App\Http\Controllers\Dashboard\WithdrawalMangmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,9 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
 
-    Route::get('/orders-statistics', [DashboardController::class, 'getStatistics']);
 
-    Route::get('/home', [DashboardController::class, 'main'])->name('home');
     Route::get('/vendor', [VendorController::class, 'vendorMain'])->name('vendorMain');
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubCatogeryController::class);
@@ -46,6 +45,26 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);
     Route::post('/categories/update-status', [CategoryController::class, 'updateStatusCatogery'])->name('categories.update-status');
     Route::post('/subcategories/update-status', [SubCatogeryController::class, 'updateStatusCatogery'])->name('subcategories.update-status');
+
+
+
+
+
+    Route::controller(DashboardController::class)->group(function () {
+        // Route::get('/home/supervisorMain', 'supervisorMain')->name('home.supervisorMain');
+            Route::get('/orders-statistics', 'getStatistics');
+
+            Route::get('/home', 'main')->name('home');
+    });
+
+
+
+
+
+
+
+
+
 
     Route::controller(CouponController::class)->group(function () {
         Route::get('/coupons', 'index')->name('coupons');
@@ -61,6 +80,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/withdrawals/destroy', 'destroy')->name('withdrawals.destroy');
     });
 
+    Route::controller(WithdrawalMangmentController::class)->group(function () {
+        Route::get('/withdrawals/mangment', 'index')->name('withdrawals.mangment');      
+        Route::post('/withdrawals/mangment/changeType', 'changeType')->name('withdrawals.changeType'); 
+        // Route::post('/withdrawals/destroy', 'destroy')->name('withdrawals.destroy');
+    });
 
 
     Route::controller(SettingController::class)->group(function () {

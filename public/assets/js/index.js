@@ -144,7 +144,7 @@ $(function ()
 	// const url = "/dashboard/orders-statistics";
 	// Fetch data from backend and render the chart
 
-	const url = "https://wealthest22.com/khymat-zaman-back/public/dashboard/orders-statistics";
+	const url = "https://wealthest22.com/elnawadi_backend/public/dashboard/orders-statistics";
 
 	fetch(url)
 		.then(response => response.json())

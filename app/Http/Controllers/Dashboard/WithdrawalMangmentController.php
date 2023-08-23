@@ -8,19 +8,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class WithdrawalController extends Controller
+class WithdrawalMangmentController extends Controller
 {
   
     public function index()
     {
-          $withdrawals=  Withdrawal::where("user_id",Auth::user()->id)->get();
-         return view('dashboard.withdrawal.index', compact('withdrawals'));
+          $withdrawals=  Withdrawal::all();
+            return view('dashboard.withdrawal-mangment.index', compact('withdrawals'));
+        
     }
 
 
-    public function create()
+    public function changeType(Request $request)
     {
-        //
+        $withdrawal = Withdrawal::find($request->id);
+        $withdrawal->type = $request->type;
+        $withdrawal->save();   session()->flash('Add', 'تم تغيير الحاله بنجاح');
+
+           return redirect()->route('withdrawals.mangment')->with('success', 'withdrawal created successfully');
     }
 
 
@@ -89,6 +94,6 @@ class WithdrawalController extends Controller
         $withdrawal = Withdrawal::find($request->id);
         $withdrawal->delete();
         session()->flash('delete', '  تم الحذف  ');
-       return redirect()->route('withdrawals')->with('success', 'withdrawal created successfully');
+     return redirect()->route('withdrawals.mangment')->with('success', 'withdrawal created successfully');
     }
 }

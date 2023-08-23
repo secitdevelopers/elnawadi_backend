@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,11 +22,13 @@ class DashboardController extends Controller
     $totalProduct = Product::count();
     $totalCatogeries = Category::count();
     $totalSubCatogeries = SubCategory::count();
-    $totalcountery = Country::count();
-    $productUnActive = Product::where('status', 0)->count();
-    $productActive = Product::where('status', 1)->count();
+    // $totalcountery = Country::count();
+     $totalactivities = Activity::count();
+    $clubUnActive = Activity::where('status', 0)->count();
+    $clubActive = Activity::where('status', 1)->count();
     $mostViewedProducts = Product::orderBy('views', 'desc')->limit(5)->get();
     $totalOrder = Order::count();
+    $totalSettings = Setting::count();
     $totalUser = User::count();
     $last5Customers = User::orderBy('created_at', 'desc')->take(5)->get();
     $totalRevenue = Order::where('cancelled',false)->sum('total');
@@ -52,6 +56,15 @@ class DashboardController extends Controller
      $lastFiveOrders = Order::orderBy('created_at', 'desc')
                            ->limit(5)
                            ->get();
+
+
+         $userdata = User::whereHas('roles', function ($query) {
+            $query->where('name', 'supervisor');
+        })->orderBy('id', 'DESC')
+            ->with('roles')
+            ->get();
+
+            
     //  return response([
     //    'ordersBypayment_status' => $ordersBypayment_status,
     //   'totalProduct' => $totalProduct,     
@@ -71,12 +84,12 @@ class DashboardController extends Controller
     // ]);
     return view('dashboard.home.index', [
        'ordersBypayment_status' => $ordersBypayment_status,
-      'totalProduct' => $totalProduct,     
+      'totalProduct' => $totalProduct,     'totalactivities' => $totalactivities, 'userdata' => $userdata, 
       'totalCatogeries' => $totalCatogeries,
       'totalSubCatogeries' => $totalSubCatogeries,
-      'totalcountery' => $totalcountery,
-      'productUnActive' => $productUnActive,
-      'productActive' => $productActive,
+     'totalSettings' => $totalSettings,
+      'clubUnActive' => $clubUnActive,
+      'clubActive' => $clubActive,
       'mostViewedProducts' => $mostViewedProducts,
       'totalOrder' => $totalOrder,
       'totalUser' => $totalUser,
@@ -91,6 +104,31 @@ class DashboardController extends Controller
       'lastFiveOrders' => $lastFiveOrders,
     ]);
   } 
+
+
+
+
+
+
+
+    public function supervisorMain(Request $request)
+    {
+        $userdata = User::whereHas('roles', function ($query) {
+            $query->where('name', 'supervisor');
+        })->orderBy('id', 'DESC')
+            ->with('roles')
+            ->get();
+
+        $roles = Role::all();
+
+        return view('dashboard.user.index', compact('userdata', 'roles'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+
+
+
+
      public function getStatistics()
     {
         $orders = Order::selectRaw('MONTH(created_at) as month, total, status')

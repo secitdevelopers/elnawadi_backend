@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--  Owl-carousel css-->
     <link href="{{ URL::asset('assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet" />
     <!-- Maps css -->
@@ -57,16 +58,37 @@
                 <span id="compositeline" class="pt-1">5,9,5,6,4,12,18,14,10,15,12,5,8,5,12,5,12,10,16,12</span>
             </div>
         </div>
+
         <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
-            <div class="card overflow-hidden sales-card bg-danger-gradient">
+            <div class="card overflow-hidden sales-card bg-warning-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">اجمالي عدد الطلبات</h6>
+                        <h6 class="mb-3 tx-12 text-white">عدد المستخدين في لنظام</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalOrder }}</h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalUser }}</h4>
+                                {{-- <p class="mb-0 tx-12 text-white op-7">هذه الاحصائيه لاخر شهر</p> --}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <span id="compositeline4" class="pt-1">5,9,5,6,4,12,18,14,10,15,12,5,8,5,12,5,12,10,16,12</span>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
+            <div class="card overflow-hidden sales-card bg-danger-gradient">
+                <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
+                    <div class="">
+                        <h6 class="mb-3 tx-12 text-white">عدد النوادي في النظام</h6>
+                    </div>
+                    <div class="pb-0 mt-0">
+                        <div class="d-flex">
+                            <div class="">
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalSettings }}</h4>
                                 {{-- <p class="mb-0 tx-12 text-white op-7">هذه الاحصائيه لاخر شهر</p> --}}
                             </div>
 
@@ -95,25 +117,9 @@
                 <span id="compositeline3" class="pt-1">5,10,5,20,22,12,15,18,20,15,8,12,22,5,10,12,22,15,16,10</span>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
-            <div class="card overflow-hidden sales-card bg-warning-gradient">
-                <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
-                    <div class="">
-                        <h6 class="mb-3 tx-12 text-white">مجموع عدد مستخدمين التطبيق</h6>
-                    </div>
-                    <div class="pb-0 mt-0">
-                        <div class="d-flex">
-                            <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalUser }}</h4>
-                                {{-- <p class="mb-0 tx-12 text-white op-7">هذه الاحصائيه لاخر شهر</p> --}}
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
-                <span id="compositeline4" class="pt-1">5,9,5,6,4,12,18,14,10,15,12,5,8,5,12,5,12,10,16,12</span>
-            </div>
-        </div>
+
+
     </div>
     <!-- row closed -->
 
@@ -159,37 +165,56 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-12 col-lg-12">
+        <div class="col-xl-3 col-md-10 col-lg-5">
             <div class="card">
                 <div class="card-header pb-1">
-                    <h3 class="card-title mb-2">العملاء في الآونة الأخيرة</h3>
-                </div>
-                <div class="card-body p-0 customers mt-1">
-                    <div class="list-group list-lg-group list-group-flush">
-                        @foreach ($last5Customers as $item)
-                            <div class="list-group-item list-group-item-action" href="#">
-                                <div class="media mt-0">
-                                    <img class="avatar-lg rounded-circle ml-3 my-auto"
-                                        src="{{ URL::asset('assets/img/faces/3.jpg') }}" alt="Image description">
-                                    <div class="media-body">
-                                        <div class="d-flex align-items-center">
-                                            <div class="mt-0">
-                                                <h5 class="mb-1 tx-15">{{ $item->name }}</h5>
-                                                <p class="mb-0 tx-13 text-muted">معرف المستخدم : {{ $item->id }}<span
-                                                        class="text-success ml-2"> البريد:{{ $item->email }}</span>
-                                                    {{--  --}}
-                                                    {{--  --}}
-                                                </p>
-                                            </div>
-                                            <span class="mr-auto wd-45p fs-16 mt-2">
+                    <h3 class="card-title mb-2">نظرة عامة على الانشطة داخل المنصة</h3>
 
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                </div>
+                <div class="product-timeline card-body pt-2 mt-1">
+                    <ul class="timeline-1 mb-0">
+                        <li class="mt-0"> <i class="ti-pie-chart bg-primary-gradient text-white product-icon"></i> <span
+                                class="font-weight-semibold mb-4 tx-14 "> اجمالي عدد الأنشطة في النظام </span> <a
+                                href="#" class="float-left tx-11 text-muted"></a>
+                            <p class="mb-0 text-muted tx-12">{{ $totalactivities }} مجموع الأنشطة </p>
+                        </li>
+
+
+                        <li class="mt-0"> <i class="mdi mdi-cart-outline bg-danger-gradient text-white product-icon"></i>
+                            <span class="font-weight-semibold mb-4 tx-14 ">عدد الأنشطة النشطه</span> <a href="#"
+                                class="float-left tx-11 text-muted"></a>
+                            <p class="mb-0 text-muted tx-12">{{ $clubActive }} عدد الانشطة </p>
+                        </li>
+
+                        <li class="mt-0"> <i class="mdi mdi-cart-outline bg-danger-gradient text-white product-icon"></i>
+                            <span class="font-weight-semibold mb-4 tx-14 ">عدد الأنشطة الغير نشطه</span> <a href="#"
+                                class="float-left tx-11 text-muted"></a>
+                            <p class="mb-0 text-muted tx-12">{{ $clubUnActive }} عدد الأنشطة </p>
+                        </li>
+
+                        <li class="mt-0"> <i class="ti-bar-chart-alt bg-success-gradient text-white product-icon"></i>
+                            <span class="font-weight-semibold mb-4 tx-14 ">عدد الطلبات</span> <a href="#"
+                                class="float-left tx-11 text-muted"></a>
+                            <p class="mb-0 text-muted tx-12">{{ $totalOrder }} عدد الطلبات</p>
+                        </li>
+
+                        <li class="mt-0"> <i class="ti-bar-chart-alt bg-success-gradient text-white product-icon"></i>
+                            <span class="font-weight-semibold mb-4 tx-14 ">عدد الاقسام</span> <a href="#"
+                                class="float-left tx-11 text-muted"></a>
+                            <p class="mb-0 text-muted tx-12">{{ $totalCatogeries }} عدد الاقسام</p>
+                        </li>
+                        {{-- <li class="mt-0"> <i class="ti-wallet bg-warning-gradient text-white product-icon"></i> <span
+                                class="font-weight-semibold mb-4 tx-14 ">عدد الاقسام الفرعيه</span> <a href="#"
+                                class="float-left tx-11 text-muted"></a>
+                            <p class="mb-0 text-muted tx-12">{{ $totalSubCatogeries }} عدد الاقسام الفرعيه</p>
+                        </li>
+
+                        <li class="mt-0 mb-0"> <i class="icon-note icons bg-primary-gradient text-white product-icon"></i>
+                            <span class="font-weight-semibold mb-4 tx-14 ">عدد الدول </span> <a href="#"
+                                class="float-left tx-11 text-muted"></a>
+                            <p class="mb-0 text-muted tx-12">{{ $totalcountery }} عدد الدول</p>
+                        </li> --}}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -198,7 +223,7 @@
     <!-- row closed -->
 
     <!-- row opened -->
-    <div class="row row-sm">
+    {{-- <div class="row row-sm">
         <div class="col-xl-4 col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header pb-1">
@@ -317,7 +342,7 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
     <!-- row close -->
 
     <!-- row opened -->
@@ -333,25 +358,69 @@
                     <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
                         <thead>
                             <tr>
-                                <th class="wd-lg-25p">معرف الطلبيه</th>
-                                <th class="wd-lg-25p tx-right">المبلغ الاجمالي</th>
-                                <th class="wd-lg-25p tx-right">حالة الطلب</th>
-                                <th class="wd-lg-25p tx-right">العميل</th>
+                                <th class="wd-lg-25p">#</th>
+                                <th class="wd-lg-25p">اسم المشرف</th>
+                                <th class="wd-lg-25p tx-right">البريد الإلكتروني</th>
+                                <th class="wd-lg-25p tx-right">رقم الهاتف</th>
+                                <th class="wd-lg-25p tx-right">ألحاله</th>
+                                <th class="wd-lg-25p tx-right">العمليات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($lastFiveOrders as $order)
+                            <?php $i = 0; ?>
+                            @foreach ($userdata as $user)
+                                <?php $i++; ?>
                                 <tr>
-                                    <td>{{ $order->id }}</td>
-                                    <td class="tx-right tx-medium tx-inverse">{{ $order->total }}</td>
-                                    <td class="tx-right tx-medium tx-inverse">{{ statusPayment($order->payment_status) }}
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $user->name }}</td>
+
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone ?? 0 }}</td>
+                                    {{-- <td>{{ $user->type }}</td> --}}
+                                    <td>
+
+
+                                        <div class="main-toggle main-toggle-success {{ $user->status == 1 ? 'on' : '' }} btn-sm ml-2"
+                                            data-user-id="{{ $user->id }}">
+                                            <span></span>
+                                        </div>
+
                                     </td>
-                                    <td class="tx-right tx-medium tx-danger">{{ $order->user->name }}</td>
+                                    <td>
+                                        <div class="d-flex">
+
+
+                                            <form action="{{ route('userUpdate', $user->id) }}">
+                                                <button class="btn btn-outline-success btn-sm ml-2">تعديل
+
+                                                </button>
+                                            </form>
+                                            @php
+                                                $user = \App\Models\User::find($user->id);
+                                            @endphp
+                                            @if ($user->hasRole('vendor'))
+                                                <form action="{{ route('setting') }}">
+                                                    <input type="text" name="user_id" value="{{ $user->id }}"
+                                                        hidden>
+                                                    <button class="btn btn-outline-primary btn-sm ml-2">الشركه
+
+                                                    </button>
+                                                </form>
+                                            @endif
+
+
+
+                                            <button class="btn btn-outline-danger btn-sm "
+                                                data-pro_id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                data-toggle="modal" data-target="#modaldemo9">حذف
+                                            </button>
+
+
+                                        </div>
+                                    </td>
+
                                 </tr>
                             @endforeach
-
-
-
                         </tbody>
                     </table>
                 </div>
@@ -364,6 +433,42 @@
     <!-- Container closed -->
 @endsection
 @section('js')
+    <script>
+        $(document).ready(function() {
+            $('.main-toggle').on('click', function() {
+                $(this).toggleClass('on');
+                var isToggleOn = $(this).hasClass('on');
+                var url = '{{ route('userCreate') }}';
+                var userId = $(this).data('user-id');
+                // Retrieve the CSRF token value from the meta tag
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: {
+                        isToggleOn: isToggleOn,
+                        userId: userId
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        // Handle the success response
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        // Handle the error response
+                    }
+                });
+            });
+        });
+    </script>
+
     <!--Internal  Chart.bundle js -->
     <script src="{{ URL::asset('assets/plugins/chart.js/Chart.bundle.min.js') }}"></script>
     <!-- Moment js -->
