@@ -274,7 +274,7 @@ class CartItemController extends Controller
     public function calculateTotalAndPrices($cartItems, $coupon = 0)
     {
         // $total_shipping_fee = 0.0;
-        // $total_discount = 0.0;
+        $total_discount = 0.0;
         $subtotal = 0.0;
         $total = 0.0;
 
@@ -284,7 +284,7 @@ class CartItemController extends Controller
             // $total_discount += $item->discount * $item->quantity;
             $subtotal += $item->price * $item->quantity;
         }
-        $total_discount =  $coupon;
+        $total_discount =  (float) $coupon;
         $total = $subtotal - $total_discount;
 
         return response()->json([

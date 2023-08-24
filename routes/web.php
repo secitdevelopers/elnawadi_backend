@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -35,5 +36,15 @@ Route::get('payment',[PayPalController::class, 'payment'])->name('payment');
 Route::get('cancel',[PayPalController::class, 'cancel'])->name('payment.cancel');
 Route::get('payment/success', [PayPalController::class, 'success'])->name('payment.success');
 Route::get('/refund/{token}', [PayPalController::class, 'initiateRefund']);
+
+
+
+Route::get('landing/page',[LandingController::class, 'index']);
+
+
+
+
+
+
 
 require __DIR__.'/auth.php';
