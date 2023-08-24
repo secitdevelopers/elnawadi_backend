@@ -83,11 +83,11 @@
                         <div class="logo">
 
                             <a class="navbar-brand navbar-brand1" href="image.html">
-                                <img src="/logow.png" alt="Naxos" data-rjs="2" />
+                                <img src="{{ URL::asset('logow.png') }}" alt="Naxos" data-rjs="2" />
                             </a>
 
                             <a class="navbar-brand navbar-brand2" href="image.html">
-                                <img src="/logow.png" alt="Naxos" data-rjs="2" />
+                                <img src="{{ URL::asset('logow.png') }}" alt="Naxos" data-rjs="2" />
                             </a>
 
                         </div>
@@ -108,7 +108,7 @@
 
                             <!-- Logo -->
                             <a href="#" class="logo">
-                                <img src="/logow.pn" alt="Naxos" data-rjs="2" />
+                                <img src="{{ URL::asset('logow.png') }}" alt="Naxos" data-rjs="2" />
                             </a>
 
                             <!-- Close button -->
@@ -828,9 +828,8 @@
                 <div class="col-12 col-md-10 col-lg-6">
 
                     <div class="section-title text-center">
-                        <h3>App Screenshots</h3>
-                        <p>Morbi velit leo, sodales in purus eu, pretium accumsan nunc. Praesent eu diam ut ante
-                            consequat euismod.</p>
+                        <h3>لقطــات شاشة التطـــــبيق</h3>
+                        <p>نحن ملتزمون بمساعدة عملائنا على إنشاء علامة تجارية من فكرة بسيطة.</p>
                     </div>
 
                 </div>
@@ -860,7 +859,7 @@
 
 
     <!-- Subscribe -->
-    <section id="subscribe" class="parallax" data-image="images/parallax/subscribe.jpg">
+    {{-- <section id="subscribe" class="parallax" data-image="images/parallax/subscribe.jpg">
 
         <!-- Overlay -->
         <div class="overlay"></div>
@@ -909,10 +908,10 @@
 
         </div>
 
-    </section>
+    </section> --}}
 
     <!-- Blog -->
-    <section id="blog">
+    {{-- <section id="blog">
 
         <!-- Container -->
         <div class="container">
@@ -1047,7 +1046,7 @@
 
         </div>
 
-    </section>
+    </section> --}}
 
 
     <!-- Contact -->
@@ -1174,11 +1173,12 @@
                     <div class="col-12 col-md-6 col-lg-3 res-margin">
                         <div class="widget">
                             <p class="footer-logo">
-                                <img src="images/logo-white.png" alt="Naxos" data-rjs="2">
+                                <img src="{{ URL::asset('logow.png') }}" alt="Naxos" data-rjs="2">
                             </p>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis non, fugit totam vel
-                                laboriosam vitae.
+                                هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة
+                                مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو
+                                إلى زيادة عدد الحروف التى يولدها التطبيق
                             </p>
 
                             <!-- Social links -->
@@ -1196,14 +1196,13 @@
                     <div class="col-12 col-md-6 col-lg-2 offset-lg-1 res-margin">
                         <div class="widget">
 
-                            <h6>Useful Links</h6>
+                            <h6>الصفحات</h6>
 
                             <ul class="footer-menu">
-                                <li><a href="#">Support</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms &amp; Conditions</a></li>
-                                <li><a href="#">Affiliate Program</a></li>
-                                <li><a href="#">Careers</a></li>
+                                <li><a href="#">الرئيسية</a></li>
+                                <li><a href="#">معلومات عنا</a></li>
+                                <li><a href="#">تحميل التطبيق</a></li>
+                                <li><a href="#">تواصل معنا</a></li>
                             </ul>
 
                         </div>
@@ -1213,14 +1212,14 @@
                     <div class="col-12 col-md-6 col-lg-3 res-margin">
                         <div class="widget">
 
-                            <h6>Product Help</h6>
+                            <h6>معلومات الاتصال</h6>
 
                             <ul class="footer-menu">
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="#">Reviews</a></li>
-                                <li><a href="#">Features</a></li>
-                                <li><a href="#">Feedback</a></li>
-                                <li><a href="#">API</a></li>
+                                <li><a href="#"> +974594304049</a></li>
+                                <li><a href="#">hamada1998.2021@gmail.com</a></li>
+                                <li><a href="#">10 _ الدوحة _ شارع الصحابة عمارة الملش</a></li>
+                                {{-- <li><a href="#">Feedback</a></li>
+                                <li><a href="#">API</a></li> --}}
                             </ul>
 
                         </div>
@@ -1230,7 +1229,7 @@
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="widget">
 
-                            <h6>Download</h6>
+                            <h6>تحميل التطبيق</h6>
 
                             <div class="button-store">
                                 <a href="#"
@@ -1261,7 +1260,7 @@
 
                         <!-- Text -->
                         <p class="copyright text-center">
-                            Copyright © 2023 <a href="#" target="_blank">Naxos</a>. All Rights Reserved.
+                            Copyright © 2023 <a href="#" target="_blank">Sec it</a>. All Rights Reserved.
                         </p>
 
                     </div>
