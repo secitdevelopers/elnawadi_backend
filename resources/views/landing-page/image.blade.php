@@ -62,7 +62,7 @@
 
 <body>
     @php
-        $images = ['landing/images/screenshots/screenshot-6.jpg', 'landing/images/screenshots/2.png', 'landing/images/screenshots/3.png', 'landing/images/screenshots/4.png', 'landing/images/screenshots/5.png', 'landing/images/screenshots/10.png', 'landing/images/screenshots/11.png', 'landing/images/screenshots/14.png', 'landing/images/screenshots/17.png', 'landing/images/screenshots/19.png', 'landing/images/screenshots/20.png', 'landing/images/screenshots/27.png', 'landing/images/screenshots/29.png', 'landing/images/screenshots/34.png', 'landing/images/screenshots/35.png'];
+        $images = ['e.png', 'landing/images/screenshots/2.png', 'landing/images/screenshots/3.png', 'landing/images/screenshots/4.png', 'landing/images/screenshots/5.png', 'landing/images/screenshots/10.png', 'landing/images/screenshots/11.png', 'landing/images/screenshots/14.png', 'landing/images/screenshots/17.png', 'landing/images/screenshots/19.png', 'landing/images/screenshots/20.png', 'landing/images/screenshots/27.png', 'landing/images/screenshots/29.png', 'landing/images/screenshots/34.png', 'landing/images/screenshots/35.png'];
     @endphp
     <!-- Loader -->
     <div class="page-loader">
@@ -372,7 +372,7 @@
                 <!-- Center -->
                 <div class="col-12 col-lg-4 d-none d-lg-block">
                     <div class="features-thumb text-center">
-                        <img src="{{ URL::asset('screen1.png') }}" alt="" />
+                        <img src="{{ URL::asset('w.png') }}" alt="" />
                     </div>
                 </div>
 

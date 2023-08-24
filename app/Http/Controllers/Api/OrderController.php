@@ -21,9 +21,11 @@ class OrderController extends Controller
     {
         try {
             $userId = $request->user->id;
-            $orders = Order::where('user_id', '=', $userId)->get();
-
-
+            $orders = Order::where('user_id', '=', $userId)->select('status', 'payment_status', 'id', 'currency', 'cancelled', 'total', 'subtotal', 'discount')
+                ->with(['orderItems.product' => function ($query) {
+                    $query->select('id', 'name_' . app()->getLocale() . ' AS name');
+                }])
+                ->get();
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Success',
