@@ -245,7 +245,7 @@
 
                     <div class="banner-image wow fadeInUp" data-wow-offset="10" data-wow-duration="1s"
                         data-wow-delay="0.3s">
-                        <img class="bounce-effect" src="/3.png" alt="" />
+                        <img class="bounce-effect" src="{{ URL::asset('3.png') }}" alt="" />
                     </div>
 
                 </div>
@@ -308,7 +308,8 @@
 
                                 <!-- Box icon -->
                                 <div class="box-icon">
-                                    <img src="/icon.png" style="height: 40px; width:60px ;" alt="">
+                                    <img src="{{ URL::asset('icon.png') }}" style="height: 40px; width:60px ;"
+                                        alt="">
                                 </div>
 
                                 <!-- Box Text -->
@@ -328,7 +329,8 @@
 
                                 <!-- Box icon -->
                                 <div class="box-icon">
-                                    <img src="/icon.png" style="height: 40px; width:60px ;" alt="">
+                                    <img src="{{ URL::asset('icon.png') }}" style="height: 40px; width:60px ;"
+                                        alt="">
                                 </div>
 
                                 <!-- Box Text -->
@@ -349,7 +351,8 @@
 
                                 <!-- Box icon -->
                                 <div class="box-icon">
-                                    <img src="/icon.png" style="height: 40px; width:60px ;" alt="">
+                                    <img src="{{ URL::asset('icon.png') }}" style="height: 40px; width:60px ;"
+                                        alt="">
                                 </div>
 
                                 <!-- Box Text -->
@@ -369,7 +372,7 @@
                 <!-- Center -->
                 <div class="col-12 col-lg-4 d-none d-lg-block">
                     <div class="features-thumb text-center">
-                        <img src="/screen1.png" alt="" />
+                        <img src="{{ URL::asset('screen1.png') }}" alt="" />
                     </div>
                 </div>
 
@@ -384,7 +387,8 @@
 
                                 <!-- Box icon -->
                                 <div class="box-icon">
-                                    <img src="/icon.png" style="height: 40px; width:60px ;" alt="">
+                                    <img src="{{ URL::asset('icon.png') }}" style="height: 40px; width:60px ;"
+                                        alt="">
                                 </div>
 
                                 <!-- Box Text -->
@@ -405,7 +409,8 @@
 
                                 <!-- Box icon -->
                                 <div class="box-icon">
-                                    <img src="/icon.png" style="height: 40px; width:60px ;" alt="">
+                                    <img src="{{ URL::asset('icon.png') }}" style="height: 40px; width:60px ;"
+                                        alt="">
                                 </div>
 
                                 <!-- Box Text -->
@@ -425,7 +430,8 @@
 
                                 <!-- Box icon -->
                                 <div class="box-icon">
-                                    <img src="/icon.png" style="height: 40px; width:60px ;" alt="">
+                                    <img src="{{ URL::asset('icon.png') }}" style="height: 40px; width:60px ;"
+                                        alt="">
                                 </div>
 
                                 <!-- Box Text -->
