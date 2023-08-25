@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en-US">
+<html class="no-js" lang="ar" dir="rtl">
 
 <head>
 
@@ -57,12 +57,80 @@
 
     <!-- Color schema -->
     <link rel="stylesheet" href="assets/colors/blue.css" class="colors">
+    <style>
+        .custom-alert {
+            display: none;
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
+            padding: 15px 20px;
+            background-color: #f44336;
+            /* Red background */
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
 
+        .custom-alert button {
+            margin-left: 20px;
+            background-color: white;
+            color: #f44336;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-alert button:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .toast {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            z-index: 1000;
+        }
+
+        .toast-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            /* Green color */
+            color: #ffffff;
+        }
+
+        .toast-icon {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .toast-title {
+            font-weight: bold;
+        }
+
+        .toast-body {
+            padding: 10px 20px;
+            border-top: 1px solid #e9e9e9;
+            background-color: #f7f7f7;
+        }
+    </style>
 </head>
 
 <body>
     @php
-        $images = ['e.png', 'landing/images/screenshots/2.png', 'landing/images/screenshots/3.png', 'landing/images/screenshots/4.png', 'landing/images/screenshots/5.png', 'landing/images/screenshots/10.png', 'landing/images/screenshots/11.png', 'landing/images/screenshots/14.png', 'landing/images/screenshots/17.png', 'landing/images/screenshots/19.png', 'landing/images/screenshots/20.png', 'landing/images/screenshots/27.png', 'landing/images/screenshots/29.png', 'landing/images/screenshots/34.png', 'landing/images/screenshots/35.png'];
+        $images = ['landing/images/screenshots/1.png', 'landing/images/screenshots/2.png', 'landing/images/screenshots/3.png', 'landing/images/screenshots/4.png', 'landing/images/screenshots/5.png', 'landing/images/screenshots/6.png', 'landing/images/screenshots/7.png', 'landing/images/screenshots/8.png', 'landing/images/screenshots/9.png', 'landing/images/screenshots/10.png', 'landing/images/screenshots/11.png', 'landing/images/screenshots/12.png', 'landing/images/screenshots/13.png', 'landing/images/screenshots/14.png', 'landing/images/screenshots/15.png', 'landing/images/screenshots/16.png', 'landing/images/screenshots/15.png', 'landing/images/screenshots/15.png']; //,
     @endphp
     <!-- Loader -->
     <div class="page-loader">
@@ -473,7 +541,7 @@
                         <i class="fas fa-play"></i>
                     </a>
 
-                    <span class="video-text">Watch This Video</span>
+                    <span class="video-text">شاهد هذا الفيديـــــو</span>
 
                 </div>
 
@@ -494,9 +562,10 @@
                 <div class="col-12 col-md-10 col-lg-6">
 
                     <div class="section-title text-center">
-                        <h3>How It Works?</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo justo. Nullam dictum
-                            felis eu pede mollis pretium.</p>
+                        <h3>كيف تعمــــــل؟</h3>
+                        <p>هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
+                            من مولد النص العربى.
+                        </p>
                     </div>
 
                 </div>
@@ -511,8 +580,11 @@
 
                         <div class="icon icon-basic-server2"></div>
 
-                        <h5>Your Data in Cloud</h5>
-                        <p>Lorem ipsum dolor sit amet, conseda adipiscing elit. Aenean commodo ligula eget dolor massa.
+                        <h5>افضل الانشطــــــة</h5>
+                        <p>
+                            اكتشف عالمًا مليئًا بالنشاطات الرياضية الممتعة والمثيرة مع تطبيق Sportify. احصل على فرصة
+                            لممارسة رياضتك المفضلة، اكتساب لياقة بدنية، وتوسيع شبكة محبي الرياضة من خلال تجربة سهلة
+                            وممتعة.
                         </p>
 
                     </div>
@@ -525,8 +597,11 @@
 
                         <div class="icon icon-basic-headset"></div>
 
-                        <h5>24/7 Support</h5>
-                        <p>Lorem ipsum dolor sit amet, conseda adipiscing elit. Aenean commodo ligula eget dolor massa.
+                        <h5>24/24 الدعم </h5>
+                        <p>
+                            استمتع براحة البال واطمئنان الفكر مع Empower24، خدمة الدعم الاستثنائية المتوفرة لك على مدار
+                            الساعة. سواء كنت بحاجة إلى مساعدة فنية، استفسارات حول المنتجات أو حتى مجرد شخص يستمع إليك،
+
                         </p>
 
                     </div>
@@ -539,8 +614,12 @@
 
                         <div class="icon icon-software-pen"></div>
 
-                        <h5>Exclusive Design</h5>
-                        <p>Lorem ipsum dolor sit amet, conseda adipiscing elit. Aenean commodo ligula eget dolor massa.
+                        <h5>انضم إلى مجتمع رائع</h5>
+                        <p>
+                            مجموعة رائعة من الأشخاص المشتركين في تطبيقنا. انضم إلى مجتمعنا النشط والمتحمس واستكشف
+                            تفاعلات وتحديات رائعة مع أعضاء ذوي اهتمامات مشابهة. هنا، ستجد منصة تسمح لك بالتواصل
+
+
                         </p>
 
                     </div>
@@ -554,7 +633,7 @@
 
 
     <!-- Testimonials -->
-    <section id="testimonials">
+    {{-- <section id="testimonials">
 
         <!-- Container -->
         <div class="container">
@@ -564,9 +643,11 @@
                 <div class="col-12 col-md-10 col-lg-6">
 
                     <div class="section-title text-center">
-                        <h3>Client Reviews</h3>
-                        <p>Donec purus est, tincidunt eu sodales quis, vehicula quis enim. Morbi dapibus, tellus a
-                            gravida faucibus, elit ipsum.</p>
+                        <h3>مراجعـــات العمـــــلاء</h3>
+                        <p>
+                            رؤية واقعية لتجربة العميل: توفر مراجعات العملاء نظرة حقيقية وموثوقة حول تجربتهم الشخصية مع
+                            المنتج أو الخدمة
+                        </p>
                     </div>
 
                 </div>
@@ -576,14 +657,16 @@
                 <div class="col-12 testimonial-carousel">
 
                     <!-- Text -->
-                    <div class="block-text row">
+                    <div class="block-text row" style="align-content: center;">
                         <div class="carousel-text testimonial-slider col-12 col-lg-8 offset-lg-2">
 
                             <div>
                                 <div class="single-box">
-                                    <p><i class="fas fa-quote-left"></i> Fusce euismod eget nulla a tempus.
-                                        Pellentesque in varius metus. Fusce iaculis cursus ante, vel vestibulum dui
-                                        sagittis vitae pulvinar consequat tortor. <i class="fas fa-quote-right"></i>
+                                    <p><i class="fas fa-quote-left"></i>
+                                        نحن نؤمن بأهمية آراء عملائنا، وهذا هو السبب في أننا ندعوك للمشاركة برأيك وتجربتك
+                                        معنا. نحن نسعى جاهدين لتحقيق الجودة والتميز في كل جانب من جوانب خدماتنا،
+                                        وبالتالي فإن مراجعتك تلعب دورًا حاسمًا في تطوير وتحسين ما نقدمه لك.
+                                        <i class="fas fa-quote-right"></i>
                                     </p>
                                 </div>
                             </div>
@@ -747,7 +830,7 @@
 
         </div>
 
-    </section>
+    </section> --}}
 
     <!-- Counters -->
     <section id="counters" class="parallax" data-image="images/parallax/counters.jpg">
@@ -1109,8 +1192,9 @@
                 <!-- Contact form -->
                 <div class="col-12 col-lg-8">
 
-                    <form id="contact-form" action="php/contact.php" method="post">
+                    <form id="contactForm">
 
+                        @csrf
                         <div class="row">
                             <div class="col-12 col-lg-6">
                                 <div class="form-group mt-2 mb-3">
@@ -1145,18 +1229,45 @@
 
                         <div class="row">
                             <div class="col-12 col-lg-12 mt-2">
-                                <button type="submit" id="contact-submit" name="send" class="btn">ارسل
-                                </button>
+
+                                <button type="submit" name="send" class="btn">ارسل</button>
                             </div>
                         </div>
 
                     </form>
 
-                    <!-- Submit Results -->
-                    <div class="contact-form-result">
-                        <h4>Thank you for the e-mail!</h4>
-                        <p>Your message has already arrived! We'll contact you shortly.</p>
+                    <div class="toast" style="display: none;">
+                        <div class="toast-header">
+                            <span class="toast-icon">&#10003;</span> <!-- This is a checkmark icon -->
+                            <span class="toast-title">نجاح!</span>
+                        </div>
+                        <div class="toast-body">
+                            تم ارسال طلبك بنجاح وسيتم التواصل معك قريبا
+                        </div>
                     </div>
+                    <div id="customAlert" class="custom-alert">
+                        <span class="alert-message"></span>
+                        <button onclick="closeAlert()">حسنًا</button>
+                    </div>
+
+                    {{-- 
+                      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000"
+                    style="position: absolute; top: 20px; right: 20px;">
+                    <div class="toast-header bg-success text-white">
+                        <strong class="mr-auto">Success</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        {{ session('message') }}
+                    </div>
+                </div>
+                @if (session('status_code') == 200)
+                    <div class="alert alert-success" role="alert">
+                        {{ session('message') }}
+                    </div>
+                @endif --}}
 
                 </div>
 
@@ -1285,6 +1396,8 @@
     <!-- jQuery -->
     <script src="assets/library/jquery/jquery.js"></script>
     <script src="assets/library/jquery/jquery-easing.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <!-- Bootstrap -->
     <script src="assets/library/bootstrap/js/bootstrap.min.js"></script>
@@ -1307,7 +1420,77 @@
 
     <!-- Main -->
     <script src="assets/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
 
+
+
+                let isValid = true;
+                const name = $('input[name="name"]');
+                const subject = $('input[name="subject"]');
+                const message = $('textarea[name="message"]');
+                const email = $('input[name="email"]');
+
+                // Name validation
+                if (name.val().trim() === '' || name.val().length > 255) {
+                    isValid = false;
+                    showAlert('الاسم مطلوب ويجب ألا يزيد عن 255 حرفًا.');
+                }
+
+                // Subject validation
+                if (subject.val().trim() === '' || subject.val().length > 255) {
+                    isValid = false;
+                    showAlert('الموضوع مطلوب ويجب ألا يزيد عن 255 حرفًا.');
+                }
+
+                // Message validation
+                if (message.val().trim() === '') {
+                    isValid = false;
+                    showAlert('الرسالة مطلوبة.');
+                }
+
+                // Email validation (basic check)
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (email.val() && !emailRegex.test(email.val())) {
+                    isValid = false;
+                    showAlert('الرجاء إدخال عنوان بريد إلكتروني صالح.');
+                }
+
+                // If validation passes, send the AJAX request
+                if (isValid) {
+                    $.ajax({
+                        url: '/contact/form',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            $('.toast').show().delay(3000).fadeOut();
+                            // Clear form fields
+                            $('#contactForm')[0].reset();
+                        },
+                        error: function(error) {
+                            console.error("Error:", error);
+                        }
+                    });
+                }
+            });
+        });
+
+
+
+        function showAlert(message) {
+            const alertBox = document.getElementById('customAlert');
+            const alertMessage = document.querySelector('.alert-message');
+            alertMessage.textContent = message;
+            alertBox.style.display = 'block';
+        }
+
+        function closeAlert() {
+            const alertBox = document.getElementById('customAlert');
+            alertBox.style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>

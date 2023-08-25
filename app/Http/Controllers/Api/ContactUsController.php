@@ -13,9 +13,10 @@ class ContactUsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required',
+            'phone' => 'nullable',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
+            'email' => 'nullable|string|email',
         ]);
 
         ContactUs::create($validatedData);
@@ -25,5 +26,6 @@ class ContactUsController extends Controller
             'message' => 'Success',
         ], 200);
     }
+
 
 }

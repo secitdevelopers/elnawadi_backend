@@ -36,6 +36,7 @@ Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])
 
 
 Route::post('/contact', [ContactUsController::class, 'store']);
+
 Route::controller(AuthController::class)->group(function ()
 {
     Route::post('/login', 'login');

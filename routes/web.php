@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::post('/contact/form', [LandingController::class, 'storeWeb'])->name("contact.form");
 Route::get('go-payment', [PayPalController::class, 'goPayment'])->name('payment.go');
 
 Route::get('payment',[PayPalController::class, 'payment'])->name('payment');
