@@ -1461,7 +1461,7 @@
                 // If validation passes, send the AJAX request
                 if (isValid) {
                     $.ajax({
-                        url: '/contact/form',
+                        url: '{{ route('contact.form') }}',
                         type: 'POST',
                         data: $(this).serialize(),
                         success: function(response) {
