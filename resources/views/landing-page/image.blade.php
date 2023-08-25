@@ -1477,8 +1477,6 @@
             });
         });
 
-
-
         function showAlert(message) {
             const alertBox = document.getElementById('customAlert');
             const alertMessage = document.querySelector('.alert-message');
