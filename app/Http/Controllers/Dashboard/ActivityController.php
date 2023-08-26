@@ -35,12 +35,8 @@ class ActivityController extends Controller
         return view('dashboard.activity.store',compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
+   
     public function store(Request $request)
     {
          DB::beginTransaction();
@@ -69,7 +65,6 @@ class ActivityController extends Controller
             }
             $activity = new Activity();
             $activity->name_ar = $request['name_ar'];
-            // $product->name_en = $request['name_en'];
             $activity->price = ($request['price']);
             $activity->activity_duration = $request['activity_duration'];
             $activity->adress = $request['adress'];
@@ -100,27 +95,57 @@ class ActivityController extends Controller
         return view('dashboard.activity.mange-activity', compact('subscriptions'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(activity $activity)
+
+     
+    public function edit( $id)
     {
-        //
+        $categories = Setting::all();
+        $activity = Activity::find($id);
+        return view('dashboard.activity.update',compact('activity','categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, activity $activity)
+
+    public function update(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try
+        {
+            $activity = Activity::findOrFail($request->id);
+            $activity->name_ar = $request['name_ar'];
+            $activity->price = ($request['price']);
+            $activity->activity_duration = $request['activity_duration'];
+            $activity->adress = $request['adress'];
+            $activity->start_data = $request['start_data'];
+            $activity->end_data = $request['end_data'];
+            $activity->status = true;
+            $activity->description_ar = $request['description_ar'];
+            $activity->user_id = $request['user_id'];
+
+
+            if (Auth::user()->hasRole('admin') || (true && Auth::user()->hasRole('vendor'))) {
+            if ($request->hasFile('image'))
+            {
+                $data['image'] = $this->saveImage($request->file('image'), 'activity');
+                $activity->image = 'imagesfp/activity/' . $data['image'];
+            }
+            $activity->save();
+
+            session()->flash('Add', 'تم تعديل المنتج بنجاح');
+            DB::commit();
+            return redirect()->back()->with('success', 'activity updated successfully.');
+            } else {
+            DB::rollback();
+            session()->flash('Add', 'لا يمكنكك التعديل علي المنتج');
+            return redirect()->back()->with('error', 'You are not authorized to update this activity.');
+            }
+        }
+        catch (\Exception $e)
+        {
+          
+            DB::rollback();
+            
+            return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -134,10 +159,10 @@ class ActivityController extends Controller
         DB::beginTransaction();
         try
         {
-            // Retrieve the product
+            // Retrieve the activity
             $activity = Activity::findOrFail($request->id);
             $this->deleteImage($activity->image);
-            // Delete the product
+            // Delete the activity
             $activity->delete();
 
             DB::commit();
@@ -157,7 +182,7 @@ class ActivityController extends Controller
         DB::beginTransaction();
         try
         {
-            // Retrieve the product
+            // Retrieve the activity
             $sub = Subscription::findOrFail($request->id);
             $sub->delete();
             DB::commit();
@@ -172,7 +197,7 @@ class ActivityController extends Controller
     }
 
 
-   public function updateStatusProduct(Request $request)
+   public function updateStatusactivity(Request $request)
     {
         $isToggleOnString = (string) $request->isToggleOn;
         $status = true;
@@ -207,11 +232,11 @@ class ActivityController extends Controller
 
             // if (Auth::User()->hasRole('admin'))
             // {
-            //     $product->status = true;
+            //     $activity->status = true;
             // }
             // else if (Auth::User()->hasRole('vendor'))
             // {
-            //     $product->status = false;
+            //     $activity->status = false;
             // }
             // else
             // {
