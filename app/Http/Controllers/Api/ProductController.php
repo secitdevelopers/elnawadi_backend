@@ -172,10 +172,7 @@ class ProductController extends Controller
 
             $products = Product::ActiveAndSortedForSearch($keyword)->paginate(10);
 
-            $products->each(function ($product) {
-                // The 'final_price' attribute will be automatically accessed using the accessor
-                $product->final_price;
-            });
+    
 
             return response()->json([
                 'products' => [

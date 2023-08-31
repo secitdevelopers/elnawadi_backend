@@ -84,7 +84,9 @@ Route::group(['middleware' => 'sanctum'], function ()
     Route::post('updateviews/{id}', 'updateViews')->name('updateviews');
     });
     Route::controller(ActivityController::class)->group(function ()
-    {
+    {    
+        Route::post('/search-activities',  'searchactivities')->name('search-activities');
+
     Route::get('/activities',  'getActivity')->name('activities.getProducts');
     Route::get('/companies/activities', 'getactivitiesByCompany');
     Route::get('/activities/{productId}', 'getActivityById')->name('product.activities');

@@ -34,6 +34,16 @@ class Activity extends Model
         return $query->with('user')
                 ->select('id', 'name_' . app()->getLocale() . ' AS name', 'price', 'user_id', 'image','price_for_one' , 'price_for_two' ,  'adress',  'start_data', 'end_data',  'description_' . app()->getLocale() . ' AS description', 'activities_catogeries_id');
     }
-
+    
+        public function scopeActiveAndSortedForSearch($query, $keyword)
+    {
+        return $query->where('status', 1)
+                ->where(function ($query) use ($keyword) {
+                    $query->where('name_en', 'LIKE', "%{$keyword}%")
+                        ->orWhere('name_ar', 'LIKE', "%{$keyword}%");
+                })
+                ->orderByDesc('created_at')
+                ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image');
+    }
 
 }

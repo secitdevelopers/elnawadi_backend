@@ -119,4 +119,43 @@ class ActivityController extends Controller
     }
 
 
+    public function searchactivities(Request $request): JsonResponse
+    {
+        try {
+            // Validate the request parameters
+            $validator = Validator::make($request->all(), [
+                'keyword' => 'required|string|min:3',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['message' => 'Validation error', 'errors' => $validator->errors(), 'status_code' => 400], 400);
+            }
+
+            $keyword = $request->input('keyword');
+
+            $activities = Activity::ActiveAndSortedForSearch($keyword)->paginate(10);
+
+            return response()->json([
+                'activities' => [
+                    'current_page' => $activities->currentPage(),
+                    'data' => $activities->items(),
+                    'first_page_url' => $activities->url(1),
+                    'from' => $activities->firstItem(),
+                    'last_page' => $activities->lastPage(),
+                    'last_page_url' => $activities->url($activities->lastPage()),
+                    'next_page_url' => $activities->nextPageUrl(),
+                    'path' => $activities->path(),
+                    'per_page' => $activities->perPage(),
+                    'prev_page_url' => $activities->previousPageUrl(),
+                    'to' => $activities->lastItem(),
+                    'total' => $activities->total(),
+                ],
+                'message' => 'Success',
+                'status_code' => 200
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to search activities.' . $e, 'status_code' => 500], 500);
+        }
+    }
+
 }

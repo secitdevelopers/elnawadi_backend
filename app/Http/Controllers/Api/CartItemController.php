@@ -154,7 +154,9 @@ class CartItemController extends Controller
             $dataPrices = $this->calculateTotalAndPrices($cartItems);
 
 
- 
+          if ($dataPrices->original['total_discount'] > $dataPrices->original['total']) {
+               $dataPrices->original['total'] = 0;
+            }
             return response()->json([
                 'cart_items' => $cartItems,
                 'cart_prices' => $dataPrices->original,
@@ -286,7 +288,9 @@ class CartItemController extends Controller
         }
         $total_discount =  (float) $coupon;
         $total = $subtotal - $total_discount;
-
+        if ($total_discount > $total ) {
+            $total = 0.0;
+        }
         return response()->json([
             'total_discount' => $total_discount,
             'subtotal' => $subtotal,
