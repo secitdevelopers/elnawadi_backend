@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +42,7 @@ Route::get('/refund/{token}', [PayPalController::class, 'initiateRefund']);
 
 Route::get('landing/page',[LandingController::class, 'index']);
 
-
+Route::post('/send/notification', [NotificationController::class, 'sendNotification'])->name('send.notification');
 
 
 

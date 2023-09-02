@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SettingController;
@@ -24,77 +25,84 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group(['middleware' => 'ChangeLanguage'], function ()
-{
-Route::post('verification-notification', [EmailVerificationController::class, 'sendEmailverfyc'])->name('verification-notification');
-Route::post('verify-email', [EmailVerificationController::class, 'verifyEmail'])->name('verify-email');
-Route::post('verify-code', [EmailVerificationController::class, 'verifyCode'])->name('verify-code');
+Route::group(['middleware' => 'ChangeLanguage'], function () {
+    Route::post('verification-notification', [EmailVerificationController::class, 'sendEmailverfyc'])->name('verification-notification');
+    Route::post('verify-email', [EmailVerificationController::class, 'verifyEmail'])->name('verify-email');
+    Route::post('verify-code', [EmailVerificationController::class, 'verifyCode'])->name('verify-code');
 
 
-Route::post('forgot-password', [ResetPasswordController::class, 'forgotPassword']);
-Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('sanctum');
+    Route::post('forgot-password', [ResetPasswordController::class, 'forgotPassword']);
+    Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('sanctum');
 
 
-Route::post('/contact', [ContactUsController::class, 'store']);
+    Route::post('/contact', [ContactUsController::class, 'store']);
 
-Route::controller(AuthController::class)->group(function ()
-{
-    Route::post('/login', 'login');
-    Route::post('/logout', 'logout')->middleware('sanctum');
-    Route::post('/register', 'register');
-});
-Route::get('getOtpForUser', [UserController::class, 'getOtpForUser']);
-
-
-Route::group(['middleware' => 'sanctum'], function ()
-{
-    Route::post('/subscriptions/store', [SubscriptionController::class, 'store'])->name('subscriptions/store');
-    Route::get('/subscriptions/user', [SubscriptionController::class, 'show'])->name('subscriptions/user');
-    Route::controller(OrderController::class)->group(function ()
-    {
-        Route::get('/orders', 'userOrder');
-        Route::get('/orders/detalis/{id}', 'orderDetalis');
-        Route::get('/orders/create', 'saveOrder');
-        Route::post('/orders/cancel', 'cancelOrder');
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/login', 'login');
+        Route::post('/logout', 'logout')->middleware('sanctum');
+        Route::post('/register', 'register');
     });
-    Route::controller(UserController::class)->group(function ()
-    {
-        Route::get('userInformation', 'getUserInfo');
-        Route::post('updateUserInfo', 'updateUserInfo');
-        Route::post('changePassword', 'changePassword');
-    });
+    Route::get('getOtpForUser', [UserController::class, 'getOtpForUser']);
 
 
-    Route::controller(UserAddressController::class)->group(function ()
-    {
-        Route::get('/user-addresses', 'index');
-        Route::get('/user-addresses/{userAddress}', 'show');
-        Route::post('/user-addresses/store', 'store');
-        Route::put('/user-addresses/update', 'update');
-        Route::delete('/user-addresses/destroy/{id}', 'destroy');
+    Route::group(['middleware' => 'sanctum'], function () {
+
+        Route::controller(NotificationController::class)->group(function () {
+
+            // Route to get all notifications of the authenticated user.
+            Route::get('/notifications', 'getUserNotifications');
+
+            // Route to mark a specific notification as read.
+            Route::post('/notifications/{notification}/read', 'markAsRead');
+
+            // Route to mark all notifications of the authenticated user as read.
+            Route::post('/notifications/mark-all-read', 'markAllAsRead');
+        });
+
+
+
+
+        Route::post('/subscriptions/store', [SubscriptionController::class, 'store'])->name('subscriptions/store');
+        Route::get('/subscriptions/user', [SubscriptionController::class, 'show'])->name('subscriptions/user');
+        Route::controller(OrderController::class)->group(function () {
+            Route::get('/orders', 'userOrder');
+            Route::get('/orders/detalis/{id}', 'orderDetalis');
+            Route::get('/orders/create', 'saveOrder');
+            Route::post('/orders/cancel', 'cancelOrder');
+        });
+        Route::controller(UserController::class)->group(function () {
+            Route::get('userInformation', 'getUserInfo');
+            Route::post('updateUserInfo', 'updateUserInfo');
+            Route::post('changePassword', 'changePassword');
+        });
+
+
+        Route::controller(UserAddressController::class)->group(function () {
+            Route::get('/user-addresses', 'index');
+            Route::get('/user-addresses/{userAddress}', 'show');
+            Route::post('/user-addresses/store', 'store');
+            Route::put('/user-addresses/update', 'update');
+            Route::delete('/user-addresses/destroy/{id}', 'destroy');
+        });
     });
-});
     Route::get('/categories', [CategoryController::class, 'getCatogery'])->name('categories')->middleware('ChangeLanguage');
-    Route::controller(ProductController::class)->group(function ()
-    {
-    Route::get('/products',  'getProducts')->name('products.getProducts');
-    Route::get('/categories/{subCatogeryId}/products', 'getProductsBysubCatogery')->name('products.getProductsBysubCatogery');
-    Route::get('/product/{productId}', 'getProductById')->name('product.getProductById');
-    Route::post('/search-product',  'searchProduct')->name('search-product');
-    Route::post('updateviews/{id}', 'updateViews')->name('updateviews');
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/products',  'getProducts')->name('products.getProducts');
+        Route::get('/categories/{subCatogeryId}/products', 'getProductsBysubCatogery')->name('products.getProductsBysubCatogery');
+        Route::get('/product/{productId}', 'getProductById')->name('product.getProductById');
+        Route::post('/search-product',  'searchProduct')->name('search-product');
+        Route::post('updateviews/{id}', 'updateViews')->name('updateviews');
     });
-    Route::controller(ActivityController::class)->group(function ()
-    {    
+    Route::controller(ActivityController::class)->group(function () {
         Route::post('/search-activities',  'searchactivities')->name('search-activities');
 
-    Route::get('/activities',  'getActivity')->name('activities.getProducts');
-    Route::get('/companies/activities', 'getactivitiesByCompany');
-    Route::get('/activities/{productId}', 'getActivityById')->name('product.activities');
-    // Route::post('/search-product',  'searchProduct')->name('search-product');
-    // Route::post('updateviews/{id}', 'updateViews')->name('updateviews');
+        Route::get('/activities',  'getActivity')->name('activities.getProducts');
+        Route::get('/companies/activities', 'getactivitiesByCompany');
+        Route::get('/activities/{productId}', 'getActivityById')->name('product.activities');
+        // Route::post('/search-product',  'searchProduct')->name('search-product');
+        // Route::post('updateviews/{id}', 'updateViews')->name('updateviews');
     });
-    Route::controller(SettingPageController::class)->group(function ()
-    {
+    Route::controller(SettingPageController::class)->group(function () {
         // terms Page
         Route::get('terms', 'termsPage');
 
@@ -120,27 +128,24 @@ Route::group(['middleware' => 'sanctum'], function ()
 
 
 
-Route::group(['middleware' => 'sanctum'], function ()
-{
-    Route::controller(CartItemController::class)->group(function ()
-    {
-        Route::post('/cart/add', 'addToCart')->name('cart.addToCart');
-        Route::post('/cart/reduce', 'reduceQuantity')->name('cart.reduce');
-        Route::post('/cart/applycoupon', 'applyCoupon')->name('cart.applyCoupon');
-        Route::delete('/cart/remove', 'removeFromCart')->name('cart.removeFromCart');
-        Route::get('/cart/items', 'getCartItems')->name('cart.getCartItems');
-        Route::delete('/cart/clear', 'clear');
-        Route::get('/cart/checkout', 'checkOut');
+    Route::group(['middleware' => 'sanctum'], function () {
+        Route::controller(CartItemController::class)->group(function () {
+            Route::post('/cart/add', 'addToCart')->name('cart.addToCart');
+            Route::post('/cart/reduce', 'reduceQuantity')->name('cart.reduce');
+            Route::post('/cart/applycoupon', 'applyCoupon')->name('cart.applyCoupon');
+            Route::delete('/cart/remove', 'removeFromCart')->name('cart.removeFromCart');
+            Route::get('/cart/items', 'getCartItems')->name('cart.getCartItems');
+            Route::delete('/cart/clear', 'clear');
+            Route::get('/cart/checkout', 'checkOut');
+        });
     });
-});
-    Route::controller(SettingController::class)->group(function ()
-    {
+    Route::controller(SettingController::class)->group(function () {
         Route::get('/settings', 'index')->name('setting.index');
         Route::get('/settings/shop/{id}', 'shopDetalis')->name('setting.shop');
         Route::get('/companies', 'getCompanies')->name('companies');
     });
 
 
-Route::get('/countries', CountryController::class)->name('countries');
-Route::get('/banners', BannerController::class)->name('banners');
+    Route::get('/countries', CountryController::class)->name('countries');
+    Route::get('/banners', BannerController::class)->name('banners');
 });

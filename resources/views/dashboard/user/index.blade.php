@@ -97,12 +97,24 @@
         <div class="col-xl-12">
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between">
 
-                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                            data-toggle="modal" href="#exampleModal">اضافة مستخدم</a>
+                    <div class="button-container">
+
+                        <a class="modal-effect btn btn-outline-primary mr-2" style="width: 300px;"
+                            data-effect="effect-scale" data-toggle="modal" href="#exampleModal">اضافة مستخدم</a>
+
+                        <a class="modal-effect btn btn-outline-primary mr-2" style="width: 300px;"
+                            data-effect="effect-scale" data-toggle="modal" href="#exampleModal0">ارسال اشعار لجميع
+                            المستخدمين</a>
+                        {{-- <a class="modal-effect btn btn-outline-primary mr-2" data-effect="effect-scale" data-toggle="modal"
+                            href="#exampleModal2">Button 2</a>
+                        <a class="modal-effect btn btn-outline-primary mr-2" data-effect="effect-scale" data-toggle="modal"
+                            href="#exampleModa">اضافة مستخدم</a> --}}
+
+
 
                     </div>
+
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -161,8 +173,13 @@
                                                 @endif
 
 
-
                                                 <button class="btn btn-outline-danger btn-sm "
+                                                    data-pro_id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                    data-toggle="modal" data-target="#exampleModal00">ارسال اشعار
+                                                </button>
+
+
+                                                <button class="btn btn-outline-danger btn-sm mr-2"
                                                     data-pro_id="{{ $user->id }}" data-name="{{ $user->name }}"
                                                     data-toggle="modal" data-target="#modaldemo9">حذف
                                                 </button>
@@ -237,6 +254,98 @@
                 </div>
             </div>
         </div>
+
+        <!-- not -->
+        <div class="modal fade" id="exampleModal0" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ارسال اشعار للمستخدمين</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('send.notification') }}" method="post">
+                        {{ csrf_field() }}
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">العنوان</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">الرساله</label>
+                                <input type="text" class="form-control" id="message" name="message" required>
+                            </div>
+                            <input type="text" class="form-control" id="type" name="type" value="all"
+                                hidden>
+
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">تاكيد</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- not user -->
+        <div class="modal fade" id="exampleModal00" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ارسال اشعار للمستخدمين</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('send.notification') }}" method="post">
+                        {{ csrf_field() }}
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">اسم الالمستخدم</label>
+                                <input type="text" class="form-control" id="name" name="name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">العنوان</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">الرساله</label>
+                                <input type="text" class="form-control" id="message" name="message" required>
+                            </div>
+
+                            <input type="text" class="form-control" id="user_id" name="user_id" value=""
+                                hidden>
+                            <input type="text" class="form-control" id="type" name="type" value="one"
+                                hidden>
+
+
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">تاكيد</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
 
         <!-- edit -->
         <div class="modal fade" id="edit_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -445,7 +554,15 @@
             // modal.find('.modal-body #password').val(password);
         })
 
+        $('#exampleModal00').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var pro_id = button.data('pro_id')
+            var name = button.data('name')
+            var modal = $(this)
 
+            modal.find('.modal-body #user_id').val(pro_id);
+            modal.find('.modal-body #name').val(name);
+        })
         $('#modaldemo9').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var pro_id = button.data('pro_id')
