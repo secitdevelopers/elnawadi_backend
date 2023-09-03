@@ -73,7 +73,7 @@ class AuthController extends Controller
         SendVerificationEmailJob::dispatch($user);
 
         $token = $user->createToken('Laravel Sanctum')->plainTextToken;
-
+        $user->assignRole(["user"]);
         return response()->json(['token' => $token, 'message' => 'Success', 'status_code' => 200], 200);
     }
 
