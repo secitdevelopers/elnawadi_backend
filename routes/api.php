@@ -51,7 +51,7 @@ Route::group(['middleware' => 'ChangeLanguage'], function () {
 
             // Route to get all notifications of the authenticated user.
             Route::get('/notifications', 'getUserNotifications');
-
+            Route::get('/notifications/unread', 'getUnReadNotifications');
             // Route to mark a specific notification as read.
             Route::post('/notifications/{notification}/read', 'markAsRead');
 
