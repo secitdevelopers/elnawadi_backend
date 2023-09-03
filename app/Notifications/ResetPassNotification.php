@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ResetPassNotification extends Notification
+class ResetPassNotification extends Notification  implements ShouldQueue
 {
     use Queueable;
     public $massge;

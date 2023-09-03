@@ -7,8 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LoginNotification extends Notification
+class LoginNotification extends Notification implements ShouldQueue
 {
+
     use Queueable;
     public $massge;
     public $fromemail;

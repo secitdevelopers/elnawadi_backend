@@ -6,10 +6,11 @@ namespace App\Notifications;
 use Ichtrojan\Otp\Otp;
 use Illuminate\Bus\Queueable;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EmailverfyNotification extends Notification
+class EmailverfyNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     public $massge;
