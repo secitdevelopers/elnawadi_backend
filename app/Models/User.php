@@ -49,7 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'email',
         'password',
-        'type', 'status', 'email_verified_at',
+        'type',
+         'status',
+          'email_verified_at',
+          'fcm'
     ];
 
     /**
