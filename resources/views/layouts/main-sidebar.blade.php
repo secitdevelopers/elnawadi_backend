@@ -313,6 +313,10 @@
                             <li><a class="slide-item" href="{{ route('companies') }}">الشركات</a>
                             </li>
 
+                            {{-- @can('شكاوي العملاء') --}}
+                            <li><a class="slide-item" href="{{ route('contactus') }}"> شكاوي العملاء
+                                </a></li>
+                            {{-- @endcan --}}
                         </ul>
                     </li>
                 @endcan

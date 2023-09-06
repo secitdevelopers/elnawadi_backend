@@ -124,7 +124,12 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
 
+    Route::controller(ContactUsController::class)->group(function ()
+    {
+        Route::get('/contactus', 'index')->name('contactus');
 
+        Route::delete('/contactus/destroy', 'destroy')->name('contactus.destroy');
+    });
 
 
     Route::controller(ActivityController::class)->group(function () {
