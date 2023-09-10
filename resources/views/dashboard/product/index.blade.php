@@ -121,9 +121,20 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         </td>
+
                                         <td>
-                                            <div class="image-container">
-                                                <img src="{{ asset($product->image) }}" alt="Avatar Image">
+                                            <div class="media-container">
+                                                @if ($product->file_type === 'video')
+                                                    <video controls width="100%">
+                                                        <source src="{{ asset($product->image) }}"
+                                                            type="video/{{ pathinfo($product->image, PATHINFO_EXTENSION) }}">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                @else
+                                                    <div class="image-container">
+                                                        <img src="{{ asset($product->image) }}" alt="Avatar Image">
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>{{ $product->name_ar }}</td>

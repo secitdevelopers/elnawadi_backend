@@ -56,13 +56,13 @@ class Product extends Model
         return $query->where('status', 1)
             ->orderBy('arrange')
             ->orderByDesc('created_at')
-            ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image');
+            ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image',"file_type");
     }
 
     public function scopeProductById($query)
     {
         return $query->with('images', 'attribute', 'user.setting')
-                ->select('id', 'name_' . app()->getLocale() . ' AS name', 'price', 'user_id', 'image',  'description_' . app()->getLocale() . ' AS description', 'quantity', 'category_id');
+                ->select('id', 'name_' . app()->getLocale() . ' AS name', 'price',"file_type", 'user_id', 'image',  'description_' . app()->getLocale() . ' AS description', 'quantity', 'category_id');
     }
 
         public function scopeActiveAndSortedForSearch($query, $keyword)
@@ -73,6 +73,6 @@ class Product extends Model
                         ->orWhere('name_ar', 'LIKE', "%{$keyword}%");
                 })
                 ->orderByDesc('created_at')
-                ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image');
+                ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image',"file_type");
     }
 }

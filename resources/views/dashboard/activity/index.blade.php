@@ -18,6 +18,23 @@
             unicode-bidi: bidi-override;
         }
 
+        .media-container {
+            max-width: 300px;
+            /* Set a maximum width to prevent stretching in wide table cells */
+            margin: 0 auto;
+            /* Center the media horizontally */
+        }
+
+        video {
+            display: block;
+            /* Ensure the video is treated as a block element */
+        }
+
+        img {
+            border: 1px solid #ccc;
+            /* Add a border to images for separation */
+        }
+
         /* CSS for image container */
         .image-container {
             width: 50px;
@@ -42,8 +59,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">النشطاطات /</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">جميع
-                    النشطاطات</span>
+                <h4 class="content-title mb-0 my-auto">الانشطه /</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">جميع
+                    الانشطه</span>
             </div>
         </div>
 
@@ -126,10 +143,21 @@
 
 
                                         <td>
-                                            <div class="image-container">
-                                                <img src="{{ asset($activity->image) }}" alt="Avatar Image">
+                                            <div class="media-container">
+                                                @if ($activity->file_type === 'video')
+                                                    <video controls width="100%">
+                                                        <source src="{{ asset($activity->image) }}"
+                                                            type="video/{{ pathinfo($activity->image, PATHINFO_EXTENSION) }}">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                @else
+                                                    <div class="image-container">
+                                                        <img src="{{ asset($activity->image) }}" alt="Avatar Image">
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
+
 
 
 

@@ -48,7 +48,8 @@ class StoreProducttRequest extends FormRequest
                 // 'attribute_color.*' => 'nullable',
                 // 'attribute_price.*' => 'nullable|numeric',
                 // 'images.*' => 'required',
-                'image' => 'required',
+               'image' => 'required|mimes:jpeg,png,jpg,gif,mp4,avi,mov,flv,mkv|max:10000'
+
                 // 'images.*.image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
             ];
 

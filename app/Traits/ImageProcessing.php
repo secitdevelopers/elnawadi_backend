@@ -29,14 +29,18 @@ trait ImageProcessing
 
     public function saveImage($image,$folder)
     {
-        $img = Image::make($image);
-        $extension = $this->get_mime($img->mime());
+        $extension = $image->getClientOriginalExtension();
+        $filename = Str::random(8) . time() . '.' . $extension;
 
-        $str_random = Str::random(8);
-        $imgpath = $str_random . time() . $extension;
-        $img->save(storage_path('app/imagesfp/'.$folder) . '/' . $imgpath);
+        if (in_array($extension, ['jpeg', 'jpg', 'png', 'gif'])) {
+            $img = Image::make($image);
+            $img->save(storage_path('app/imagesfp/'.$folder) . '/' . $filename);
+        } else {
+            // Directly move the video to the desired folder
+            $image->move(storage_path('app/imagesfp/'.$folder), $filename);
+        }
 
-        return $imgpath;
+    return $filename;
     }
     public function aspect4resize($image, $width, $height)
     {

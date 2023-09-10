@@ -26,7 +26,21 @@ function Getuseremail(){
     return Auth::User()->email;
 }
 
+         function getFileType($file)
+        {
+            $allowedImageExtensions = ['jpeg', 'jpg', 'png', 'gif'];
+            $allowedVideoExtensions = ['mp4', 'avi', 'mov', 'flv', 'mkv'];
+            $extension = strtolower($file->getClientOriginalExtension());
 
+            if (in_array($extension, $allowedImageExtensions)) {
+                return 'image';
+            } elseif (in_array($extension, $allowedVideoExtensions)) {
+                return 'video';
+            }
+
+            // Default to 'image' if the file extension is not recognized
+            return 'image';
+        }
 
 function statusToArabic($status){
 

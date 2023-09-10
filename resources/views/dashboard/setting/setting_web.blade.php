@@ -174,7 +174,7 @@
     </div>
 @endif
 
-<h2 class="mt-3">ألسندات المتحركة</h2>
+{{-- <h2 class="mt-3">ألسندات المتحركة</h2> --}}
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen"> معلومات عنا</button>

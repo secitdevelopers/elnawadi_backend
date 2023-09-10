@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('quantity')->default(1);
             $table->decimal('price', 8, 2);
             $table->boolean('status')->default(true);
+            $table->enum('file_type',["image","video"])->nullable()->default("image");
             // $table->decimal('discount', 8, 1)->nullable(); 
             // $table->decimal('shipping_fee', 8, 1)->nullable()->default(0); 
             // $table->timestamp('discount_start')->nullable(); 

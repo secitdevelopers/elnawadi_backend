@@ -45,17 +45,15 @@ class ActivityController extends Controller
                 $rules = [
                 'name_ar' => 'required|string|max:100',
                 // 'name_en' => 'nullable|string|max:100',
-               
                 'price' => 'required|numeric|between:0,999999.99',
-      
                 'activity_duration' => 'nullable|string|max:255',
                 'adress' => 'required|string|max:100',
                 'start_data' => 'nullable|date',
                 'end_data' => 'nullable|date',
                 'description_ar' => 'required|string',
                 'description_en' => 'nullable|string',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' // Image file, Max size of 2MB
-            ];
+                'image' => 'required|mimes:jpeg,png,jpg,gif,mp4,avi,mov,flv,mkv|max:10000'
+                ];
 
         // Validate the request with the rules
             $validator = Validator::make($request->all(), $rules);
@@ -68,6 +66,8 @@ class ActivityController extends Controller
             $activity->price = ($request['price']);
             $activity->activity_duration = $request['activity_duration'];
             $activity->adress = $request['adress'];
+            $fileType = getFileType($request->file('image'));
+            $activity->file_type = $fileType;
             $activity->start_data = $request['start_data'];
             $activity->end_data = $request['end_data'];
             $activity->status = true;
@@ -125,8 +125,11 @@ class ActivityController extends Controller
             if (Auth::user()->hasRole('admin') || (true && Auth::user()->hasRole('vendor'))) {
             if ($request->hasFile('image'))
             {
+                $this->deleteImage($activity->image);
                 $data['image'] = $this->saveImage($request->file('image'), 'activity');
                 $activity->image = 'imagesfp/activity/' . $data['image'];
+                $fileType = getFileType($request->file('image'));
+                $activity->file_type = $fileType;
             }
             $activity->save();
 

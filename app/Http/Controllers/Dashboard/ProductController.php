@@ -63,7 +63,8 @@ class ProductController extends Controller
             $data['image'] = $this->saveImage($request->file('image'), 'product');
             $product->image = 'imagesfp/product/' . $data['image'];
             $product->user_id = Auth::user()->id;
-     
+            $fileType = getFileType($request->file('image'));
+            $product->file_type = $fileType;
             $product->save();
             DB::commit();
             session()->flash('Add', 'تم اضافة المنتج بنجاح ');
@@ -107,9 +108,12 @@ class ProductController extends Controller
           
              if (Auth::user()->hasRole('admin') || (true && Auth::user()->hasRole('vendor'))) {
             if ($request->hasFile('image'))
-            {
+            {       
+                $this->deleteImage($product->image);
                 $data['image'] = $this->saveImage($request->file('image'), 'product');
                 $product->image = 'imagesfp/product/' . $data['image'];
+                $fileType = getFileType($request->file('image'));
+                $product->file_type = $fileType;
             }
             $product->save();
 

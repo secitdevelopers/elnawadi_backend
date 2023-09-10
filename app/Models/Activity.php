@@ -26,13 +26,13 @@ class Activity extends Model
         return $query->where('status', 1)
             ->orderBy('arrange')
             ->orderByDesc('created_at')
-            ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image', 'adress');
+            ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image', 'adress',"file_type");
     }
 
         public function scopeActivitiesById($query)
     {
         return $query->with('user')
-                ->select('id', 'name_' . app()->getLocale() . ' AS name', 'price', 'user_id', 'image','price_for_one' , 'price_for_two' ,  'adress',  'start_data', 'end_data',  'description_' . app()->getLocale() . ' AS description', 'activities_catogeries_id');
+                ->select('id', 'name_' . app()->getLocale() . ' AS name', 'price',"file_type", 'user_id', 'image','price_for_one' , 'price_for_two' ,  'adress',  'start_data', 'end_data',  'description_' . app()->getLocale() . ' AS description', 'activities_catogeries_id');
     }
     
         public function scopeActiveAndSortedForSearch($query, $keyword)
@@ -43,7 +43,7 @@ class Activity extends Model
                         ->orWhere('name_ar', 'LIKE', "%{$keyword}%");
                 })
                 ->orderByDesc('created_at')
-                ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image');
+                ->select('id', DB::raw("name_" . app()->getLocale() . " AS name"), 'price', 'image',"file_type");
     }
 
 }

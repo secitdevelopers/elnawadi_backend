@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name_ar', 100); 
             $table->integer('arrange')->default(1);
             $table->string('image');
+            $table->enum('file_type',["image","video"])->nullable()->default("image");
             $table->decimal('price', 8, 2)->default(1)->nullable();
             $table->boolean('status')->default(true);
             $table->string('adress', 100);
