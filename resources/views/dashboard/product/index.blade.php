@@ -91,7 +91,7 @@
             <div class="card">
                 <div class="col-sm-6 col-md-4 col-xl-3">
                     <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
-                        href="#modaldemo8">اضافة صنف</a>
+                        href="#modaldemo8">اضافة منتج</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

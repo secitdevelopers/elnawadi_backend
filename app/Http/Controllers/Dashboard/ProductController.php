@@ -57,7 +57,7 @@ class ProductController extends Controller
             $product->name_ar = $request['name_ar'];
             $product->category_id = $request['category_id'];
             $product->price = number_format($request['price'], 2);
-            $product->quantity = $request['quantity'];
+            // $product->quantity = $request['quantity'];
             $product->status = true;
             $product->description_ar = $request['description_ar'];
             $data['image'] = $this->saveImage($request->file('image'), 'product');
