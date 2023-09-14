@@ -184,7 +184,7 @@
                                         <option value="">اختار الشركه</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item->user->id }}"
-                                                {{ $item->id == $activity->id ? 'selected' : '' }}>
+                                                {{ $item->user_id == $activity->user_id ? 'selected' : '' }}>
                                                 {{ $item->company_name }}
                                             </option>
                                         @endforeach

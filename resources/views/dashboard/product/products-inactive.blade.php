@@ -130,12 +130,12 @@
                                                         <span></span>
                                                     </div>
                                                 @endcan
-                                                @can('تعديل منتج')
+                                                {{-- @can('تعديل منتج')
                                                     <a class="btn btn-sm btn-info btn-sm ml-2"
                                                         href="{{ route('products.edit', $product->id) }}" title="تعديل">
                                                         <i class="las la-pen"></i>
                                                     </a>
-                                                @endcan
+                                                @endcan --}}
                                                 @can('حذف منتج')
                                                     <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                         data-id="{{ $product->id }}" data-name="{{ $product->name_ar }}"

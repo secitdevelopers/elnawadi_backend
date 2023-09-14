@@ -351,7 +351,7 @@
         <div class="col-md-12 col-lg-8 col-xl-8">
             <div class="card card-table-two">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mb-1">تفاصيل اخر الطلبيات</h4>
+                    <h4 class="card-title mb-1">المشرفون</h4>
                     <i class="mdi mdi-dots-horizontal text-gray"></i>
                 </div>
                 <div class="table-responsive country-table">

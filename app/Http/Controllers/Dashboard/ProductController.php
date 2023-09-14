@@ -56,7 +56,7 @@ class ProductController extends Controller
             $product = new Product;
             $product->name_ar = $request['name_ar'];
             $product->category_id = $request['category_id'];
-            $product->price = number_format($request['price'], 2);
+            $product->price = $request['price'];
             // $product->quantity = $request['quantity'];
             $product->status = true;
             $product->description_ar = $request['description_ar'];
@@ -99,7 +99,7 @@ class ProductController extends Controller
             $product->name_ar = $request->input('name_ar');
        
             $product->category_id = $request->input('category_id');
-            $product->price = number_format($request->input('price'), 2);
+            $product->price = $request->input('price');
 
 
             $product->description_ar = $request->input('description_ar');

@@ -48,15 +48,37 @@ class ActivityController extends Controller
                 'price' => 'required|numeric|between:0,999999.99',
                 'activity_duration' => 'nullable|string|max:255',
                 'adress' => 'required|string|max:100',
-                'start_data' => 'nullable|date',
-                'end_data' => 'nullable|date',
+                'start_data' => 'required|date',
+                'end_data' => 'required|date|after:start_data',
                 'description_ar' => 'required|string',
                 'description_en' => 'nullable|string',
                 'image' => 'required|mimes:jpeg,png,jpg,gif,mp4,avi,mov,flv,mkv|max:10000'
                 ];
-
+                $customMessages = [
+                    'name_ar.required' => 'الاسم (بالعربية) مطلوب.',
+                    'name_ar.string' => 'الاسم (بالعربية) يجب أن يكون نصًا.',
+                    'name_ar.max' => 'الاسم (بالعربية) لا يجب أن يتجاوز 100 حرف.',
+                    'price.required' => 'السعر مطلوب.',
+                    'price.numeric' => 'السعر يجب أن يكون رقمًا.',
+                    'price.between' => 'السعر يجب أن يكون بين 0 و999999.99.',
+                    'activity_duration.string' => 'مدة النشاط يجب أن تكون نصًا.',
+                    'activity_duration.max' => 'مدة النشاط لا يجب أن تتجاوز 255 حرفًا.',
+                    'adress.required' => 'العنوان مطلوب.',
+                    'adress.string' => 'العنوان يجب أن يكون نصًا.',
+                    'adress.max' => 'العنوان لا يجب أن يتجاوز 100 حرف.',
+                    'start_data.required' => 'تاريخ البدء مطلوب.',
+                    'start_data.date' => 'تاريخ البدء يجب أن يكون تاريخًا صحيحًا.',
+                    'end_data.required' => 'تاريخ الانتهاء مطلوب.',
+                    'end_data.date' => 'تاريخ الانتهاء يجب أن يكون تاريخًا صحيحًا.',
+                    'end_data.after' => 'تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء.',
+                    'description_ar.required' => 'الوصف (بالعربية) مطلوب.',
+                    'description_ar.string' => 'الوصف (بالعربية) يجب أن يكون نصًا.',
+                    'image.required' => 'الصورة مطلوبة.',
+                    'image.mimes' => 'الصورة يجب أن تكون من نوع jpeg، png، jpg، gif، mp4، avi، mov، flv، mkv.',
+                    'image.max' => 'حجم الصورة لا يجب أن يتجاوز 10000 كيلوبايت.'
+                ];
         // Validate the request with the rules
-            $validator = Validator::make($request->all(), $rules);
+                $validator = Validator::make($request->all(), $rules, $customMessages);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
@@ -77,7 +99,7 @@ class ActivityController extends Controller
             $activity->user_id = $request['user_id'];
             $activity->save();
             DB::commit();
-            session()->flash('Add', 'تم اضافة المنتج بنجاح ');
+            session()->flash('Add', 'تم اضافة النشاط بنجاح ');
             return redirect()->route('activities')->with('success', 'Category created successfully');
         }
         catch (\Exception $e)
@@ -110,9 +132,10 @@ class ActivityController extends Controller
         DB::beginTransaction();
         try
         {
+            // sprintf("%.2f", $request['price']); 
             $activity = Activity::findOrFail($request->id);
             $activity->name_ar = $request['name_ar'];
-            $activity->price = ($request['price']);
+            $activity->price = sprintf("%.2f", $request['price']); 
             $activity->activity_duration = $request['activity_duration'];
             $activity->adress = $request['adress'];
             $activity->start_data = $request['start_data'];
@@ -133,12 +156,12 @@ class ActivityController extends Controller
             }
             $activity->save();
 
-            session()->flash('Add', 'تم تعديل المنتج بنجاح');
+            session()->flash('Add', 'تم تعديل النشاط بنجاح');
             DB::commit();
             return redirect()->back()->with('success', 'activity updated successfully.');
             } else {
             DB::rollback();
-            session()->flash('Add', 'لا يمكنكك التعديل علي المنتج');
+            session()->flash('Add', 'لا يمكنكك التعديل علي النشاط');
             return redirect()->back()->with('error', 'You are not authorized to update this activity.');
             }
         }
