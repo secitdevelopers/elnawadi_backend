@@ -524,7 +524,7 @@
     </section>
 
     <!-- Parallax video -->
-    <section id="parallax-video" class="parallax" data-image="{{ asset('landing/images/foo.png') }}">
+    <section id="parallax-video" class="parallax" data-image="{{ URL::asset('landing/images/foo.png') }}">
 
         <!-- Overlay -->
         <div class="overlay"></div>
@@ -833,7 +833,7 @@
     </section> --}}
 
     <!-- Counters -->
-    <section id="counters" class="parallax" data-image="{{ asset('landing/images/foo.png') }}">
+    <section id="counters" class="parallax" data-image="{{ URL::asset('landing/images/foo.png') }}">
 
         <!-- Overlay -->
         <div class="overlay"></div>
