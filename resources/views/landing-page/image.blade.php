@@ -133,9 +133,9 @@
         $images = ['landing/images/screenshots/1.png', 'landing/images/screenshots/2.png', 'landing/images/screenshots/3.png', 'landing/images/screenshots/4.png', 'landing/images/screenshots/5.png', 'landing/images/screenshots/6.png', 'landing/images/screenshots/7.png', 'landing/images/screenshots/8.png', 'landing/images/screenshots/9.png', 'landing/images/screenshots/10.png', 'landing/images/screenshots/11.png', 'landing/images/screenshots/12.png', 'landing/images/screenshots/13.png', 'landing/images/screenshots/14.png', 'landing/images/screenshots/15.png', 'landing/images/screenshots/16.png', 'landing/images/screenshots/15.png', 'landing/images/screenshots/15.png']; //,
     @endphp
     <!-- Loader -->
-    <div class="page-loader">
+    {{-- <div class="page-loader">
         <div class="progress"></div>
-    </div>
+    </div> --}}
 
     <!-- Header -->
     <header id="top-page" class="header">
