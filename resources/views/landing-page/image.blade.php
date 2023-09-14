@@ -524,7 +524,7 @@
     </section>
 
     <!-- Parallax video -->
-    <section id="parallax-video" class="parallax" data-image="images/parallax/video.jpg">
+    <section id="parallax-video" class="parallax" data-image="{{ asset('landing/images/foo.png') }}">
 
         <!-- Overlay -->
         <div class="overlay"></div>
@@ -833,7 +833,7 @@
     </section> --}}
 
     <!-- Counters -->
-    <section id="counters" class="parallax" data-image="images/parallax/counters.jpg">
+    <section id="counters" class="parallax" data-image="{{ asset('landing/images/foo.png') }}">
 
         <!-- Overlay -->
         <div class="overlay"></div>
@@ -1452,7 +1452,11 @@
                 }
 
                 // Email validation (basic check)
-                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+/.[a - zA - Z] {
+                    2,
+                    6
+                }
+                $ / ;
                 if (email.val() && !emailRegex.test(email.val())) {
                     isValid = false;
                     showAlert('الرجاء إدخال عنوان بريد إلكتروني صالح.');
