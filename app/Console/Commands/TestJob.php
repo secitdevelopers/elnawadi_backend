@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\SubMassgTest;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Console\Command;
 
@@ -29,14 +30,8 @@ class TestJob extends Command
      */
     public function handle()
     {
-       $users= User::all();
-
-        dd($users);
-       // foreach ($users as $user) {
-        //     $user->status = 0;
-        //     $user->save();
-        //    dispatch(new SubMassgTest());
-        // }
-   
+        for ($i=0; $i < 5; $i++) { 
+            dispatch(new SubMassgTest($i));
+        }
     }
 }
