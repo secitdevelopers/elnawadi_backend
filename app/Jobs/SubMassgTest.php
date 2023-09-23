@@ -39,9 +39,7 @@ class SubMassgTest implements ShouldQueue
                 $datacountry->save();
           
         } catch (\Exception $e) {  info($e->getMessage());
-            Log::error("Failed to save country: " . $e->getMessage());
-            // Optionally, re-throw the exception to mark the job as failed
-            // throw $e;
+            Log::error("Failed to save country: " . $e->getMessage());;
         }
     }
 }
