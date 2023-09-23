@@ -23,8 +23,8 @@ return new class extends Migration
              $table->integer('arrange')->default(1);
             $table->timestamps();
             // indexes
-            $table->index('name_en');
-            $table->index('name_ar');
+            $table->index(['status', 'arrange','name_ar','name_en']);
+    
         });
         
     }
