@@ -15,8 +15,9 @@ class CountryController extends Controller
     {
     try {
         // Execute the console command
-        Artisan::call('subtest:test');
-        // Artisan::call('queue:work');
+        // Artisan::call('subtest:test');
+        // Artisan::call('queue:work --once');
+        Artisan::call('schedule:run');
         // Command executed successfully
         return response()->json(['message' => 'Command executed successfully'], 200);
     } catch (\Exception $e) {

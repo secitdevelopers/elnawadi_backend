@@ -33,10 +33,12 @@ class SubMassgTest implements ShouldQueue
     public function handle()
     {
         try {
-               $datacountry = new Country();
-                $datacountry->name = "test".$this->country;
-                $datacountry->country_tax = 500;
-                $datacountry->save();
+        for ($i=0; $i < 5; $i++) { 
+            $datacountry = new Country();
+            $datacountry->name = "test".$this->country;
+            $datacountry->country_tax = 500;
+            $datacountry->save();
+        }
           
         } catch (\Exception $e) {  info($e->getMessage());
             Log::error("Failed to save country: " . $e->getMessage());;

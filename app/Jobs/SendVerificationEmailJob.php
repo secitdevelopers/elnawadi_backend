@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 
 class SendVerificationEmailJob implements ShouldQueue
 {
@@ -26,5 +27,6 @@ class SendVerificationEmailJob implements ShouldQueue
     {
         // Send the verification email to the user
         $this->user->notify(new EmailverfyNotification());
+        
     }
 }

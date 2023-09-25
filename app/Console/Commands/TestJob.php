@@ -30,8 +30,7 @@ class TestJob extends Command
      */
     public function handle()
     {
-        for ($i=0; $i < 5; $i++) { 
-            dispatch(new SubMassgTest($i));
-        }
+          dispatch(new SubMassgTest(1));
+      
     }
 }
