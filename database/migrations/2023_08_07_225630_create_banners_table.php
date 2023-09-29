@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('image');
             $table->integer('arrange')->default(0);
-            $table->string('name');
+            $table->string('name');   
+            $table->string('target_url')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

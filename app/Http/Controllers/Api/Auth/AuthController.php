@@ -76,19 +76,15 @@ class AuthController extends Controller
                 'fcm' => $request->fcm,
                 'password' => Hash::make($request->password),
             ]);
-
-            SendVerificationEmailJob::dispatch($user)->delay(now()->addSeconds(20));;
+            SendVerificationEmailJob::dispatch($user);
             $token = $user->createToken('Laravel Sanctum')->plainTextToken;
             $user->assignRole(["user"]);
             DB::commit();
-            // sleep(20);  // Wait for 5 seconds
-            Artisan::call('queue:work');
             return response()->json(['token' => $token, 'message' => 'Success', 'status_code' => 200], 200);
         }
         catch (\Throwable $th)
         {
             DB::rollback();
-            //throw $th;
         }
     }
 

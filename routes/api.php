@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CommandController;
 use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\NotificationController;
@@ -25,6 +26,9 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+    Route::get('schedule-run', [CommandController::class, 'scheduleCommand'])->name("schedule.run");
+
 Route::group(['middleware' => 'ChangeLanguage'], function () {
     Route::post('verification-notification', [EmailVerificationController::class, 'sendEmailverfyc'])->name('verification-notification');
     Route::post('verify-email', [EmailVerificationController::class, 'verifyEmail'])->name('verify-email');

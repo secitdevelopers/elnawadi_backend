@@ -18,9 +18,8 @@ class Kernel extends ConsoleKernel
     ];
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('subtest:test')->everyThreeMinutes();
-        $schedule->command('subtest:test')->everyFiveMinutes();
-        $schedule->command('subtest:test')->everyTenMinutes();
+        $schedule->command('subtest:test')->everyTwoHours();
+        $schedule->command('queue:work --once')->everyMinute();
     
     }
 
