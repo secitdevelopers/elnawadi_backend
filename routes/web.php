@@ -42,9 +42,9 @@ Route::get('/refund/{token}', [PayPalController::class, 'initiateRefund']);
 
 Route::get('landing/page',[LandingController::class, 'index']);
 
-Route::post('/send/notification', [NotificationController::class, 'sendNotification'])->name('send.notification');
+Route::post('/send/notification', [NotificationController::class, 'sendNotificationToUser'])->name('send.notification');
 
-
+Route::post('/send/notificationToAll', [NotificationController::class, 'sendNotificationToAll'])->name('send.notificationToAll');
 
 
 

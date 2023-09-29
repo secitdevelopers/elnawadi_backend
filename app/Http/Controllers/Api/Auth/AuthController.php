@@ -76,7 +76,7 @@ class AuthController extends Controller
                 'fcm' => $request->fcm,
                 'password' => Hash::make($request->password),
             ]);
-            SendVerificationEmailJob::dispatch($user);
+            // SendVerificationEmailJob::dispatch($user);
             $token = $user->createToken('Laravel Sanctum')->plainTextToken;
             $user->assignRole(["user"]);
             DB::commit();

@@ -266,7 +266,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('send.notification') }}" method="post">
+                    <form action="{{ route('send.notificationToAll') }}" method="post">
                         {{ csrf_field() }}
                         <div class="modal-body">
                             <div class="form-group">
