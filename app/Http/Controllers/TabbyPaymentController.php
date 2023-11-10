@@ -26,7 +26,7 @@ function makePayment(Request $request)
     $data = [
         'Uid' => $myuuid,
         'KeyId' => $keyId,
-        'Amount' =>  "400",
+        'Amount' => (string) $order->total ??"500",
         // $request->price,
         'FirstName' => 'Abdullah',
         'LastName' => 'Agha',
