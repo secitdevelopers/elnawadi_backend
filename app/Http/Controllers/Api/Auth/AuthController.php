@@ -48,7 +48,8 @@ class AuthController extends Controller
             throw new \Illuminate\Auth\AuthenticationException('The user has been blocked.');
         }
         $token = $user->createToken('authToken')->plainTextToken;
-
+        $user->fcm = $request->fcm ?? "test";
+        $user->save();
         return response()->json(['token' => $token, 'user' => $user], 200);
     }
 

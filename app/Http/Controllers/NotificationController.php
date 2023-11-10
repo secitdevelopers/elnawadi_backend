@@ -63,38 +63,6 @@ public function sendNotificationToAll(Request $request)
         return back();
     }
 
-    // private function sendPushNotification($fcmToken, $title, $message)
-    // {
-    //     $SERVER_API_KEY = 'YOUR_SERVER_API_KEY';
-
-    //     $data = [
-    //         "registration_ids" => [$fcmToken],
-    //         "notification" => [
-    //             "title" => $title,
-    //             "body" => $message,
-    //             "sound" => "default"
-    //         ],
-    //     ];
-
-    //     $headers = [
-    //         'Authorization: key=' . $SERVER_API_KEY,
-    //         'Content-Type: application/json',
-    //     ];
-
-    //     $ch = curl_init('https://fcm.googleapis.com/fcm/send');
-    //     curl_setopt($ch, CURLOPT_POST, true);
-    //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        
-    //     $response = curl_exec($ch);
-    //     $responseArray = json_decode($response, true); // Convert JSON string to array
-
-    //     curl_close($ch);
-
-    //     return $responseArray['success'] == 0 ? " و لاكن بدون صوت " : "";
-    // }
 
 
 

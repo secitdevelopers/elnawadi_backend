@@ -4,6 +4,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TabbyPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
+Route::get('/makePayment', [TabbyPaymentController::class, 'makePayment'])->name('makePayment');
+Route::get('/skip-succss', [TabbyPaymentController::class, 'successSkip'])->name('skip.success');
+Route::get('/skip-cancel', [TabbyPaymentController::class, 'cancelSkip'])->name('skip.cancel');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -33,14 +36,14 @@ Route::middleware('auth')->group(function () {
 Route::post('/contact/form', [LandingController::class, 'storeWeb'])->name("contact.form");
 Route::get('go-payment', [PayPalController::class, 'goPayment'])->name('payment.go');
 
-Route::get('payment',[PayPalController::class, 'payment'])->name('payment');
-Route::get('cancel',[PayPalController::class, 'cancel'])->name('payment.cancel');
+Route::get('payment', [PayPalController::class, 'payment'])->name('payment');
+Route::get('cancel', [PayPalController::class, 'cancel'])->name('payment.cancel');
 Route::get('payment/success', [PayPalController::class, 'success'])->name('payment.success');
 Route::get('/refund/{token}', [PayPalController::class, 'initiateRefund']);
 
 
 
-Route::get('landing/page',[LandingController::class, 'index']);
+Route::get('landing/page', [LandingController::class, 'index']);
 
 Route::post('/send/notification', [NotificationController::class, 'sendNotificationToUser'])->name('send.notification');
 
@@ -48,4 +51,4 @@ Route::post('/send/notificationToAll', [NotificationController::class, 'sendNoti
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

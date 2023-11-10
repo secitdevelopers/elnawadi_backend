@@ -2,12 +2,114 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class TabbyPaymentController extends Controller
 {
-    public function createSession(Request $request)
+
+function makePayment(Request $request)
+{
+    $orderId = $request->order_id;
+    $order = Order::find($orderId);
+    // Configuration
+    $sanboxURL = env('SANDBOX_URL', 'https://skipcashtest.azurewebsites.net/api/v1/payments');
+    $secretkey = env('SECRET_KEY');
+    $keyId = env('KEY_ID', '7fbb70f1-5252-409a-90ba-2fa0f581dc6e');
+
+    // Generate UUID
+    $myuuid = Str::uuid()->toString();
+
+    // Prepare data
+    $data = [
+        'Uid' => $myuuid,
+        'KeyId' => $keyId,
+        'Amount' =>  "400",
+        // $request->price,
+        'FirstName' => 'Abdullah',
+        'LastName' => 'Agha',
+        'Phone' => '33221133',
+        'Email' => 'name@domain.com',
+        'TransactionId' => 'event2310_33221133',
+    ];
+
+    // Generate the signature
+    $resultheader = "Uid={$data['Uid']},KeyId={$data['KeyId']},Amount={$data['Amount']},FirstName={$data['FirstName']},LastName={$data['LastName']},Phone={$data['Phone']},Email={$data['Email']},TransactionId={$data['TransactionId']}";
+    $s = hash_hmac('sha256', $resultheader, $secretkey, true);
+    $authorisationheader = base64_encode($s);
+
+    // Make the API request using Laravel's HTTP Client
+    try {
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => $authorisationheader,
+        ])->post($sanboxURL, $data);
+
+        return redirect($response["resultObj"]["payUrl"]); // or handle response as needed
+    } catch (\Exception $e) {
+        // Handle exceptions
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+   
+
+
+
+
+
+   public function cancelSkip(Request $request)
+    {
+        $orderId = $request->order_id;
+        $order = Order::find($orderId);
+        $order->payment_status = 'failed';
+        $order->payment_method = 'skipcash';
+        $order->cancelled = true;
+        $order->save();
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'Payment is canceled',
+        ], 200);
+    }
+
+    public function successSkip(Request $request)
+    {
+    
+
+        if ("" =="")
+        {
+            $orderId = $request->query('order_id');
+            $order = Order::find($orderId);
+            $order->payment_status = 'paid';
+            $order->payment_method = 'skipcash';
+            $order->save();
+            return view("sucss-page");
+        }
+
+        return response()->json(['message' => 'Please try again later.'], 500);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function createSession(Request $request)
     {
         // Replace these with your actual Tabby API credentials
         $apiKey = 'your_tabby_api_key';

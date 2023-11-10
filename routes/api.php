@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
+         Route::get('/orders/create', [OrderController::class,'saveOrder']);
     Route::get('schedule-run', [CommandController::class, 'scheduleCommand'])->name("schedule.run");
 
 Route::group(['middleware' => 'ChangeLanguage'], function () {
@@ -71,7 +71,7 @@ Route::group(['middleware' => 'ChangeLanguage'], function () {
         Route::controller(OrderController::class)->group(function () {
             Route::get('/orders', 'userOrder');
             Route::get('/orders/detalis/{id}', 'orderDetalis');
-            Route::get('/orders/create', 'saveOrder');
+   
             Route::post('/orders/cancel', 'cancelOrder');
         });
         Route::controller(UserController::class)->group(function () {

@@ -5,123 +5,86 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
 
 class PayPalController extends Controller
 {
 
-    public function goPayment()
+
+        public function getAccessToken()
     {
+        // Retrieve Sadad credentials from environment variables
+        $sadadId = env('SADAD_SADAD_ID');
+        $secretKey = env('SADAD_SECRET_KEY');
+        $domain = env('SADAD_REGISTERED_DOMAIN');
 
-        return view('products.welcome');
-    }
-    public function payment(Request $request)
-    {
-        $data = [];
-        $order = Order::find($request['order_id']);
-
-        $data['items'] = [
-            [
-                'name' => 'one order',
-                'price' => $order->total,
-                'desc' => $order->description,
-                'qty' => 1
-            ],
-
+        // Define the request data for getting the access token
+        $requestData = [
+            'sadadId' => $sadadId,
+            'secretKey' => $secretKey,
+            'domain' => $domain,
         ];
 
-        $data['invoice_id'] = $order->id;
-        $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
-        $data['return_url'] = route('payment.success', ['order_id' => $order->id]);
-        $data['cancel_url'] = route('payment.cancel', ['order_id' => $order->id]);
-        $data['total'] = $order->total;
+        // Make a POST request to the Sadad login endpoint
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+        ])->post('https://api-s.sadad.qa/api/userbusinesses/login', $requestData);
 
-        $provider = new ExpressCheckout;
+        // Check for a successful response
+        if ($response->successful()) {
+            $accessToken = $response->json('accessToken');
 
-        $response = $provider->setExpressCheckout($data);
+            // You can store the access token in a session, database, or cache for later use
+            // For example, if using the session:
+            session(['sadad_access_token' => $accessToken]);
 
-        $response = $provider->setExpressCheckout($data, true);
-
-        return redirect($response['paypal_link']);
-    }
-
-    public function cancel(Request $request)
-    {
-        $orderId = $request->query('order_id');
-        $order = Order::find($orderId);
-        $order->payment_status = 'failed';
-        $order->payment_method = 'paypal';
-        $order->cancelled = true;
-        $order->save();
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'Payment is canceled',
-        ], 200);
-    }
-
-    public function success(Request $request)
-    {
-        $provider = new ExpressCheckout;
-        $response = $provider->getExpressCheckoutDetails($request->token);
-
-        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING']))
-        {
-            $orderId = $request->query('order_id');
-            $order = Order::find($orderId);
-            $order->payment_status = 'paid';
-            $order->payment_method = 'paypal';
-            $order->save();
-            return response()->json([
-                'status_code' => 200,
-                'message' => 'Payment completed successfully',
-            ], 200);
-        }
-
-        return response()->json(['message' => 'Please try again later.'], 500);
-    }
-
-
-
-
-    public function initiateRefund($token)
-    {
-        $provider = new ExpressCheckout();
-
-        // Get the transaction details from PayPal
-        $transactionDetails = $provider->getExpressCheckoutDetails($token);
-
-        // Ensure that the transaction is completed and eligible for a refund
-        if ($transactionDetails['ACK'] === 'Success' && $transactionDetails['PAYERSTATUS'] === 'verified')
-        {
-            // Check if the payment is eligible for a refund (optional, but recommended)
-            // if (!$this->isEligibleForRefund($transactionDetails)) {
-            //     return "Transaction is not eligible for a refund.";
-            // }
-
-            // Calculate the refund amount (you can either refund the full amount or a partial amount)
-            $refundAmount = $transactionDetails['AMT'];
-
-            // Initiate the refund
-            $refundResponse = $provider->refundTransaction($token, $refundAmount);
-
-            // Check if the refund was successful
-            if ($refundResponse['ACK'] === 'Success')
-            {
-                // Refund successful, perform necessary actions (e.g., update database, notify the user, etc.)
-                // You can also access the refund transaction ID as $refundResponse['REFUNDTRANSACTIONID']
-                return "Refund Successful: Transaction ID - " . $refundResponse['REFUNDTRANSACTIONID'];
-            }
-            else
-            {
-                // Refund failed, handle the error (e.g., log, notify admin, etc.)
-                return "Refund Failed: " . $refundResponse['L_LONGMESSAGE0'];
-            }
-        }
-        else
-        {
-            // The transaction is not eligible for a refund or not completed, handle the error
-            return "Transaction is not eligible for a refund or not completed.";
+            return $accessToken;
+        } else {
+            // Handle the error response from Sadad
+            // You can log the error or display an error message to the user
+            return null; // Return null or handle the error as needed
         }
     }
+
+    public function processPayment()
+    {
+        // Retrieve Sadad credentials from environment variables
+        $secretKey = env('SADAD_SECRET_KEY');
+        $sadadId = env('SADAD_SADAD_ID');
+        $registeredDomain = env('SADAD_REGISTERED_DOMAIN');
+        $type = env('SADAD_TYPE');
+
+        // Define the request data
+        $requestData = [
+            'sadadId' => $sadadId,
+            'secretKey' => $secretKey,
+            'domain' => $registeredDomain,
+        ];
+        $yourAccessToken = "";
+        // Define custom headers (if needed)
+        $customHeaders = [
+            'Authorization' => 'Bearer ' . $yourAccessToken,
+            'Custom-Header' => 'Custom-Value',
+            'Content-Type: application/json',
+        ];
+
+        // Make a POST request to the Sadad API with custom headers
+        $response = Http::withHeaders($customHeaders)
+            ->post('https://api.sadadqatar.com/api-v4/userbusinesses/getsdktoken', $requestData);
+
+        // Check for a successful response
+        if ($response->successful()) {
+            $sdkToken = $response->json(); // Extract SDK token from the response
+
+            // Handle the SDK token and continue with payment processing logic
+            // You can return a view or redirect the user to the payment page here
+        } else {
+            // Handle the error response from Sadad
+            // You can log the error or display an error message to the user
+            return back()->with('error', 'Failed to retrieve SDK token from Sadad.');
+        }
+    }
+
 }

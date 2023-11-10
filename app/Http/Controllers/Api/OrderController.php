@@ -75,7 +75,7 @@ class OrderController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $token = $request->token;
+         $token = $request->token;
          $accessToken = PersonalAccessToken::findToken($token);
             if (!$accessToken)
             {
@@ -133,8 +133,8 @@ class OrderController extends Controller
             DB::table('order_items')->insert($orderItems);
             CartItem::where('user_id', $userId)->delete();
             DB::commit();
-            if ($paymentMethod == 'paypal') {
-                return redirect()->route('payment', [
+            if ($paymentMethod == 'skipcash') {
+                return redirect()->route('makePayment', [
                     'orderItems' => $orderItems,
                     'order_id' => $orderId,
                 ]);
