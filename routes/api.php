@@ -23,8 +23,8 @@ use App\Http\Controllers\Api\UserAddressController;
 use App\Http\Controllers\TabbyPaymentController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/skip-succss', [TabbyPaymentController::class, 'successSkip'])->name('skip.success');
-Route::post('/skip-cancel', [TabbyPaymentController::class, 'cancelSkip'])->name('skip.cancel');
+Route::post('/skip-succss', [TabbyPaymentController::class, 'successSkip'])->name('skip.success')->middleware('sanctum');
+Route::post('/skip-cancel', [TabbyPaymentController::class, 'cancelSkip'])->name('skip.cancel')->middleware('sanctum');
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

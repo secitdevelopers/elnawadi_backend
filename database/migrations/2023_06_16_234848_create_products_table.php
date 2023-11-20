@@ -26,24 +26,11 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->boolean('status')->default(true);
             $table->enum('file_type',["image","video"])->nullable()->default("image");
-            // $table->decimal('discount', 8, 1)->nullable(); 
-            // $table->decimal('shipping_fee', 8, 1)->nullable()->default(0); 
-            // $table->timestamp('discount_start')->nullable(); 
-            // $table->timestamp('discount_end')->nullable(); 
-            // $table->text('offer')->nullable();
-            // $table->string('sku')->nullable(); 
-            //  $table->float('weight')->default(0);
             $table->timestamps();
-            
-            
-           
             $table->unsignedBigInteger('user_id'); 
-    
-             // $table->unsignedBigInteger('sub_category_id'); // sub_category_id
-            // $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade'); // sub_category id
-            $table->unsignedBigInteger('category_id'); // sub_category_id
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade'); // sub_category id
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');//user id
+            $table->unsignedBigInteger('category_id'); 
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             // Indexes
             $table->index('name_en');

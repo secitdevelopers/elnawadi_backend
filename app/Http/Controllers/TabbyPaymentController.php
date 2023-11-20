@@ -61,8 +61,7 @@ function makePayment(Request $request)
 
    public function cancelSkip(Request $request)
     {
-        $orderId = $request->order_id;
-        $order = Order::find($orderId);
+        $order = $request->user->latestOrder;
         $order->payment_status = 'failed';
         $order->payment_method = 'skipcash';
         $order->cancelled = true;
@@ -79,8 +78,8 @@ function makePayment(Request $request)
 
         // if ("" =="")
         // {
-            $orderId = $request->input('order_id');
-            $order = Order::find($orderId);
+           $order = $request->user->latestOrder;
+            // $order = Order::find($orderId);
             $order->payment_status = 'paid';
             $order->payment_method = 'skipcash';
             $order->save();

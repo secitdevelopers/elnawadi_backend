@@ -88,5 +88,8 @@ class User extends Authenticatable implements MustVerifyEmail
      public function orders()
     {
         return $this->hasMany(Order::class,'user_id');
-    }
+    }public function latestOrder()
+{
+    return $this->hasOne(Order::class)->latest();
+}
 }
