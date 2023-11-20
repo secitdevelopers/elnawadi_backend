@@ -77,17 +77,20 @@ function makePayment(Request $request)
     {
     
 
-        if ("" =="")
-        {
-            $orderId = $request->query('order_id');
+        // if ("" =="")
+        // {
+            $orderId = $request->input('order_id');
             $order = Order::find($orderId);
             $order->payment_status = 'paid';
             $order->payment_method = 'skipcash';
             $order->save();
-            return view("sucss-page");
-        }
+            // return view("sucss-page");
+        // }
 
-        return response()->json(['message' => 'Please try again later.'], 500);
+         return response()->json([
+            'status_code' => 200,
+            'message' => 'Payment is succss',
+        ], 200);
     }
 
 

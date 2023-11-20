@@ -22,8 +22,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Route::get('/makePayment', [TabbyPaymentController::class, 'makePayment'])->name('makePayment');
-Route::get('/skip-succss', [TabbyPaymentController::class, 'successSkip'])->name('skip.success');
-Route::get('/skip-cancel', [TabbyPaymentController::class, 'cancelSkip'])->name('skip.cancel');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
